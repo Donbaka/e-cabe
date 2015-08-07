@@ -11,7 +11,7 @@ package sms;
  * @author brlnt-super
  */
 public class AppConfig {
-    public static final String GAMMU_BIN = "\"C:\\\\Program Files (x86)\\Gammu 1.33.0\\bin";
+    public static final String GAMMU_BIN = "\"C:\\gammu\\bin";
     public static final String GAMMU_CONF_DIR = "\"D:\\#project\\e-cabe\\sms\\conf";
     
     public static final String GAMMU = GAMMU_BIN+"\\gammu\"";

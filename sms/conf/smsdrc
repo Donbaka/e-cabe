@@ -6,14 +6,7 @@
 [gammu]
 device = com29:
 connection = at19200
-#model = 6110
-#connection = dlr3
-#synchronizetime = yes
-#logfile = gammulog # this is not used at all in SMSD mode
-#logformat = textall
-#use_locking = yes
-#gammuloc = gammu.us
-#startinfo = yes
+
 
 # When uncomment this section and insert numbers here, smsd will process
 # incoming sms only from numbers written here (incoming sms from all other
@@ -31,15 +24,15 @@ connection = at19200
 # General SMSD settings, see gammu-smsdrc(5) for detailed description.
 [smsd]
 # SMSD service to use, one of FILES, MYSQL, PGSQL, DBI
-service = MYSQL
+service = files
 # PIN for SIM card
 PIN = 1234
 # File (or stderr, syslog, eventlog) where information will be logged
 logfile = smsdlog
 # Amount of information being logged, each bit mean one level
-debuglevel = 0
+debuglevel = 5
 # Configuration for using more phones on same database
-#phoneid = MyPhone1
+phoneid = huawei
 # Script to be executed when new message has been received
 #runonreceive = /some/script
 # Commication frequency settings
@@ -66,16 +59,19 @@ pc = localhost
 database = cabe_sms
 
 # DBI configuration
-driver = native_mysql
-# driverspath = /usr/lib/dbd/
+# driver = mysql
+# sql = mysql
+# host = localhost:3306
+# driverspath = D:\#project\e-cabe\sms\libmysql.dll
+
 # Database directory for sqlite
 # dbdir = /var/lib/smsd
 
 # Files backend configuration
-#inboxpath = /var/spool/sms/inbox/
-#outboxpath = /var/spool/sms/outbox/
-#sentsmspath = /var/spool/sms/sent/
-#errorsmspath = /var/spool/sms/error/
-#inboxformat = unicode
-#transmitformat = auto
-#outboxformat = detail
+inboxpath = D:\#project\e-cabe\sms\inbox\in
+outboxpath = D:\#project\e-cabe\sms\outbox\out
+sentsmspath = D:\#project\e-cabe\sms\sent\sent
+errorsmspath = D:\#project\e-cabe\sms\error\err
+inboxformat = unicode
+transmitformat = auto
+outboxformat = detail
