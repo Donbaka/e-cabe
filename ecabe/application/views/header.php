@@ -53,7 +53,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </ul>
         </li>
         <li><a href="">Pasar</a></li>
-        <li><a href="">Petani</a></li>
+        <li><a href="/ecabe/index.php/inputHarga/">Input Harga Komoditas</a></li>
         <li><a href="">Tentang eCabe</a></li>
     </ul>
 
