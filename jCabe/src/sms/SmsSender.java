@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 public class SmsSender {
     public void send(String nomor, String pesan){
         Runtime runtime= Runtime.getRuntime();
-        String command = AppConfig.GAMMU+" -c "+AppConfig.GAMMU_SMS_CONF+" --sendsms TEXT "+nomor+" -text \""+pesan+"\" ";
+        String command = AppConfig.GAMMU+" -c "+AppConfig.GAMMU_SMS_CONF+" TEXT "+nomor+" -text \""+pesan+"\" ";
         
         Process run;
         try {
@@ -44,6 +44,6 @@ public class SmsSender {
     }
     
     public static void main(String args[]){
-        new SmsSender().send("6285950439413", "testing dari java, masuk folder atau tidak");
+        new SmsSender().send("6285748409235", "testing dari java, masuk folder atau tidak");
     }
 }

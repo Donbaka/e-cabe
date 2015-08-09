@@ -4,7 +4,7 @@
 # Gammu configuration, this section is like section "gammu" in "gammurc" file,
 # see gammurc(5) for documentation.
 [gammu]
-device = com29:
+device = com15:
 connection = at19200
 
 
@@ -24,7 +24,7 @@ connection = at19200
 # General SMSD settings, see gammu-smsdrc(5) for detailed description.
 [smsd]
 # SMSD service to use, one of FILES, MYSQL, PGSQL, DBI
-service = files
+service = SQL
 # PIN for SIM card
 PIN = 1234
 # File (or stderr, syslog, eventlog) where information will be logged
@@ -53,16 +53,16 @@ sendtimeout = 30
 
 # Database backends congfiguration
 user = root
-password = toor1994
+password = 
 pc = localhost
 # pc can also contain port or socket path after colon (eg. localhost:/path/to/socket)
-database = cabe_sms
+database = smsd
 
 # DBI configuration
-# driver = mysql
-# sql = mysql
-# host = localhost:3306
-# driverspath = D:\#project\e-cabe\sms\libmysql.dll
+ driver = native_mysql
+ sql = mysql
+ host = localhost
+driverspath = C:\gammu\Gammu-1.33.0-Windows-64bit\conf\libmysql.dll
 
 # Database directory for sqlite
 # dbdir = /var/lib/smsd
