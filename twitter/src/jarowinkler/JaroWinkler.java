@@ -184,25 +184,6 @@ public class JaroWinkler {
         double rjk = jk.compare(s1, s2);
         System.out.println("Jaro Winkler = "+rjk);
         
-//        String masjid = "Manarul Ilmi";
-//        String alamat = "Ds. Sekaran Lamongan";
-//        String new_masjid = "";
-//        String new_alamat = "";
-//        if (!jk.cek_masjid(masjid).equals("false")) {
-//            new_masjid = jk.cek_masjid(masjid);
-//            String[] hasilJW;
-//            hasilJW = jk.cek_alamat(new_masjid, alamat);
-//            if (hasilJW[0].equals("false")) {
-//                new_masjid = masjid;
-//                new_alamat = alamat;
-//            } else {
-//                new_masjid = hasilJW[0];
-//                new_alamat = hasilJW[1];
-//            }
-//        } else {
-//            new_masjid = masjid;
-//            new_alamat = alamat;
-//        }
-//        System.out.println(new_masjid + " - " + new_alamat);
+
     }
 }
