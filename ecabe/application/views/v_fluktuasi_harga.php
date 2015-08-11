@@ -48,7 +48,6 @@
         },
         series: []
     };
-//        series: []
 
     $.getJSON("<?php echo base_url(); ?>index.php/fluktuasi_harga/grafik/<?=$p_komoditas?>/<?=$p_tahun?>", function (resp) {
 //        {
@@ -63,21 +62,20 @@
                 //        },
             //        ]
             //    },
+            
         $.each(resp.data, function(i, prov){
-//            grafik.yAxis[0].title.text = resp.data.y_label;
-            var value = [];
+            var value = [];           
             var legend = prov.name;
             $.each(prov.data, function(j, titik){
-//               var date, harga;
                var date = Date.UTC(resp.tahun, titik.bulan);
                var harga = titik.harga;
                value.push([date, harga]);
             });
             
-            options.series.push(
-                    name: legend,
-                    data: value
-                );
+            options.series.push({
+                name: legend,
+                data: value
+            });
         });
         chart = new Highcharts.Chart(options);
     });
