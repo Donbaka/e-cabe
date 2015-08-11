@@ -6,9 +6,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta charset="utf-8">
     <title>Welcome to CodeIgniter</title>
     <link href="<?php echo base_url('assets/css/metro.css'); ?>" rel="stylesheet">
-    <script src="<?php echo base_url('assets/js/jquery.js'); ?>"></script>
-    <script src="<?php echo base_url('assets/js/metro.js'); ?>"></script>
-    <script src="<?php echo base_url('assets/js/jquery.dataTables.min.js'); ?>"></script>
     <link href="<?php echo base_url('assets/css/metro-icons.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/css/metro-responsive.css'); ?>" rel="stylesheet">
     <style>
@@ -37,6 +34,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             }
         }
     </style>
+    
+    <script src="<?php echo base_url('assets/js/jquery.js'); ?>"></script>
+    <script src="<?php echo base_url('assets/js/metro.js'); ?>"></script>
+    <script src="<?php echo base_url('assets/js/jquery.dataTables.min.js'); ?>"></script>
 </head>
 <body class="bg-steel">
 <div class="app-bar fixed-top darcula" data-role="appbar">

@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `harga_distribusi` (
   `id_komoditas` int(11) DEFAULT NULL,
   `id_titik` int(11) DEFAULT NULL,
   `harga` varchar(255) DEFAULT NULL,
-  `tanggal` datetime DEFAULT CURRENT_TIMESTAMP
+  `tanggal` datetime NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
 
 --
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `harga_petani` (
   `id_komoditas` int(11) DEFAULT NULL,
   `harga` varchar(255) DEFAULT NULL,
   `stok` bigint(255) DEFAULT NULL,
-  `tanggal` datetime DEFAULT CURRENT_TIMESTAMP COMMENT 'CURRENT_DATE',
+  `tanggal` datetime COMMENT 'CURRENT_DATE',
   `id_petani` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -7591,7 +7591,7 @@ CREATE TABLE IF NOT EXISTS `sms` (
   `id` int(11) NOT NULL,
   `nomor_hp` varchar(255) DEFAULT NULL,
   `sms` varchar(255) DEFAULT NULL,
-  `tanggal` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `tanggal` datetime NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -7625,7 +7625,7 @@ INSERT INTO `titik_distribusi` (`id`, `nama`, `alamat`, `id_kecamatan`, `latitud
 CREATE TABLE IF NOT EXISTS `tweet` (
   `id` int(11) NOT NULL,
   `tweet` varchar(255) DEFAULT NULL,
-  `tanggal` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `tanggal` datetime NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
