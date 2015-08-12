@@ -46,19 +46,20 @@ public class Twit {
     //inisialisasi class JaroWinkler
     static JaroWinkler JW = new JaroWinkler();
 
-    public static String[] Regex(String tweet, String info) {
+    public  String[] Regex(String sms) {
         // String to be scanned to find the pattern.
         // Format tweet kas masjid==> @opendatazis *nama_masjid*alamat*pemasukan*pengeluaran*saldo* #kasmasjid
-        String pattern_kas = "^\\@opendatazis[ ]*\\*(.*)\\*(.*)\\*(.\\d*.)\\*(.\\d*.).\\*(.\\d*.)\\*[ ]*#kasmasjid";
+        String pattern_harga = "^\\LAPOR[ ]*(.*)\\#(.\\d*.)\\#(.*.)\\#(.*.)\\#(.*.)";
 
         // Create a Pattern object
-        Pattern r_kas = Pattern.compile(pattern_kas);
-
+       // System.out.println(pattern_harga.replace("\\LAPOR", ""));
+        Pattern r_harga = Pattern.compile(pattern_harga.replace("\\LAPOR", "LAPOR"));
+        int index = 6;
         // Now create matcher object.
-        Matcher m_kas = r_kas.matcher(tweet);
+        Matcher harga = r_harga.matcher(sms);
 
-        if (m_kas.find() && info.equals("kas")) {
-            String[] a = {m_kas.group(0), m_kas.group(1), m_kas.group(2), m_kas.group(3), m_kas.group(4), m_kas.group(5)};
+        if (harga.find()) {
+            String[] a = {harga.group(0), harga.group(1), harga.group(2), harga.group(3), harga.group(4), harga.group(5)};
             return a;
         } else {
             String[] a = {"error"};
@@ -66,15 +67,15 @@ public class Twit {
         }
     }
 
-    public void connect() {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection(database, username, password);
-            stm = con.createStatement();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    public void connect() {
+//        try {
+//            Class.forName("com.mysql.jdbc.Driver");
+//            con = DriverManager.getConnection(database, username, password);
+//            stm = con.createStatement();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public Date format(String create_date) throws ParseException {
         DateFormat outputFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
@@ -106,6 +107,11 @@ public class Twit {
     }
     public static void main(String[] args) throws SQLException, ParseException {
         Twit t = new Twit();
+      //  t.cek_alamat("haha", "hehe");
+        for(int i = 0; i<6;i++){
+        System.out.println(t.Regex("LAPOR cabe keriting#12000#Pasar Keputih#Sukolilo#Surabaya")[i]);
+        }
+        //  t.
        // t.userMention();
 //        int a = t.cek_minggu("Tue Jun 23 13:15:10 ICT 2015");
 //        System.out.println(a);
