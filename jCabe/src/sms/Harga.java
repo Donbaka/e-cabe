@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package twit;
+package sms;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -26,7 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Twit {
+public class Harga {
 
     /**
      * @param args the command line arguments
@@ -35,9 +35,9 @@ public class Twit {
 //    private static String database = "jdbc:mysql://localhost/odz";
 //    private static String username = "root";
 //    private static String password = "";
-    private static String database = "jdbc:mysql://localhost/open_data_zis";
-    private static String username = "open_data_zis";
-    private static String password = "open_data_zis";
+    private static String database = "jdbc:mysql://localhost/cabe";
+    private static String username = "root";
+    private static String password = "";
     //inisialisasi SQL serta command untuk ke database
     private static String SQL;
     private static Connection con;
@@ -67,15 +67,15 @@ public class Twit {
         }
     }
 
-//    public void connect() {
-//        try {
-//            Class.forName("com.mysql.jdbc.Driver");
-//            con = DriverManager.getConnection(database, username, password);
-//            stm = con.createStatement();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    public void connect() {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection(database, username, password);
+            stm = con.createStatement();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
    
 
@@ -99,7 +99,7 @@ public class Twit {
         return cek_alamat;
     }
     public static void main(String[] args) throws SQLException, ParseException {
-        Twit t = new Twit();
+        Harga t = new Harga();
       //  t.cek_alamat("haha", "hehe");
         for(int i = 0; i<6;i++){
         System.out.println(t.Regex("LAPOR cabe keriting#12000#Pasar Keputih#Sukolilo#Surabaya")[i]);

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 07, 2015 at 11:20 AM
+-- Generation Time: Aug 13, 2015 at 08:53 AM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.9
 
@@ -23,6 +23,34 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `daemons`
+--
+
+CREATE TABLE IF NOT EXISTS `daemons` (
+  `Start` text NOT NULL,
+  `Info` text NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `gammu`
+--
+
+CREATE TABLE IF NOT EXISTS `gammu` (
+  `Version` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `gammu`
+--
+
+INSERT INTO `gammu` (`Version`) VALUES
+(13);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `harga_distribusi`
 --
 
@@ -31,38 +59,50 @@ CREATE TABLE IF NOT EXISTS `harga_distribusi` (
   `id_komoditas` int(11) DEFAULT NULL,
   `id_titik` int(11) DEFAULT NULL,
   `harga` varchar(255) DEFAULT NULL,
-  `tanggal` datetime NULL
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
+  `tanggal` date DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=201 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `harga_distribusi`
 --
 
 INSERT INTO `harga_distribusi` (`id`, `id_komoditas`, `id_titik`, `harga`, `tanggal`) VALUES
-(1, 1, 1, '123123', '2015-08-07 14:09:38'),
-(2, 1, 1, '123123', '2015-08-07 14:21:59'),
-(3, 1, 1, '123123', '2015-08-07 14:22:43'),
-(4, 1, 1, '12', '2015-08-07 14:23:08'),
-(5, 1, 1, '1333', '2015-08-07 14:23:51'),
-(6, 1, 1, '5555', '2015-08-07 14:25:52'),
-(7, 1, 1, '5555', '2015-08-07 14:29:31'),
-(8, 1, 1, '5555', '2015-08-07 14:29:35'),
-(9, 1, 1, '44', '2015-08-07 14:30:17'),
-(10, 1, 1, '44', '2015-08-07 14:30:33'),
-(11, 1, 1, '4444', '2015-08-07 14:32:31'),
-(12, 1, 1, '444', '2015-08-07 14:33:18'),
-(13, 1, 1, '333', '2015-08-07 14:39:28'),
-(14, 1, 1, '3434', '2015-08-07 14:40:49'),
-(15, 1, 1, 'wwes', '2015-08-07 14:43:32'),
-(16, NULL, NULL, NULL, '2015-08-07 14:50:45'),
-(17, NULL, NULL, NULL, '2015-08-07 14:52:28'),
-(18, NULL, NULL, NULL, '2015-08-07 14:52:55'),
-(19, NULL, NULL, NULL, '2015-08-07 14:53:10'),
-(20, NULL, NULL, NULL, '2015-08-07 14:55:24'),
-(21, NULL, NULL, NULL, '2015-08-07 14:56:17'),
-(22, 1, 1, '123123', '2015-08-07 14:56:58'),
-(23, 1, 1, '12121212', '2015-08-07 15:00:03'),
-(24, 1, 1, '12121212', '2015-08-07 15:02:07');
+(1, 1, 1, '13600', '2015-05-01'),
+(2, 1, 2, '13988', '2015-05-01'),
+(3, 1, 3, '14845', '2015-05-01'),
+(4, 1, 4, '12943', '2015-05-01'),
+(5, 1, 5, '13839', '2015-05-01'),
+(6, 1, 6, '14733', '2015-05-01'),
+(7, 1, 7, '11190', '2015-05-01'),
+(8, 1, 8, '11010', '2015-05-01'),
+(9, 1, 9, '14376', '2015-05-01'),
+(10, 1, 10, '14367', '2015-05-01'),
+(11, 1, 11, '11351', '2015-05-01'),
+(12, 1, 12, '13459', '2015-05-01'),
+(13, 1, 13, '10878', '2015-05-01'),
+(14, 1, 14, '10124', '2015-05-01'),
+(15, 1, 15, '10037', '2015-05-01'),
+(16, 1, 16, '14305', '2015-05-01'),
+(17, 1, 17, '10759', '2015-05-01'),
+(18, 1, 18, '12448', '2015-05-01'),
+(19, 1, 19, '12235', '2015-05-01'),
+(20, 1, 20, '12445', '2015-05-01'),
+(21, 1, 21, '14097', '2015-05-01'),
+(22, 1, 22, '12606', '2015-05-01'),
+(23, 1, 23, '11506', '2015-05-01'),
+(24, 1, 24, '14488', '2015-05-01'),
+(25, 1, 25, '14224', '2015-05-01'),
+(26, 1, 26, '14842', '2015-05-01'),
+(27, 1, 27, '11798', '2015-05-01'),
+(28, 1, 28, '10371', '2015-05-01'),
+(29, 1, 29, '10465', '2015-05-01'),
+(30, 1, 30, '12564', '2015-05-01'),
+(31, 1, 31, '10605', '2015-05-01'),
+(32, 1, 32, '10213', '2015-05-01'),
+(33, 1, 33, '10696', '2015-05-01'),
+(34, 1, 34, '10423', '2015-05-01'),
+(35, 1, 35, '13325', '2015-05-01'),
+(36, 1, 36, '13605', '2015-05-01');
 
 -- --------------------------------------------------------
 
@@ -73,11 +113,271 @@ INSERT INTO `harga_distribusi` (`id`, `id_komoditas`, `id_titik`, `harga`, `tang
 CREATE TABLE IF NOT EXISTS `harga_petani` (
   `id` int(11) NOT NULL,
   `id_komoditas` int(11) DEFAULT NULL,
+  `id_petani` int(11) DEFAULT NULL,
   `harga` varchar(255) DEFAULT NULL,
   `stok` bigint(255) DEFAULT NULL,
-  `tanggal` datetime COMMENT 'CURRENT_DATE',
-  `id_petani` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `tanggal` date DEFAULT NULL COMMENT 'CURRENT_DATE'
+) ENGINE=InnoDB AUTO_INCREMENT=201 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `harga_petani`
+--
+
+INSERT INTO `harga_petani` (`id`, `id_komoditas`, `id_petani`, `harga`, `stok`, `tanggal`) VALUES
+(1, 1, 1, '13046', 147, '2015-05-01'),
+(2, 1, 1, '10704', 475, '2015-05-02'),
+(3, 1, 1, '13612', 315, '2015-05-03'),
+(4, 1, 1, '10059', 270, '2015-05-04'),
+(5, 1, 1, '10601', 358, '2015-05-05'),
+(6, 1, 1, '13455', 473, '2015-05-06'),
+(7, 1, 1, '12633', 307, '2015-05-07'),
+(8, 1, 1, '13708', 328, '2015-05-08'),
+(9, 1, 1, '13677', 213, '2015-05-09'),
+(10, 1, 1, '10792', 473, '2015-05-10'),
+(11, 1, 1, '10306', 100, '2015-05-11'),
+(12, 1, 1, '11418', 306, '2015-05-12'),
+(13, 1, 1, '13972', 190, '2015-05-13'),
+(14, 1, 1, '14489', 437, '2015-05-14'),
+(15, 1, 1, '12567', 141, '2015-05-15'),
+(16, 1, 1, '10779', 417, '2015-05-16'),
+(17, 1, 1, '10542', 366, '2015-05-17'),
+(18, 1, 1, '13410', 351, '2015-05-18'),
+(19, 1, 1, '10708', 393, '2015-05-19'),
+(20, 1, 1, '14192', 199, '2015-05-20'),
+(21, 1, 1, '14000', 185, '2015-05-21'),
+(22, 1, 1, '12989', 496, '2015-05-22'),
+(23, 1, 1, '13743', 290, '2015-05-23'),
+(24, 1, 1, '10303', 465, '2015-05-24'),
+(25, 1, 1, '10632', 437, '2015-05-25'),
+(26, 1, 1, '11193', 459, '2015-05-26'),
+(27, 1, 1, '10519', 105, '2015-05-27'),
+(28, 1, 1, '14222', 163, '2015-05-28'),
+(29, 1, 1, '14622', 154, '2015-05-29'),
+(30, 1, 1, '11504', 411, '2015-05-30'),
+(31, 1, 1, '14051', 123, '2015-05-31'),
+(32, 1, 1, '11252', 347, '2015-06-01'),
+(33, 1, 1, '14610', 404, '2015-06-02'),
+(34, 1, 1, '12892', 169, '2015-06-03'),
+(35, 1, 1, '10124', 276, '2015-06-04'),
+(36, 1, 1, '10356', 454, '2015-06-05'),
+(37, 1, 1, '14967', 218, '2015-06-06'),
+(38, 1, 1, '10990', 129, '2015-06-07'),
+(39, 1, 1, '10869', 278, '2015-06-08'),
+(40, 1, 1, '12646', 457, '2015-06-09'),
+(41, 1, 1, '14639', 260, '2015-06-10'),
+(42, 1, 1, '12194', 301, '2015-06-11'),
+(43, 1, 1, '14969', 435, '2015-06-12'),
+(44, 1, 1, '14969', 374, '2015-06-13'),
+(45, 1, 1, '14730', 467, '2015-06-14'),
+(46, 1, 1, '13806', 115, '2015-06-15'),
+(47, 1, 1, '11445', 497, '2015-06-16'),
+(48, 1, 1, '14556', 399, '2015-06-17'),
+(49, 1, 1, '14981', 142, '2015-06-18'),
+(50, 1, 1, '13219', 432, '2015-06-19'),
+(51, 1, 1, '11546', 164, '2015-06-20'),
+(52, 1, 1, '11755', 106, '2015-06-21'),
+(53, 1, 1, '13212', 287, '2015-06-22'),
+(54, 1, 1, '14909', 248, '2015-06-23'),
+(55, 1, 1, '11329', 184, '2015-06-24'),
+(56, 1, 1, '11397', 281, '2015-06-25'),
+(57, 1, 1, '10562', 287, '2015-06-26'),
+(58, 1, 1, '13211', 288, '2015-06-27'),
+(59, 1, 1, '14569', 464, '2015-06-28'),
+(60, 1, 1, '12488', 199, '2015-06-29'),
+(61, 1, 1, '11392', 156, '2015-06-30'),
+(62, 1, 1, '13076', 197, '2015-07-01'),
+(63, 1, 1, '11960', 369, '2015-07-02'),
+(64, 1, 1, '11471', 421, '2015-07-03'),
+(65, 1, 1, '14055', 107, '2015-07-04'),
+(66, 1, 1, '10135', 347, '2015-07-05'),
+(67, 1, 1, '10765', 451, '2015-07-06'),
+(68, 1, 1, '13126', 152, '2015-07-07'),
+(69, 1, 1, '14226', 202, '2015-07-08'),
+(70, 1, 1, '14623', 393, '2015-07-09'),
+(71, 1, 1, '11396', 288, '2015-07-10'),
+(72, 1, 1, '12665', 284, '2015-07-11'),
+(73, 1, 1, '11335', 138, '2015-07-12'),
+(74, 1, 1, '13371', 285, '2015-07-13'),
+(75, 1, 1, '13606', 296, '2015-07-14'),
+(76, 1, 1, '14257', 419, '2015-07-15'),
+(77, 1, 1, '10842', 364, '2015-07-16'),
+(78, 1, 1, '14402', 407, '2015-07-17'),
+(79, 1, 1, '11381', 393, '2015-07-18'),
+(80, 1, 1, '10569', 150, '2015-07-19'),
+(81, 1, 1, '12355', 422, '2015-07-20'),
+(82, 1, 1, '14236', 145, '2015-07-21'),
+(83, 1, 1, '11358', 346, '2015-07-22'),
+(84, 1, 1, '10289', 383, '2015-07-23'),
+(85, 1, 1, '10466', 232, '2015-07-24'),
+(86, 1, 1, '12051', 461, '2015-07-25'),
+(87, 1, 1, '12354', 348, '2015-07-26'),
+(88, 1, 1, '11572', 171, '2015-07-27'),
+(89, 1, 1, '12608', 118, '2015-07-28'),
+(90, 1, 1, '14758', 202, '2015-07-29'),
+(91, 1, 1, '14607', 268, '2015-07-30'),
+(92, 1, 1, '12438', 145, '2015-07-31'),
+(93, 1, 1, '11852', 213, '2015-08-01'),
+(94, 1, 1, '11336', 488, '2015-08-02'),
+(95, 1, 1, '14910', 195, '2015-08-03'),
+(96, 1, 1, '13936', 202, '2015-08-04'),
+(97, 1, 1, '11454', 219, '2015-08-05'),
+(98, 1, 1, '13891', 370, '2015-08-06'),
+(99, 1, 1, '13675', 163, '2015-08-07'),
+(100, 1, 1, '14422', 403, '2015-08-08'),
+(101, 1, 2, '13763', 382, '2015-05-01'),
+(102, 1, 2, '13984', 402, '2015-05-02'),
+(103, 1, 2, '12149', 419, '2015-05-03'),
+(104, 1, 2, '13144', 469, '2015-05-04'),
+(105, 1, 2, '10897', 318, '2015-05-05'),
+(106, 1, 2, '11515', 299, '2015-05-06'),
+(107, 1, 2, '14693', 141, '2015-05-07'),
+(108, 1, 2, '11234', 158, '2015-05-08'),
+(109, 1, 2, '12889', 322, '2015-05-09'),
+(110, 1, 2, '13898', 351, '2015-05-10'),
+(111, 1, 2, '14719', 151, '2015-05-11'),
+(112, 1, 2, '13334', 195, '2015-05-12'),
+(113, 1, 2, '13093', 387, '2015-05-13'),
+(114, 1, 2, '13930', 135, '2015-05-14'),
+(115, 1, 2, '13617', 174, '2015-05-15'),
+(116, 1, 2, '10389', 494, '2015-05-16'),
+(117, 1, 2, '11856', 263, '2015-05-17'),
+(118, 1, 2, '10003', 288, '2015-05-18'),
+(119, 1, 2, '14217', 140, '2015-05-19'),
+(120, 1, 2, '10599', 117, '2015-05-20'),
+(121, 1, 2, '11950', 448, '2015-05-21'),
+(122, 1, 2, '10180', 196, '2015-05-22'),
+(123, 1, 2, '10657', 422, '2015-05-23'),
+(124, 1, 2, '11261', 499, '2015-05-24'),
+(125, 1, 2, '10804', 144, '2015-05-25'),
+(126, 1, 2, '10475', 331, '2015-05-26'),
+(127, 1, 2, '14333', 286, '2015-05-27'),
+(128, 1, 2, '12100', 226, '2015-05-28'),
+(129, 1, 2, '12769', 228, '2015-05-29'),
+(130, 1, 2, '10901', 383, '2015-05-30'),
+(131, 1, 2, '12299', 443, '2015-05-31'),
+(132, 1, 2, '14470', 216, '2015-06-01'),
+(133, 1, 2, '12018', 174, '2015-06-02'),
+(134, 1, 2, '11735', 431, '2015-06-03'),
+(135, 1, 2, '11152', 353, '2015-06-04'),
+(136, 1, 2, '14452', 124, '2015-06-05'),
+(137, 1, 2, '12291', 357, '2015-06-06'),
+(138, 1, 2, '12762', 184, '2015-06-07'),
+(139, 1, 2, '13891', 147, '2015-06-08'),
+(140, 1, 2, '14421', 430, '2015-06-09'),
+(141, 1, 2, '14103', 386, '2015-06-10'),
+(142, 1, 2, '14491', 171, '2015-06-11'),
+(143, 1, 2, '12894', 139, '2015-06-12'),
+(144, 1, 2, '13083', 115, '2015-06-13'),
+(145, 1, 2, '11518', 394, '2015-06-14'),
+(146, 1, 2, '11416', 192, '2015-06-15'),
+(147, 1, 2, '11621', 313, '2015-06-16'),
+(148, 1, 2, '10670', 278, '2015-06-17'),
+(149, 1, 2, '14257', 234, '2015-06-18'),
+(150, 1, 2, '11213', 388, '2015-06-19'),
+(151, 1, 2, '14986', 191, '2015-06-20'),
+(152, 1, 2, '11646', 489, '2015-06-21'),
+(153, 1, 2, '13939', 325, '2015-06-22'),
+(154, 1, 2, '13942', 127, '2015-06-23'),
+(155, 1, 2, '13659', 460, '2015-06-24'),
+(156, 1, 2, '12428', 469, '2015-06-25'),
+(157, 1, 2, '10597', 290, '2015-06-26'),
+(158, 1, 2, '12672', 127, '2015-06-27'),
+(159, 1, 2, '13749', 334, '2015-06-28'),
+(160, 1, 2, '10451', 451, '2015-06-29'),
+(161, 1, 2, '10134', 106, '2015-06-30'),
+(162, 1, 2, '12384', 364, '2015-07-01'),
+(163, 1, 2, '11809', 131, '2015-07-02'),
+(164, 1, 2, '11066', 245, '2015-07-03'),
+(165, 1, 2, '14386', 148, '2015-07-04'),
+(166, 1, 2, '13076', 259, '2015-07-05'),
+(167, 1, 2, '13332', 291, '2015-07-06'),
+(168, 1, 2, '13662', 161, '2015-07-07'),
+(169, 1, 2, '13526', 189, '2015-07-08'),
+(170, 1, 2, '14615', 371, '2015-07-09'),
+(171, 1, 2, '13727', 209, '2015-07-10'),
+(172, 1, 2, '14378', 294, '2015-07-11'),
+(173, 1, 2, '14360', 377, '2015-07-12'),
+(174, 1, 2, '11566', 105, '2015-07-13'),
+(175, 1, 2, '10879', 234, '2015-07-14'),
+(176, 1, 2, '10767', 160, '2015-07-15'),
+(177, 1, 2, '13193', 492, '2015-07-16'),
+(178, 1, 2, '13643', 340, '2015-07-17'),
+(179, 1, 2, '11364', 461, '2015-07-18'),
+(180, 1, 2, '13483', 230, '2015-07-19'),
+(181, 1, 2, '14991', 468, '2015-07-20'),
+(182, 1, 2, '11799', 107, '2015-07-21'),
+(183, 1, 2, '10072', 423, '2015-07-22'),
+(184, 1, 2, '10648', 190, '2015-07-23'),
+(185, 1, 2, '14688', 406, '2015-07-24'),
+(186, 1, 2, '13143', 161, '2015-07-25'),
+(187, 1, 2, '14645', 251, '2015-07-26'),
+(188, 1, 2, '11894', 320, '2015-07-27'),
+(189, 1, 2, '10028', 422, '2015-07-28'),
+(190, 1, 2, '11470', 385, '2015-07-29'),
+(191, 1, 2, '12681', 397, '2015-07-30'),
+(192, 1, 2, '10371', 357, '2015-07-31'),
+(193, 1, 2, '12110', 493, '2015-08-01'),
+(194, 1, 2, '12122', 480, '2015-08-02'),
+(195, 1, 2, '13233', 229, '2015-08-03'),
+(196, 1, 2, '10495', 115, '2015-08-04'),
+(197, 1, 2, '13736', 254, '2015-08-05'),
+(198, 1, 2, '13074', 252, '2015-08-06'),
+(199, 1, 2, '13733', 214, '2015-08-07'),
+(200, 1, 2, '14828', 440, '2015-08-08');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `inbox`
+--
+
+CREATE TABLE IF NOT EXISTS `inbox` (
+  `UpdatedInDB` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `ReceivingDateTime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `Text` text NOT NULL,
+  `SenderNumber` varchar(20) NOT NULL DEFAULT '',
+  `Coding` enum('Default_No_Compression','Unicode_No_Compression','8bit','Default_Compression','Unicode_Compression') NOT NULL DEFAULT 'Default_No_Compression',
+  `UDH` text NOT NULL,
+  `SMSCNumber` varchar(20) NOT NULL DEFAULT '',
+  `Class` int(11) NOT NULL DEFAULT '-1',
+  `TextDecoded` text NOT NULL,
+  `ID` int(10) unsigned NOT NULL,
+  `RecipientID` text NOT NULL,
+  `Processed` enum('false','true') NOT NULL DEFAULT 'false'
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `inbox`
+--
+
+INSERT INTO `inbox` (`UpdatedInDB`, `ReceivingDateTime`, `Text`, `SenderNumber`, `Coding`, `UDH`, `SMSCNumber`, `Class`, `TextDecoded`, `ID`, `RecipientID`, `Processed`) VALUES
+('2015-08-09 07:26:26', '2015-08-07 12:59:15', '006C006F00680061', '+6285748409235', 'Default_No_Compression', '', '+62816124', -1, 'loha', 1, 'huawei', 'false'),
+('2015-08-09 07:26:27', '2015-08-07 13:01:32', '007400650073', '+6285641189210', 'Default_No_Compression', '', '+62816124', -1, 'tes', 2, 'huawei', 'false'),
+('2015-08-09 07:26:28', '2015-08-07 13:03:58', '007400650073', '+6285641189210', 'Default_No_Compression', '', '+62816124', -1, 'tes', 3, 'huawei', 'false'),
+('2015-08-09 07:26:28', '2015-08-07 14:16:07', '007400650073', '+6285641189210', 'Default_No_Compression', '', '+62816124', -1, 'tes', 4, 'huawei', 'false'),
+('2015-08-09 07:26:29', '2015-08-09 07:11:21', '0048006100690020006200650062', '+6285950439413', 'Default_No_Compression', '', '+62818445009', -1, 'Hai beb', 5, 'huawei', 'false'),
+('2015-08-09 07:26:29', '2015-08-09 07:18:55', '0048006100690020006200650062', '+6285950439413', 'Default_No_Compression', '', '+62818445009', -1, 'Hai beb', 6, 'huawei', 'false'),
+('2015-08-09 09:10:40', '2015-08-09 08:06:35', '0073006800690074', '+6285748409235', 'Default_No_Compression', '', '+62816124', -1, 'shit', 7, 'huawei', 'false'),
+('2015-08-10 07:48:27', '2015-08-10 07:40:43', '0070006C006F006B', '+6285748409235', 'Default_No_Compression', '', '+62816124', -1, 'plok', 8, 'huawei', 'false'),
+('2015-08-10 08:00:59', '2015-08-10 07:48:41', '0068007500680075', '+6285748409235', 'Default_No_Compression', '', '+62816124', -1, 'huhu', 9, 'huawei', 'false'),
+('2015-08-10 20:36:42', '2015-08-10 08:02:07', '006600750063006B', '+6285748409235', 'Default_No_Compression', '', '+62816124', -1, 'fuck', 10, 'huawei', 'false'),
+('2015-08-10 20:36:43', '2015-08-10 20:35:09', '0068006100750061007500610068', '+6285748409235', 'Default_No_Compression', '', '+62816124', -1, 'hauauah', 11, 'huawei', 'false'),
+('2015-08-13 05:03:39', '2015-08-10 21:04:07', '00680067006800670068006700680064', '+6285748409235', 'Default_No_Compression', '', '+62816124', -1, 'hghghghd', 12, 'huawei', 'false'),
+('2015-08-13 05:03:40', '2015-08-11 16:46:47', '004200690073006100200063006100720069006B0061006E002000670061006D006200610072002000670075006E0075006E00670061006E0020007900670020007200650073006F006C007500730069002000740069006E0067006700690020002C002000750074006B00200075006B007500720061006E00200032002E00350020004D0065007400650072002E', '+628174156257', 'Default_No_Compression', '', '+62818445009', -1, 'Bisa carikan gambar gunungan yg resolusi tinggi , utk ukuran 2.5 Meter.', 13, 'huawei', 'false'),
+('2015-08-13 05:03:40', '2015-08-11 18:08:32', '004F006D002000640069006B0061006D007000750073003F', '+6285748409235', 'Default_No_Compression', '', '+62816124', -1, 'Om dikampus?', 14, 'huawei', 'false');
+
+--
+-- Triggers `inbox`
+--
+DELIMITER $$
+CREATE TRIGGER `inbox_timestamp` BEFORE INSERT ON `inbox`
+ FOR EACH ROW BEGIN
+    IF NEW.ReceivingDateTime = '0000-00-00 00:00:00' THEN
+        SET NEW.ReceivingDateTime = CURRENT_TIMESTAMP();
+    END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -7520,6 +7820,92 @@ INSERT INTO `komoditas` (`id`, `komoditas`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `outbox`
+--
+
+CREATE TABLE IF NOT EXISTS `outbox` (
+  `UpdatedInDB` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `InsertIntoDB` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `SendingDateTime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `SendBefore` time NOT NULL DEFAULT '23:59:59',
+  `SendAfter` time NOT NULL DEFAULT '00:00:00',
+  `Text` text,
+  `DestinationNumber` varchar(20) NOT NULL DEFAULT '',
+  `Coding` enum('Default_No_Compression','Unicode_No_Compression','8bit','Default_Compression','Unicode_Compression') NOT NULL DEFAULT 'Default_No_Compression',
+  `UDH` text,
+  `Class` int(11) DEFAULT '-1',
+  `TextDecoded` text NOT NULL,
+  `ID` int(10) unsigned NOT NULL,
+  `MultiPart` enum('false','true') DEFAULT 'false',
+  `RelativeValidity` int(11) DEFAULT '-1',
+  `SenderID` varchar(255) DEFAULT NULL,
+  `SendingTimeOut` timestamp NULL DEFAULT '0000-00-00 00:00:00',
+  `DeliveryReport` enum('default','yes','no') DEFAULT 'default',
+  `CreatorID` text NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+
+--
+-- Triggers `outbox`
+--
+DELIMITER $$
+CREATE TRIGGER `outbox_timestamp` BEFORE INSERT ON `outbox`
+ FOR EACH ROW BEGIN
+    IF NEW.InsertIntoDB = '0000-00-00 00:00:00' THEN
+        SET NEW.InsertIntoDB = CURRENT_TIMESTAMP();
+    END IF;
+    IF NEW.SendingDateTime = '0000-00-00 00:00:00' THEN
+        SET NEW.SendingDateTime = CURRENT_TIMESTAMP();
+    END IF;
+    IF NEW.SendingTimeOut = '0000-00-00 00:00:00' THEN
+        SET NEW.SendingTimeOut = CURRENT_TIMESTAMP();
+    END IF;
+END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `outbox_multipart`
+--
+
+CREATE TABLE IF NOT EXISTS `outbox_multipart` (
+  `Text` text,
+  `Coding` enum('Default_No_Compression','Unicode_No_Compression','8bit','Default_Compression','Unicode_Compression') NOT NULL DEFAULT 'Default_No_Compression',
+  `UDH` text,
+  `Class` int(11) DEFAULT '-1',
+  `TextDecoded` text,
+  `ID` int(10) unsigned NOT NULL DEFAULT '0',
+  `SequencePosition` int(11) NOT NULL DEFAULT '1'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pbk`
+--
+
+CREATE TABLE IF NOT EXISTS `pbk` (
+  `ID` int(11) NOT NULL,
+  `GroupID` int(11) NOT NULL DEFAULT '-1',
+  `Name` text NOT NULL,
+  `Number` text NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pbk_groups`
+--
+
+CREATE TABLE IF NOT EXISTS `pbk_groups` (
+  `Name` text NOT NULL,
+  `ID` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `petani`
 --
 
@@ -7528,7 +7914,59 @@ CREATE TABLE IF NOT EXISTS `petani` (
   `nomor_hp` varchar(20) DEFAULT NULL,
   `nama` varchar(255) DEFAULT NULL,
   `id_kec` int(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `petani`
+--
+
+INSERT INTO `petani` (`id`, `nomor_hp`, `nama`, `id_kec`) VALUES
+(1, '123', 'hilman', 1101020),
+(2, '234', 'oka', 1304100);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `phones`
+--
+
+CREATE TABLE IF NOT EXISTS `phones` (
+  `ID` text NOT NULL,
+  `UpdatedInDB` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `InsertIntoDB` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `TimeOut` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `Send` enum('yes','no') NOT NULL DEFAULT 'no',
+  `Receive` enum('yes','no') NOT NULL DEFAULT 'no',
+  `IMEI` varchar(35) NOT NULL,
+  `Client` text NOT NULL,
+  `Battery` int(11) NOT NULL DEFAULT '-1',
+  `Signal` int(11) NOT NULL DEFAULT '1',
+  `Sent` int(11) NOT NULL DEFAULT '0',
+  `Received` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `phones`
+--
+
+INSERT INTO `phones` (`ID`, `UpdatedInDB`, `InsertIntoDB`, `TimeOut`, `Send`, `Receive`, `IMEI`, `Client`, `Battery`, `Signal`, `Sent`, `Received`) VALUES
+('huawei', '2015-08-13 06:53:04', '2015-08-13 06:09:55', '2015-08-13 06:53:14', 'yes', 'yes', '863959022211869', 'Gammu 1.33.0, Windows Server 2007, GCC 4.7, MinGW 3.11', 70, 72, 0, 0);
+
+--
+-- Triggers `phones`
+--
+DELIMITER $$
+CREATE TRIGGER `phones_timestamp` BEFORE INSERT ON `phones`
+ FOR EACH ROW BEGIN
+    IF NEW.InsertIntoDB = '0000-00-00 00:00:00' THEN
+        SET NEW.InsertIntoDB = CURRENT_TIMESTAMP();
+    END IF;
+    IF NEW.TimeOut = '0000-00-00 00:00:00' THEN
+        SET NEW.TimeOut = CURRENT_TIMESTAMP();
+    END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -7538,61 +7976,115 @@ CREATE TABLE IF NOT EXISTS `petani` (
 
 CREATE TABLE IF NOT EXISTS `provinsi` (
   `ID_PROVINSI` varchar(255) NOT NULL,
-  `NAMA` varchar(255) DEFAULT NULL
+  `NAMA` varchar(255) DEFAULT NULL,
+  `KODE_PETA` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `provinsi`
 --
 
-INSERT INTO `provinsi` (`ID_PROVINSI`, `NAMA`) VALUES
-('11', 'Aceh'),
-('12', 'Sumatera Utara'),
-('13', 'Sumatera Barat'),
-('14', 'Riau'),
-('15', 'Jambi'),
-('16', 'Sumatera Selatan'),
-('17', 'Bengkulu'),
-('18', 'Lampung'),
-('19', 'Kepulauan Bangka Belitung'),
-('21', 'Kepulauan Riau'),
-('31', 'Dki Jakarta'),
-('32', 'Jawa Barat'),
-('33', 'Jawa Tengah'),
-('34', 'Di Yogyakarta'),
-('35', 'Jawa Timur'),
-('36', 'Banten'),
-('51', 'Bali'),
-('52', 'Nusa Tenggara Barat'),
-('53', 'Nusa Tenggara Timur'),
-('61', 'Kalimantan Barat'),
-('62', 'Kalimantan Tengah'),
-('63', 'Kalimantan Selatan'),
-('64', 'Kalimantan Timur'),
-('65', 'Kalimantan Utara'),
-('71', 'Sulawesi Utara'),
-('72', 'Sulawesi Tengah'),
-('73', 'Sulawesi Selatan'),
-('74', 'Sulawesi Tenggara'),
-('75', 'Gorontalo'),
-('76', 'Sulawesi Barat'),
-('81', 'Maluku'),
-('82', 'Maluku Utara'),
-('91', 'Papua Barat'),
-('94', 'Papua');
+INSERT INTO `provinsi` (`ID_PROVINSI`, `NAMA`, `KODE_PETA`) VALUES
+('11', 'Aceh', 'id-ac'),
+('12', 'Sumatera Utara', 'id-su'),
+('13', 'Sumatera Barat', 'id-sb'),
+('14', 'Riau', 'id-ri'),
+('15', 'Jambi', 'id-ja'),
+('16', 'Sumatera Selatan', 'id-sl'),
+('17', 'Bengkulu', 'id-be'),
+('18', 'Lampung', 'id-1024'),
+('19', 'Kepulauan Bangka Belitung', 'id-bb'),
+('21', 'Kepulauan Riau', 'id-kr'),
+('31', 'Dki Jakarta', 'id-jk'),
+('32', 'Jawa Barat', 'id-jr'),
+('33', 'Jawa Tengah', 'id-jt'),
+('34', 'Di Yogyakarta', 'id-yo'),
+('35', 'Jawa Timur', 'id-ji'),
+('36', 'Banten', 'id-bt'),
+('51', 'Bali', 'id-ba'),
+('52', 'Nusa Tenggara Barat', 'id-nb'),
+('53', 'Nusa Tenggara Timur', 'id-nt'),
+('61', 'Kalimantan Barat', 'id-kb'),
+('62', 'Kalimantan Tengah', 'id-kt'),
+('63', 'Kalimantan Selatan', 'id-ks'),
+('64', 'Kalimantan Timur', 'id-ki'),
+('65', 'Kalimantan Utara', NULL),
+('71', 'Sulawesi Utara', 'id-sw'),
+('72', 'Sulawesi Tengah', 'id-st'),
+('73', 'Sulawesi Selatan', 'id-se'),
+('74', 'Sulawesi Tenggara', 'id-sg'),
+('75', 'Gorontalo', 'id-go'),
+('76', 'Sulawesi Barat', 'id-sr'),
+('81', 'Maluku', 'id-ma'),
+('82', 'Maluku Utara', 'id-la'),
+('91', 'Papua Barat', 'id-ib'),
+('94', 'Papua', 'id-pa');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sms`
+-- Table structure for table `sentitems`
 --
 
-CREATE TABLE IF NOT EXISTS `sms` (
-  `id` int(11) NOT NULL,
-  `nomor_hp` varchar(255) DEFAULT NULL,
-  `sms` varchar(255) DEFAULT NULL,
-  `tanggal` datetime NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `sentitems` (
+  `UpdatedInDB` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `InsertIntoDB` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `SendingDateTime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `DeliveryDateTime` timestamp NULL DEFAULT NULL,
+  `Text` text NOT NULL,
+  `DestinationNumber` varchar(20) NOT NULL DEFAULT '',
+  `Coding` enum('Default_No_Compression','Unicode_No_Compression','8bit','Default_Compression','Unicode_Compression') NOT NULL DEFAULT 'Default_No_Compression',
+  `UDH` text NOT NULL,
+  `SMSCNumber` varchar(20) NOT NULL DEFAULT '',
+  `Class` int(11) NOT NULL DEFAULT '-1',
+  `TextDecoded` text NOT NULL,
+  `ID` int(10) unsigned NOT NULL DEFAULT '0',
+  `SenderID` varchar(255) NOT NULL,
+  `SequencePosition` int(11) NOT NULL DEFAULT '1',
+  `Status` enum('SendingOK','SendingOKNoReport','SendingError','DeliveryOK','DeliveryFailed','DeliveryPending','DeliveryUnknown','Error') NOT NULL DEFAULT 'SendingOK',
+  `StatusError` int(11) NOT NULL DEFAULT '-1',
+  `TPMR` int(11) NOT NULL DEFAULT '-1',
+  `RelativeValidity` int(11) NOT NULL DEFAULT '-1',
+  `CreatorID` text NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `sentitems`
+--
+
+INSERT INTO `sentitems` (`UpdatedInDB`, `InsertIntoDB`, `SendingDateTime`, `DeliveryDateTime`, `Text`, `DestinationNumber`, `Coding`, `UDH`, `SMSCNumber`, `Class`, `TextDecoded`, `ID`, `SenderID`, `SequencePosition`, `Status`, `StatusError`, `TPMR`, `RelativeValidity`, `CreatorID`) VALUES
+('2015-08-09 07:26:33', '2015-08-09 07:17:59', '2015-08-09 07:26:33', NULL, '0074006500730074', '6285748409235', 'Default_No_Compression', '', '+62816124', -1, 'test', 1, 'huawei', 1, 'SendingOKNoReport', -1, 171, 255, 'Gammu 1.33.0'),
+('2015-08-09 07:26:37', '2015-08-09 07:25:21', '2015-08-09 07:26:37', NULL, '0074006500730074', '6285748409235', 'Default_No_Compression', '', '+62816124', -1, 'test', 2, 'huawei', 1, 'SendingOKNoReport', -1, 172, 255, 'Gammu 1.33.0'),
+('2015-08-09 07:26:48', '2015-08-09 07:25:49', '2015-08-09 07:26:48', NULL, '0074006500730074', '6285748409235', 'Default_No_Compression', '', '+62816124', -1, 'test', 3, 'huawei', 1, 'SendingOKNoReport', -1, 173, 255, 'Gammu 1.33.0'),
+('2015-08-09 09:10:43', '2015-08-09 07:53:08', '2015-08-09 09:10:43', NULL, '00740065007300740069006E0067002000640061007200690020006A006100760061002C0020006D006100730075006B00200066006F006C0064006500720020006100740061007500200074006900640061006B', '6285950439413', 'Default_No_Compression', '', '+62816124', -1, 'testing dari java, masuk folder atau tidak', 4, 'huawei', 1, 'SendingOKNoReport', -1, 174, 255, 'Gammu 1.33.0'),
+('2015-08-09 09:10:48', '2015-08-09 08:01:18', '2015-08-09 09:10:48', NULL, '00740065007300740069006E0067002000640061007200690020006A006100760061002C0020006D006100730075006B00200066006F006C0064006500720020006100740061007500200074006900640061006B', '6285748409235', 'Default_No_Compression', '', '+62816124', -1, 'testing dari java, masuk folder atau tidak', 5, 'huawei', 1, 'SendingOKNoReport', -1, 175, 255, 'Gammu 1.33.0'),
+('2015-08-09 09:10:52', '2015-08-09 08:03:51', '2015-08-09 09:10:52', NULL, '0074006500730074', '6285748409235', 'Default_No_Compression', '', '+62816124', -1, 'test', 6, 'huawei', 1, 'SendingOKNoReport', -1, 176, 255, 'Gammu 1.33.0'),
+('2015-08-10 07:11:09', '2015-08-09 08:50:32', '2015-08-10 07:11:09', NULL, '0074006500730074', '6285748409235', 'Default_No_Compression', '', '+62816124', -1, 'test', 7, 'huawei', 1, 'SendingOKNoReport', -1, 177, 255, 'Gammu 1.33.0'),
+('2015-08-10 07:11:13', '2015-08-09 09:22:39', '2015-08-10 07:11:13', NULL, '00740065007300740069006E0067002000640061007200690020006A006100760061002C0020006D006100730075006B00200066006F006C0064006500720020006100740061007500200074006900640061006B', '6285748409235', 'Default_No_Compression', '', '+62816124', -1, 'testing dari java, masuk folder atau tidak', 8, 'huawei', 1, 'SendingOKNoReport', -1, 178, 255, 'Gammu 1.33.0'),
+('2015-08-10 07:33:02', '2015-08-10 07:21:30', '2015-08-10 07:33:02', NULL, '00540045005300540020004B004900520049004D00200053004D0053002000440045004E00470041004E002000470041004D004D0055', '085748409235', 'Default_No_Compression', '', '+62816124', -1, 'TEST KIRIM SMS DENGAN GAMMU', 9, 'huawei', 1, 'SendingOKNoReport', -1, 179, 255, 'Gammu 1.33.0'),
+('2015-08-10 08:01:03', '2015-08-10 07:53:51', '2015-08-10 08:01:03', NULL, '00540045005300540020004B004900520049004D00200053004D0053002000440045004E00470041004E002000470041004D004D0055', '085748409235', 'Default_No_Compression', '', '+62816124', -1, 'TEST KIRIM SMS DENGAN GAMMU', 10, 'huawei', 1, 'SendingOKNoReport', -1, 180, 255, 'Gammu 1.33.0'),
+('2015-08-10 20:36:47', '2015-08-10 08:03:17', '2015-08-10 20:36:47', NULL, '00540045005300540020004B004900520049004D00200053004D0053002000440045004E00470041004E002000470041004D004D0055', '085748409235', 'Default_No_Compression', '', '+62816124', -1, 'TEST KIRIM SMS DENGAN GAMMU', 11, 'huawei', 1, 'SendingOKNoReport', -1, 181, 255, 'Gammu 1.33.0'),
+('2015-08-10 20:36:51', '2015-08-10 20:30:18', '2015-08-10 20:36:51', NULL, '00540045005300540020004B004900520049004D00200053004D0053002000440045004E00470041004E002000470041004D004D0055', '085748409235', 'Default_No_Compression', '', '+62816124', -1, 'TEST KIRIM SMS DENGAN GAMMU', 12, 'huawei', 1, 'SendingOKNoReport', -1, 182, 255, 'Gammu 1.33.0'),
+('2015-08-10 20:37:02', '2015-08-10 20:32:30', '2015-08-10 20:37:02', NULL, '00540045005300540020004B004900520049004D00200053004D0053002000440045004E00470041004E002000470041004D004D0055', '085748409235', 'Default_No_Compression', '', '+62816124', -1, 'TEST KIRIM SMS DENGAN GAMMU', 13, 'huawei', 1, 'SendingOKNoReport', -1, 183, 255, 'Gammu 1.33.0'),
+('2015-08-13 05:03:44', '2015-08-10 20:41:42', '2015-08-13 05:03:44', NULL, '00540045005300540020004B004900520049004D00200053004D0053002000440045004E00470041004E002000470041004D004D0055', '085748409235', 'Default_No_Compression', '', '+62816124', -1, 'TEST KIRIM SMS DENGAN GAMMU', 14, 'huawei', 1, 'SendingOKNoReport', -1, 184, 255, 'Gammu 1.33.0'),
+('2015-08-13 05:03:50', '2015-08-13 04:58:53', '2015-08-13 05:03:50', NULL, '00540045005300540020004B004900520049004D00200053004D0053002000440045004E00470041004E002000470041004D004D0055', '085748409235', 'Default_No_Compression', '', '+62816124', -1, 'TEST KIRIM SMS DENGAN GAMMU', 15, 'huawei', 1, 'SendingOKNoReport', -1, 185, 255, 'Gammu 1.33.0'),
+('2015-08-13 06:04:30', '2015-08-13 06:01:35', '2015-08-13 06:04:30', NULL, '00740065007300740069006E0067002000640061007200690020006A006100760061002C0020006D006100730075006B00200066006F006C0064006500720020006100740061007500200074006900640061006B', '6285748409235', 'Default_No_Compression', '', '+62816124', -1, 'testing dari java, masuk folder atau tidak', 16, 'huawei', 1, 'SendingOKNoReport', -1, 186, 255, 'Gammu 1.33.0');
+
+--
+-- Triggers `sentitems`
+--
+DELIMITER $$
+CREATE TRIGGER `sentitems_timestamp` BEFORE INSERT ON `sentitems`
+ FOR EACH ROW BEGIN
+    IF NEW.InsertIntoDB = '0000-00-00 00:00:00' THEN
+        SET NEW.InsertIntoDB = CURRENT_TIMESTAMP();
+    END IF;
+    IF NEW.SendingDateTime = '0000-00-00 00:00:00' THEN
+        SET NEW.SendingDateTime = CURRENT_TIMESTAMP();
+    END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -7605,16 +8097,51 @@ CREATE TABLE IF NOT EXISTS `titik_distribusi` (
   `nama` varchar(255) DEFAULT NULL,
   `alamat` varchar(255) DEFAULT NULL,
   `id_kecamatan` int(11) DEFAULT NULL,
-  `latitude` double(255,0) DEFAULT NULL,
-  `longitude` double(255,0) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `lat` float DEFAULT NULL,
+  `long` float DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `titik_distribusi`
 --
 
-INSERT INTO `titik_distribusi` (`id`, `nama`, `alamat`, `id_kecamatan`, `latitude`, `longitude`) VALUES
-(1, 'Pasar Atum', 'Jl. Jalan', 1107061, 0, 0);
+INSERT INTO `titik_distribusi` (`id`, `nama`, `alamat`, `id_kecamatan`, `lat`, `long`) VALUES
+(1, 'Pasar Manyar Surabaya', 'Surabaya', 3578080, -7.28971, 112.76),
+(2, 'Pasar Pacar Keling', 'Tambaksari', 3578200, -7.29143, 112.75),
+(3, 'Pasar Aceh', 'Aceh', 1101010, 4.69514, 96.7494),
+(4, 'Pasar Sumatera Utara', 'Sumatera Utara', 1218100, 2.01086, 98.9785),
+(5, 'Pasar Sumatera Barat', 'Sumatera Barat', 1303050, -0.73994, 100.8),
+(6, 'Pasar Riau', 'Riau', 1402040, 0.293347, 101.707),
+(7, 'Pasar Jambi', 'Jambi', 1502064, -1.61012, 103.613),
+(8, 'Pasar Sumatera Selatan', 'Sumatera Selatan', 1603050, -3.31944, 103.914),
+(9, 'Pasar Bengkulu', 'Bengkulu', 1703100, -3.79285, 102.261),
+(10, 'Pasar Lampung', 'Lampung', 1803091, -4.55858, 105.407),
+(11, 'Pasar Kepulauan Bangka Belitung', 'Kepulauan Bangka Belitung', 1905011, -2.74105, 106.441),
+(12, 'Pasar Kepulauan Riau', 'Kepulauan Riau', 2103043, 3.94565, 108.143),
+(13, 'Pasar Dki Jakarta', 'Dki Jakarta', 3174070, -6.17447, 106.823),
+(14, 'Pasar Jawa Barat', 'Jawa Barat', 3201240, -7.09091, 107.669),
+(15, 'Pasar Jawa Tengah', 'Jawa Tengah', 3309120, -7.15098, 110.14),
+(16, 'Pasar Di Yogyakarta', 'Di Yogyakarta', 3404020, -7.79759, 110.371),
+(17, 'Pasar Jawa Timur', 'Jawa Timur', 3521101, -7.53606, 112.238),
+(18, 'Pasar Banten', 'Banten', 3671031, -6.40582, 106.064),
+(19, 'Pasar Bali', 'Bali', 5107070, -8.40952, 115.189),
+(20, 'Pasar Nusa Tenggara Barat', 'Nusa Tenggara Barat', 5201040, -8.65293, 117.362),
+(21, 'Pasar Nusa Tenggara Timur', 'Nusa Tenggara Timur', 5302041, -8.65738, 121.079),
+(22, 'Pasar Kalimantan Barat', 'Kalimantan Barat', 6102040, -0.278781, 111.475),
+(23, 'Pasar Kalimantan Tengah', 'Kalimantan Tengah', 6202210, -1.68149, 113.382),
+(24, 'Pasar Kalimantan Selatan', 'Kalimantan Selatan', 6303052, -3.09264, 115.284),
+(25, 'Pasar Kalimantan Timur', 'Kalimantan Timur', 6401050, 0.538659, 116.419),
+(26, 'Pasar Kalimantan Utara', 'Kalimantan Utara', 6504052, 3.07309, 116.041),
+(27, 'Pasar Sulawesi Utara', 'Sulawesi Utara', 7103050, 0.624693, 123.975),
+(28, 'Pasar Sulawesi Tengah', 'Sulawesi Tengah', 7202052, -1.43003, 121.446),
+(29, 'Pasar Sulawesi Selatan', 'Sulawesi Selatan', 7304042, -3.6688, 119.974),
+(30, 'Pasar Sulawesi Tenggara', 'Sulawesi Tenggara', 7402052, -4.14491, 122.175),
+(31, 'Pasar Gorontalo', 'Gorontalo', 7502071, 0.543544, 123.057),
+(32, 'Pasar Sulawesi Barat', 'Sulawesi Barat', 7603030, -2.84414, 119.232),
+(33, 'Pasar Maluku', 'Maluku', 8103081, -3.23846, 130.145),
+(34, 'Pasar Maluku Utara', 'Maluku Utara', 8203020, 1.571, 127.809),
+(35, 'Pasar Papua Barat', 'Papua Barat', 9104050, -1.33612, 133.175),
+(36, 'Pasar Papua', 'Papua', 9404110, -4.26993, 138.08);
 
 -- --------------------------------------------------------
 
@@ -7625,7 +8152,7 @@ INSERT INTO `titik_distribusi` (`id`, `nama`, `alamat`, `id_kecamatan`, `latitud
 CREATE TABLE IF NOT EXISTS `tweet` (
   `id` int(11) NOT NULL,
   `tweet` varchar(255) DEFAULT NULL,
-  `tanggal` datetime NULL
+  `tanggal` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -7672,6 +8199,12 @@ ALTER TABLE `harga_petani`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `inbox`
+--
+ALTER TABLE `inbox`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Indexes for table `kabkota`
 --
 ALTER TABLE `kabkota`
@@ -7694,10 +8227,42 @@ ALTER TABLE `komoditas`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `outbox`
+--
+ALTER TABLE `outbox`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `outbox_date` (`SendingDateTime`,`SendingTimeOut`),
+  ADD KEY `outbox_sender` (`SenderID`);
+
+--
+-- Indexes for table `outbox_multipart`
+--
+ALTER TABLE `outbox_multipart`
+  ADD PRIMARY KEY (`ID`,`SequencePosition`);
+
+--
+-- Indexes for table `pbk`
+--
+ALTER TABLE `pbk`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `pbk_groups`
+--
+ALTER TABLE `pbk_groups`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Indexes for table `petani`
 --
 ALTER TABLE `petani`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `phones`
+--
+ALTER TABLE `phones`
+  ADD PRIMARY KEY (`IMEI`);
 
 --
 -- Indexes for table `provinsi`
@@ -7707,10 +8272,14 @@ ALTER TABLE `provinsi`
   ADD UNIQUE KEY `PROVINSI_PK` (`ID_PROVINSI`);
 
 --
--- Indexes for table `sms`
+-- Indexes for table `sentitems`
 --
-ALTER TABLE `sms`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `sentitems`
+  ADD PRIMARY KEY (`ID`,`SequencePosition`),
+  ADD KEY `sentitems_date` (`DeliveryDateTime`),
+  ADD KEY `sentitems_tpmr` (`TPMR`),
+  ADD KEY `sentitems_dest` (`DestinationNumber`),
+  ADD KEY `sentitems_sender` (`SenderID`);
 
 --
 -- Indexes for table `titik_distribusi`
@@ -7745,36 +8314,51 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `harga_distribusi`
 --
 ALTER TABLE `harga_distribusi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=201;
 --
 -- AUTO_INCREMENT for table `harga_petani`
 --
 ALTER TABLE `harga_petani`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=201;
+--
+-- AUTO_INCREMENT for table `inbox`
+--
+ALTER TABLE `inbox`
+  MODIFY `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `komoditas`
 --
 ALTER TABLE `komoditas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT for table `sms`
+-- AUTO_INCREMENT for table `outbox`
 --
-ALTER TABLE `sms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `outbox`
+  MODIFY `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
+--
+-- AUTO_INCREMENT for table `pbk`
+--
+ALTER TABLE `pbk`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `pbk_groups`
+--
+ALTER TABLE `pbk_groups`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `petani`
+--
+ALTER TABLE `petani`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `titik_distribusi`
 --
 ALTER TABLE `titik_distribusi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=37;
 --
 -- AUTO_INCREMENT for table `tweet`
 --
 ALTER TABLE `tweet`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `twitter_user`
---
-ALTER TABLE `twitter_user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
