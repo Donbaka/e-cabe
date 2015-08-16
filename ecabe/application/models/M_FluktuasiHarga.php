@@ -14,6 +14,15 @@
  */
 class M_FluktuasiHarga extends CI_Model{
     //put your code here
+    public function getTahunAktif(){
+        $results = array();
+        $query = "SELECT DISTINCT YEAR(tanggal) as TAHUN FROM harga_distribusi;";
+        $hasil = $this->db->query($query);
+        if ($hasil->num_rows() > 0) {
+            $results = $hasil->result();
+        }
+        return $results;
+    }
     
     public function getDataGrafikByProvinsi($komoditas, $tahun, $idprov){
         $results = array();
