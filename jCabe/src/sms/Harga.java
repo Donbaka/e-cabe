@@ -54,17 +54,17 @@ public class Harga {
     public String[] Regex(String sms) {
         // String to be scanned to find the pattern.
         // Format tweet kas masjid==> @opendatazis *nama_masjid*alamat*pemasukan*pengeluaran*saldo* #kasmasjid
-        String pattern_harga = "^\\LAPOR[ ]*(.*)\\#(.\\d*.)\\#(.*.)\\#(.*.)\\#(.*.)";
+        String pattern_harga = "^\\LAPOR[ ]*(.*)\\#(.\\d*.)\\#(.\\d*.)";
 
         // Create a Pattern object
         // System.out.println(pattern_harga.replace("\\LAPOR", ""));
         Pattern r_harga = Pattern.compile(pattern_harga.replace("\\LAPOR", "LAPOR"));
-        int index = 6;
+        int index = 4;
         // Now create matcher object.
         Matcher harga = r_harga.matcher(sms);
 
         if (harga.find()) {
-            String[] a = {harga.group(0), harga.group(1), harga.group(2), harga.group(3), harga.group(4), harga.group(5)};
+            String[] a = {harga.group(0), harga.group(1), harga.group(2), harga.group(3)};
             return a;
         } else {
             String[] a = {"error"};
@@ -126,14 +126,23 @@ public class Harga {
         connect();
         stm.executeUpdate(query.updateSms + no);
 
-       // pstmt.executeUpdate(query.updateSms);
+        // pstmt.executeUpdate(query.updateSms);
     }
-    
-     public void insertHarga(String no) throws SQLException {
+
+    public void insertHarga(String no) throws SQLException {
         connect();
         stm.executeUpdate(query.updateSms + no);
 
-       // pstmt.executeUpdate(query.updateSms);
+        // pstmt.executeUpdate(query.updateSms);
+    }
+
+    public boolean cekDaftar(String no) throws SQLException {
+
+        boolean terdaftar;
+        connect();
+        rs = stm.executeQuery(query.cekDaftar+no);
+        terdaftar = rs.next();
+        return terdaftar;
     }
 
     public void cekSms() throws SQLException {
@@ -142,13 +151,22 @@ public class Harga {
         rs = stm.executeQuery(query.cekSms);
         while (rs.next()) {
             String text[];
+            String nomor = rs.getString("SenderNumber");
+            String id = rs.getString("ID");
             //try {
             text = Regex(rs.getString("TextDecoded"));
             if (text[0].equalsIgnoreCase("error")) {
-                send.send(rs.getString("SenderNumber"), "Maaf format yang anda masukkan salah. Format SMS:\n"
-                        + "LAPOR jenis-komoditas#harga#nama-pasar#kecamatan#kabupaten/kota\n");
+//                send.send(rs.getString("SenderNumber"), "Maaf format yang anda masukkan salah. Format SMS:\n"
+//                        + "LAPOR jenis-komoditas#harga#nama-pasar#kecamatan#kabupaten/kota\n");
+                 send.send(rs.getString("SenderNumber"), "Yang bener formatnya njeeng");
+//                        + "LAPOR jenis-komoditas#harga#nama-pasar#kecamatan#kabupaten/kota\n");
             } else {
-                send.send(rs.getString("SenderNumber"), "Terima Kasih telah berkontribusi dalam melakukan pelaporan harga komoditas");
+                if (cekDaftar(rs.getString("SenderNumber"))) {
+                    send.send(rs.getString("SenderNumber"), "Terima Kasih telah berkontribusi dalam melakukan pelaporan harga komoditas");
+                } else {
+                 send.send(rs.getString("SenderNumber"), "daftar sek cuk");
+
+                }
             }
             //suk =text[0];
 //            } catch (Exception e) {
@@ -173,6 +191,7 @@ public class Harga {
     public static void main(String[] args) throws SQLException, ParseException {
         Harga harga = new Harga();
         harga.cekSms();
+      //  System.out.println(harga.cekDaftar("123123123123"));
         //  t.cek_alamat("haha", "hehe");
 //        for (int i = 0; i < 6; i++) {
 //            System.out.println(t.Regex("LAPOR cabe keriting#12000#Pasar Keputih#Sukolilo#Surabaya")[i]);
