@@ -17,13 +17,7 @@ import java.sql.Statement;
  */
 public class JaroWinkler {
 
-//    //inisialisasi data untuk menyambungkan ke database
-//    private static String database = "jdbc:mysql://localhost:3306/odz";
-//    private static String username = "root";
-//    private static String password = "";    
-    private static String database = "jdbc:mysql://localhost/open_data_zis";
-    private static String username = "open_data_zis";
-    private static String password = "open_data_zis";
+
     //inisialisasi SQL serta command untuk ke database
     private static Connection con;
     private static Statement stm;
@@ -80,14 +74,7 @@ public class JaroWinkler {
             }
         }
 
-        // we don't divide t by 2 because as far as we can tell, the above
-        // code counts transpositions directly.
-        // System.out.println("c: " + c);
-        // System.out.println("t: " + t);
-        // System.out.println("c/m: " + (c / (double) s1.length()));
-        // System.out.println("c/n: " + (c / (double) s2.length()));
-        // System.out.println("(c-t)/c: " + ((c - t) / (double) c));
-        // we might have to give up right here
+     
         if (c == 0) {
             return 0.0;
         }
@@ -124,63 +111,12 @@ public class JaroWinkler {
         return score;
     }
 
-    public void connect() {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection(database, username, password);
-            stm = con.createStatement();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public String cek_masjid(String masjid) throws SQLException {
-        connect();
-        String SQL_cekMasjid = "SELECT NAMA FROM masjid";
-        rs = stm.executeQuery(SQL_cekMasjid);
-        double similarity = 0;
-        String new_masjid = "";
-        while (rs.next()) {
-            double new_similarity = compare(masjid, rs.getString("NAMA"));
-            if (new_similarity > similarity) {
-                similarity = new_similarity;
-                if (similarity > 0.8) {
-                    new_masjid = rs.getString("NAMA");
-                } else {
-                    new_masjid = "false";
-                }
-            }
-        }
-        return new_masjid;
-    }
-
-    public String[] cek_alamat(String masjid, String alamat) throws SQLException {
-//        String [] hasilJW;
-        String[] hasil = new String[2];
-        connect();
-        String SQL_cekAlamat = "SELECT * FROM masjid WHERE NAMA='" + masjid + "'";
-        rs = stm.executeQuery(SQL_cekAlamat);
-        double similarity = 0;
-        String new_alamat = "";
-        while (rs.next()) {
-            double new_similarity = compare(alamat, rs.getString("ALAMAT"));
-            if (new_similarity > similarity) {
-                similarity = new_similarity;
-                if (similarity > 0.85) {
-                    hasil[0] = masjid;
-                    hasil[1] = rs.getString("ALAMAT");
-                } else {
-                    hasil[0] = "false";
-                }
-            }
-        }
-        return hasil;
-    }
+//    
 
     public static void main(String[] args) throws SQLException {
         JaroWinkler jk = new JaroWinkler();
-        String s1 = "sukolilo";
-        String s2 = "sukolilo";
+        String s1 = "aceh singkil";
+        String s2 = "Aceh Singkil";
         double rjk = jk.compare(s1, s2);
         System.out.println("Jaro Winkler = "+rjk);
         

@@ -20,6 +20,7 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import jarowinkler.JaroWinkler;
+import java.sql.PreparedStatement;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -42,17 +43,21 @@ public class Harga {
     private static String SQL;
     private static Connection con;
     private static Statement stm;
+    private static PreparedStatement pstmt;
     private static ResultSet rs;
     //inisialisasi class JaroWinkler
-    static JaroWinkler JW = new JaroWinkler();
+    JaroWinkler JW = new JaroWinkler();
+    Query query = new Query();
+    SmsSender send = new SmsSender();
+    // Harga harga = new Harga();
 
-    public  String[] Regex(String sms) {
+    public String[] Regex(String sms) {
         // String to be scanned to find the pattern.
         // Format tweet kas masjid==> @opendatazis *nama_masjid*alamat*pemasukan*pengeluaran*saldo* #kasmasjid
         String pattern_harga = "^\\LAPOR[ ]*(.*)\\#(.\\d*.)\\#(.*.)\\#(.*.)\\#(.*.)";
 
         // Create a Pattern object
-       // System.out.println(pattern_harga.replace("\\LAPOR", ""));
+        // System.out.println(pattern_harga.replace("\\LAPOR", ""));
         Pattern r_harga = Pattern.compile(pattern_harga.replace("\\LAPOR", "LAPOR"));
         int index = 6;
         // Now create matcher object.
@@ -63,6 +68,7 @@ public class Harga {
             return a;
         } else {
             String[] a = {"error"};
+            // send.send(sms, sms);
             return a;
         }
     }
@@ -77,39 +83,107 @@ public class Harga {
         }
     }
 
-   
-
-    public String[] cek_alamat(String masjid, String alamat) throws SQLException {
-        String[] cek_alamat = {"", ""};
-        String[] hasilJW = {"", ""};
-        if (!JW.cek_masjid(masjid).equals("false")) {
-            String new_masjid = JW.cek_masjid(masjid);
-            hasilJW = JW.cek_alamat(new_masjid, alamat);
-            if (hasilJW[0].equals("false")) {
-                cek_alamat[0] = masjid;
-                cek_alamat[1] = alamat;
-            } else {
-                cek_alamat[0] = hasilJW[0];
-                cek_alamat[1] = hasilJW[1];
+    public String cekKabupaten(String kabupaten) throws SQLException {
+        connect();
+        rs = stm.executeQuery(query.kabupaten);
+        double similarity = 0;
+        String id_kab = "";
+        while (rs.next()) {
+            double new_similarity = JW.compare(kabupaten, rs.getString("NAMA"));
+            if (new_similarity > similarity) {
+                similarity = new_similarity;
+                if (similarity > 0.8) {
+                    id_kab = rs.getString("ID_KABKOTA");
+                } else {
+                    id_kab = "false";
+                }
             }
-        } else {
-            cek_alamat[0] = hasilJW[0];
-            cek_alamat[1] = hasilJW[1];
         }
-        return cek_alamat;
+        return id_kab;
     }
-    public static void main(String[] args) throws SQLException, ParseException {
-        Harga t = new Harga();
-      //  t.cek_alamat("haha", "hehe");
-        for(int i = 0; i<6;i++){
-        System.out.println(t.Regex("LAPOR cabe keriting#12000#Pasar Keputih#Sukolilo#Surabaya")[i]);
+
+    public String cekKecamatan(String id_kabupaten, String kecamatan) throws SQLException {
+        connect();
+        rs = stm.executeQuery(query.kecamatan + id_kabupaten);
+        double similarity = 0;
+        String id_kec = "";
+        while (rs.next()) {
+            double new_similarity = JW.compare(kecamatan, rs.getString("NAMA"));
+            if (new_similarity > similarity) {
+                similarity = new_similarity;
+                if (similarity > 0.8) {
+                    id_kec = rs.getString("ID_KECAMATAN");
+                } else {
+
+                    id_kec = "false";
+                }
+            }
         }
+        return id_kec;
+    }
+
+    public void updateSms(String no) throws SQLException {
+        connect();
+        stm.executeUpdate(query.updateSms + no);
+
+       // pstmt.executeUpdate(query.updateSms);
+    }
+    
+     public void insertHarga(String no) throws SQLException {
+        connect();
+        stm.executeUpdate(query.updateSms + no);
+
+       // pstmt.executeUpdate(query.updateSms);
+    }
+
+    public void cekSms() throws SQLException {
+        //String suk = "";
+        connect();
+        rs = stm.executeQuery(query.cekSms);
+        while (rs.next()) {
+            String text[];
+            //try {
+            text = Regex(rs.getString("TextDecoded"));
+            if (text[0].equalsIgnoreCase("error")) {
+                send.send(rs.getString("SenderNumber"), "Maaf format yang anda masukkan salah. Format SMS:\n"
+                        + "LAPOR jenis-komoditas#harga#nama-pasar#kecamatan#kabupaten/kota\n");
+            } else {
+                send.send(rs.getString("SenderNumber"), "Terima Kasih telah berkontribusi dalam melakukan pelaporan harga komoditas");
+            }
+            //suk =text[0];
+//            } catch (Exception e) {
+//                suk = "error";
+//              // return suk;
+//            }
+//            double new_similarity = JW.compare(kecamatan, rs.getString("NAMA"));
+//            if (new_similarity > similarity) {
+//                similarity = new_similarity;
+//                if (similarity > 0.8) {
+//                    id_kec = rs.getString("ID_KECAMATAN");
+//                } else {
+//                    id_kec = "false";
+//                }
+//            }
+            updateSms(rs.getString("ID"));
+        }
+
+    }
+//  
+
+    public static void main(String[] args) throws SQLException, ParseException {
+        Harga harga = new Harga();
+        harga.cekSms();
+        //  t.cek_alamat("haha", "hehe");
+//        for (int i = 0; i < 6; i++) {
+//            System.out.println(t.Regex("LAPOR cabe keriting#12000#Pasar Keputih#Sukolilo#Surabaya")[i]);
+//        }
+        // System.out.println(query.kabupaten);
+        // System.out.println(Harga.cekKecamatan(Harga.cekKabupaten("lhoks eumawe"), "muaradua"));
         //  t.
-       // t.userMention();
+        // t.userMention();
 //        int a = t.cek_minggu("Tue Jun 23 13:15:10 ICT 2015");
 //        System.out.println(a);
 //        t.getLastFriday();
-
     }
 
 }
