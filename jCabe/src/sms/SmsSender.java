@@ -43,7 +43,7 @@ public class SmsSender {
         System.out.println(command);
     }
     
-    public static void main(String args[]){
-        new SmsSender().send("6285748409235", "testing dari java, masuk folder atau tidak");
-    }
+//    public static void main(String args[]){
+//        new SmsSender().send("6285748409235", "testing dari java, masuk folder atau tidak");
+//    }
 }

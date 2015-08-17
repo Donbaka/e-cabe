@@ -36,9 +36,9 @@ public class Harga {
 //    private static String database = "jdbc:mysql://localhost/odz";
 //    private static String username = "root";
 //    private static String password = "";
-    private static String database = "jdbc:mysql://localhost/cabe";
-    private static String username = "root";
-    private static String password = "";
+    private static final String database = "jdbc:mysql://localhost/cabe";
+    private static final String username = "root";
+    private static final String password = "";
     //inisialisasi SQL serta command untuk ke database
     private static String SQL;
     private static Connection con;
@@ -85,15 +85,15 @@ public class Harga {
 
     public String cekKabupaten(String kabupaten) throws SQLException {
         connect();
-        rs = stm.executeQuery(query.kabupaten);
+        ResultSet result = stm.executeQuery(query.kabupaten);
         double similarity = 0;
         String id_kab = "";
-        while (rs.next()) {
-            double new_similarity = JW.compare(kabupaten, rs.getString("NAMA"));
+        while (result.next()) {
+            double new_similarity = JW.compare(kabupaten, result.getString("NAMA"));
             if (new_similarity > similarity) {
                 similarity = new_similarity;
                 if (similarity > 0.8) {
-                    id_kab = rs.getString("ID_KABKOTA");
+                    id_kab = result.getString("ID_KABKOTA");
                 } else {
                     id_kab = "false";
                 }
@@ -102,17 +102,48 @@ public class Harga {
         return id_kab;
     }
 
-    public String cekKecamatan(String id_kabupaten, String kecamatan) throws SQLException {
+    public String cekKomoditas(String komoditas) throws SQLException {
         connect();
-        rs = stm.executeQuery(query.kecamatan + id_kabupaten);
+        ResultSet result = stm.executeQuery(query.komoditas);
         double similarity = 0;
-        String id_kec = "";
-        while (rs.next()) {
-            double new_similarity = JW.compare(kecamatan, rs.getString("NAMA"));
+        String id_komoditas = "";
+        while (result.next()) {
+            double new_similarity = JW.compare(komoditas, result.getString("komoditas"));
             if (new_similarity > similarity) {
                 similarity = new_similarity;
                 if (similarity > 0.8) {
-                    id_kec = rs.getString("ID_KECAMATAN");
+                    id_komoditas = result.getString("id");
+                } else {
+                    id_komoditas = "false";
+                }
+            }
+        }
+        return id_komoditas;
+    }
+
+    public String cekPetani(String noHP) throws SQLException {
+        connect();
+        ResultSet result = stm.executeQuery(query.cekPetani + noHP);
+        String idPetani = "";
+        while (result.next()) {
+
+            idPetani = result.getString("id");
+
+        }
+        return idPetani;
+    }
+
+    public String cekKecamatan(String id_kabupaten, String kecamatan) throws SQLException {
+        connect();
+        ResultSet result = stm.executeQuery(query.kecamatan + id_kabupaten);
+        double similarity = 0;
+        String id_kec = "";
+        while (result.next()) {
+            double new_similarity = JW.compare(kecamatan, result.getString("NAMA"));
+            if (new_similarity > similarity) {
+                similarity = new_similarity;
+                if (similarity > 0.8) {
+                    id_kec = result.getString("ID_KECAMATAN");
                 } else {
 
                     id_kec = "false";
@@ -129,9 +160,9 @@ public class Harga {
         // pstmt.executeUpdate(query.updateSms);
     }
 
-    public void insertHarga(String no) throws SQLException {
+    public void insertHarga(String idKomoditas, String idPetani, String harga, String stok) throws SQLException {
         connect();
-        stm.executeUpdate(query.updateSms + no);
+        stm.executeUpdate("INSERT INTO `harga_petani` (`id_komoditas`, `id_petani`, `harga`, `stok`) VALUES ('" + idKomoditas + "', '" + idPetani + "', '" + harga + "', '" + stok + "');");
 
         // pstmt.executeUpdate(query.updateSms);
     }
@@ -140,49 +171,38 @@ public class Harga {
 
         boolean terdaftar;
         connect();
-        rs = stm.executeQuery(query.cekDaftar+no);
-        terdaftar = rs.next();
+        ResultSet result = stm.executeQuery(query.cekDaftar + no);
+        terdaftar = result.next();
+        con.close();
         return terdaftar;
+
     }
 
     public void cekSms() throws SQLException {
         //String suk = "";
         connect();
-        rs = stm.executeQuery(query.cekSms);
-        while (rs.next()) {
+        ResultSet result = stm.executeQuery(query.cekSms);
+        while (result.next()) {
             String text[];
-            String nomor = rs.getString("SenderNumber");
-            String id = rs.getString("ID");
+
             //try {
-            text = Regex(rs.getString("TextDecoded"));
+            text = Regex(result.getString("TextDecoded"));
             if (text[0].equalsIgnoreCase("error")) {
 //                send.send(rs.getString("SenderNumber"), "Maaf format yang anda masukkan salah. Format SMS:\n"
 //                        + "LAPOR jenis-komoditas#harga#nama-pasar#kecamatan#kabupaten/kota\n");
-                 send.send(rs.getString("SenderNumber"), "Yang bener formatnya njeeng");
+                send.send(result.getString("SenderNumber"), "Yang bener formatnya njeeng");
 //                        + "LAPOR jenis-komoditas#harga#nama-pasar#kecamatan#kabupaten/kota\n");
             } else {
-                if (cekDaftar(rs.getString("SenderNumber"))) {
-                    send.send(rs.getString("SenderNumber"), "Terima Kasih telah berkontribusi dalam melakukan pelaporan harga komoditas");
+                if (cekDaftar(result.getString("SenderNumber"))) {
+                    insertHarga(cekKomoditas(text[1]), cekPetani(result.getString("SenderNumber")), text[2], text[3]);
+                    send.send(result.getString("SenderNumber"), "Terima Kasih telah berkontribusi dalam melakukan pelaporan harga komoditas");
                 } else {
-                 send.send(rs.getString("SenderNumber"), "daftar sek cuk");
+                    send.send(result.getString("SenderNumber"), "daftar sek cuk");
 
                 }
             }
-            //suk =text[0];
-//            } catch (Exception e) {
-//                suk = "error";
-//              // return suk;
-//            }
-//            double new_similarity = JW.compare(kecamatan, rs.getString("NAMA"));
-//            if (new_similarity > similarity) {
-//                similarity = new_similarity;
-//                if (similarity > 0.8) {
-//                    id_kec = rs.getString("ID_KECAMATAN");
-//                } else {
-//                    id_kec = "false";
-//                }
-//            }
-            updateSms(rs.getString("ID"));
+
+            updateSms(result.getString("ID"));
         }
 
     }
@@ -190,19 +210,9 @@ public class Harga {
 
     public static void main(String[] args) throws SQLException, ParseException {
         Harga harga = new Harga();
-        harga.cekSms();
-      //  System.out.println(harga.cekDaftar("123123123123"));
-        //  t.cek_alamat("haha", "hehe");
-//        for (int i = 0; i < 6; i++) {
-//            System.out.println(t.Regex("LAPOR cabe keriting#12000#Pasar Keputih#Sukolilo#Surabaya")[i]);
-//        }
-        // System.out.println(query.kabupaten);
-        // System.out.println(Harga.cekKecamatan(Harga.cekKabupaten("lhoks eumawe"), "muaradua"));
-        //  t.
-        // t.userMention();
-//        int a = t.cek_minggu("Tue Jun 23 13:15:10 ICT 2015");
-//        System.out.println(a);
-//        t.getLastFriday();
+      //   System.out.println(harga.cekPetani("+6285748409235"));
+       harga.cekSms();
+
     }
 
 }

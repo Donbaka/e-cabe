@@ -113,13 +113,13 @@ public class JaroWinkler {
 
 //    
 
-    public static void main(String[] args) throws SQLException {
-        JaroWinkler jk = new JaroWinkler();
-        String s1 = "aceh singkil";
-        String s2 = "Aceh Singkil";
-        double rjk = jk.compare(s1, s2);
-        System.out.println("Jaro Winkler = "+rjk);
-        
-
-    }
+//    public static void main(String[] args) throws SQLException {
+//        JaroWinkler jk = new JaroWinkler();
+//        String s1 = "aceh singkil";
+//        String s2 = "Aceh Singkil";
+//        double rjk = jk.compare(s1, s2);
+//        System.out.println("Jaro Winkler = "+rjk);
+//        
+//
+//    }
 }

@@ -43,7 +43,7 @@ public class ServiceRestarter {
         System.out.println(command);
     }
     
-    public static void main(String args[]){
-        new ServiceRestarter().restart("GammuSMSD");
-    }
+//    public static void main(String args[]){
+//        new ServiceRestarter().restart("GammuSMSD");
+//    }
 }
