@@ -1,5 +1,7 @@
 <script src="<?php echo base_url('assets/js/highcharts/exporting.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/highcharts/highcharts.js'); ?>"></script>
+
+
 <script type="text/javascript">
     var options = {
         chart: {
@@ -7,11 +9,11 @@
             type: 'line'
         },
         title: {
-            text: 'Grafik Fluktuasi Harga Cabai di Indonesia',
+            text: '',
             x: -20 //center
         },
         subtitle: {
-            text: 'Perbandingan Rata-rata Harga Cabai per-Provinsi Tahun <?=$p_tahun;?>',
+            text: '',
             x: -20
         },
         xAxis: {
@@ -50,19 +52,21 @@
     };
 
     $.getJSON("<?php echo base_url(); ?>index.php/fluktuasi_harga/grafik/<?=$p_komoditas?>/<?=$p_tahun?>", function (resp) {
-//        {
-    //        tahun: 2015,
-    //        data: [
-        //        {
-            //        name: "Aceh",
-            //        data: [
-                //        {
-                //        harga: 14845,
-                //        bulan: 5
-                //        },
-            //        ]
-            //    },
-            
+//    {
+//    tahun: 2015,
+//    data: [
+//    {
+//        name: "Aceh",
+//        data: [
+//            {
+//            harga: 14845,
+//            bulan: 5
+//            },
+//        ]
+//    },
+
+        options.title.text = resp.title;
+        options.subtitle.text = resp.subtitle;
         $.each(resp.data, function(i, prov){
             var value = [];           
             var legend = prov.name;
@@ -71,7 +75,7 @@
                var harga = titik.harga;
                value.push([date, harga]);
             });
-            
+
             options.series.push({
                 name: legend,
                 data: value
@@ -82,86 +86,54 @@
 </script>
 
 <div class="page-content">
-<!--    <div class="flex-grid no-responsive-future" style="height: 100%;">
-        <div class="row" style="height: 100%">
-            <div class="cell size-x200" id="cell-sidebar" style="background-color: #71b1d1; height: 100%">
-                <ul class="sidebar">
-                    <li class="active">
-                        <a href="#">
-                            <span class="mif-drive-eta icon"></span>
-                            <span class="title">Data Fluktuasi Harga</span>
-                        </a>
-                    </li>
-                </ul>
+    <div class="flex-grid no-responsive-future" style="height: 100%;" >
+        <div class="row">
+            <div class="cell colspan2 sidebar">
             </div>
-            <div class="cell auto-size padding20 bg-white" id="cell-content">
-                <section class="content">
-                    <div class="row">                
-                        <section class="col-lg-3">
-                             Map box 
-                            <div class="box box-solid bg-light-blue-gradient">
-                                <div class="box-header">
-                                     tools box 
-                                    <h3 class="box-title">
-                                        Navigasi Data
-                                    </h3>
-                                </div>
-                                <div class="box-body">
-                                    <?=form_open('fluktuasi_harga'); ?>                                
-                                    <div class="form-group">                                    
-                                        <label>Pilih Jenis Cabai</label>
-                                        <select name="inputCabai" id="inputCabai" class="form-control">
-                                            <option value="">Pilih Provinsi</option>
-                                            
-                                        </select>                              
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Pilih Tahun</label>
-                                        <select name="inputTahun" class="form-control">
-                                            <option value="">Pilih Tahun</option>
-                                            
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Pilih Bulan</label>
-                                        <select name="inputBulan" class="form-control">
-                                            <option value="">Pilih Bulan</option>
-                                            
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <center><button type="submit" class="btn btn-primary btn-block btn-flat">Submit</button></center>
-                                    </div>
-                                    </form>
-                                </div> /.box-body
+            <div class="cell colspan10 padding20 bg-white">
+                <h1 class="text-light">Grafik Fluktuasi Harga Cabai <span class="mif-meter place-right"></span></h1>
+                
+                <hr class="thin bg-grayLighter">
+                <?=form_open('fluktuasi_harga/index')?>
+                <div class="grid">
+                    <div class="row cells4">
+                        <div class="cell">
+                            <div class="input-control text full-size">
+                                <h5>Filter:</h5>
                             </div>
-                             /.box 
-                            <div class="callout callout-success">
-                                <center>
-                                    <h4>Sudahkah harga cabai di daerah anda dilaporkan disini?</h4>
-                                    <a href="<?php echo base_url(); ?>index.php/InputHarga" class="small-box-footer">Mari laporkan harga cabai di daerah anda disini! <i class="fa fa-arrow-circle-right"></i></a>
-                                </center>
+                        </div>
+                        <div class="cell">
+                            <div class="input-control select full-size">
+                                <select name="input-tahun" id="input-tahun" class="form-control">
+                                    <option value="">Tahun</option>
+                                    <?php foreach($tahun as $t): ?>
+                                        <option value="<?=$t?>"><?=$t?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
-                        </section>
-                        <section class="col-lg-9">
-                            <div class="nav-tabs-custom">
-                                <ul class="nav nav-tabs pull-right ui-sortable-handle">
-                                    <li class="active"><a href="#grafik-kota" data-toggle="tab" aria-expanded="true">Kota</a></li>
-                                    <li><a href="#grafik-bulan" data-toggle="tab" aria-expanded="false">Bulan</a></li>
-                                    <li><a href="#grafik-minggu" data-toggle="tab" aria-expanded="false">Minggu</a></li>
-                                    <li><a href="#grafik-verified" data-toggle="tab" aria-expanded="false">Verified Data</a></li>
-                                    <li class="pull-left header"><i class="fa fa-inbox"></i> Grafik Fluktuasi Harga Cabai</li>
-                                </ul>-->
-                                <div class="tab-content no-padding">
-                                    <div class="chart tab-pane active" id="grafik-cabai" style="position: relative; width:100%; height: 400px;"></div>
-                                    <div class="chart tab-pane" id="grafik-bulan" style="position: relative; width:72.5%; height: 400px;"></div>
-                                    <div class="chart tab-pane" id="grafik-minggu" style="position: relative; width:72.5%; height: 400px;"></div>
-                                    <div class="chart tab-pane" id="grafik-verified" style="position: relative; width:72.5%; height: 400px;"></div>
-                                </div>
-<!--                            </div>
-                        </section>
+                        </div>
+                        <div class="cell colspan2">
+                            <div class="input-control select full-size">
+                                <select name="input-komoditas" id="input-komoditas" class="form-control">
+                                    <option value="1">Jenis</option>
+                                     <?php foreach($komoditas as $k): ?>
+                                        <option value="<?=$k->id?>"><?=$k->komoditas?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="cell">
+                            <div class="input-control full-size">
+                                <button class="button primary" type="submit">Submit</button>
+                            </div>
+                        </div>
                     </div>
-                </section>
+                </div>
+                <?=form_close()?>
+                <hr class="thin bg-grayLighter">
+                
+                <div id="grafik-cabai" ></div>
             </div>
+        </div>
     </div>
-</div>-->
+</div>
