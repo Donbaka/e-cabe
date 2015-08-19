@@ -25,7 +25,7 @@
                 year: '%b'
             },
             title: {
-                text: 'Bulan'
+                text: ''
             }
         },
         yAxis: {
@@ -51,7 +51,7 @@
         series: []
     };
 
-    $.getJSON("<?php echo base_url(); ?>index.php/fluktuasi_harga/grafik/<?=$p_komoditas?>/<?=$p_tahun?>", function (resp) {
+    $.getJSON("<?=$url?>", function (resp) {
 //    {
 //    tahun: 2015,
 //    data: [
@@ -67,10 +67,12 @@
 
         options.title.text = resp.title;
         options.subtitle.text = resp.subtitle;
-        $.each(resp.data, function(i, prov){
+        options.xAxis.title.text = resp.satuan;
+        
+        $.each(resp.data, function(i, datap){
             var value = [];           
-            var legend = prov.name;
-            $.each(prov.data, function(j, titik){
+            var legend = datap.name;
+            $.each(datap.data, function(j, titik){
                var date = Date.UTC(resp.tahun, titik.bulan);
                var harga = titik.harga;
                value.push([date, harga]);
@@ -82,54 +84,32 @@
             });
         });
         chart = new Highcharts.Chart(options);
+        
+        if(resp.data.length ==0 ){
+            chart.showLoading('Tidak ada data yang bisa ditampilkan.');
+        }else{
+            chart.hideLoading();
+        }
     });
 </script>
 
-<div class="page-content">
+<div class="page-content bg-white">
     <div class="flex-grid no-responsive-future" style="height: 100%;" >
         <div class="row">
-            <div class="cell colspan2 sidebar">
+            <div class="cell colspan2 bg-grayLighter">
+                <ul class="sidebar2 ">
+                    <li class="title">Grafik Harga</li>
+                    <li class="stick bg-red"><a href="<?=site_url('fluktuasi_harga/index')?>"><span class="mif-apps icon"></span>Keseluruhan</a></li>
+                    <li class="stick bg-red"><a href="<?=site_url('fluktuasi_harga/index_provinsi')?>"><span class="mif-layers icon"></span>Per Provinsi</a></li>
+                    <li class="stick bg-red"><a href="#"><span class="mif-layers icon"></span>Per Kota</a></li>
+                    <li class="stick bg-red"><a href="#"><span class="mif-layers icon"></span>Per Titik</a></li>
+                </ul>
             </div>
             <div class="cell colspan10 padding20 bg-white">
-                <h1 class="text-light">Grafik Fluktuasi Harga Cabai <span class="mif-meter place-right"></span></h1>
+                <h1 class="text-light"><?=$title?></h1>
                 
                 <hr class="thin bg-grayLighter">
-                <?=form_open('fluktuasi_harga/index')?>
-                <div class="grid">
-                    <div class="row cells4">
-                        <div class="cell">
-                            <div class="input-control text full-size">
-                                <h5>Filter:</h5>
-                            </div>
-                        </div>
-                        <div class="cell">
-                            <div class="input-control select full-size">
-                                <select name="input-tahun" id="input-tahun" class="form-control">
-                                    <option value="">Tahun</option>
-                                    <?php foreach($tahun as $t): ?>
-                                        <option value="<?=$t?>"><?=$t?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="cell colspan2">
-                            <div class="input-control select full-size">
-                                <select name="input-komoditas" id="input-komoditas" class="form-control">
-                                    <option value="1">Jenis</option>
-                                     <?php foreach($komoditas as $k): ?>
-                                        <option value="<?=$k->id?>"><?=$k->komoditas?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="cell">
-                            <div class="input-control full-size">
-                                <button class="button primary" type="submit">Submit</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <?=form_close()?>
+                <?php $this->load->view($form_filter) ?>
                 <hr class="thin bg-grayLighter">
                 
                 <div id="grafik-cabai" ></div>

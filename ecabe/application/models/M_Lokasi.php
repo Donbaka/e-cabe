@@ -23,6 +23,26 @@ class M_Lokasi extends CI_Model{
         return $results;
     }
     
+    function getProvinsiById($idprovinsi){
+        $result = null;
+        $this->db->where("ID_PROVINSI", $idprovinsi);
+        $query = $this->db->get('provinsi');
+        if ($query->num_rows() > 0) {
+            $result = $query->row();
+        }
+        return $result;
+    }
+    
+    function getKotaByProvinsi($idprovinsi){
+        $result = array();
+        $this->db->where("ID_PROVINSI", $idprovinsi);
+        $query = $this->db->get('kabkota');
+        if ($query->num_rows() > 0) {
+            $result = $query->result();
+        }
+        return $result;
+    }
+    
     function get_kabkota($prov) {
         $results = array();
         $this->db->where("ID_PROVINSI", $prov);
