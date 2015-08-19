@@ -31,3 +31,5 @@ gammulog
 smsdlog
 /ecabe/nbproject/private/
 /jCabe/dist/
+
+*.phar
