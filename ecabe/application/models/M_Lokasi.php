@@ -33,6 +33,16 @@ class M_Lokasi extends CI_Model{
         return $result;
     }
     
+    function getKotaById($idkota){
+        $result = null;
+        $this->db->where("ID_KABKOTA", $idkota);
+        $query = $this->db->get('kabkota');
+        if ($query->num_rows() > 0) {
+            $result = $query->row();
+        }
+        return $result;
+    }
+    
     function getKotaByProvinsi($idprovinsi){
         $result = array();
         $this->db->where("ID_PROVINSI", $idprovinsi);
@@ -40,6 +50,23 @@ class M_Lokasi extends CI_Model{
         if ($query->num_rows() > 0) {
             $result = $query->result();
         }
+        return $result;
+    }
+    
+    function getTitikByKota($idkota){
+        $result = array();
+        $query = "SELECT t.id as ID, t.nama as NAMA"
+                . " FROM titik_distribusi t "
+                . " JOIN kecamatan k ON t.id_kecamatan = k.ID_KECAMATAN "
+                . " JOIN kabkota kab ON k.ID_KABKOTA = kab.ID_KABKOTA "
+                . " WHERE kab.ID_KABKOTA=".$idkota." "
+                . " GROUP BY t.id ";
+        
+        $hasil = $this->db->query($query);
+        if ($hasil->num_rows() > 0) {
+            $result = $hasil->result();
+        }
+        
         return $result;
     }
     

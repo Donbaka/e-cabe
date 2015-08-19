@@ -27,11 +27,11 @@
                         <ul class="nav child_menu" style="display: none">
                             <li><a href="<?=site_url('fluktuasi_harga/index')?>">Seluruh Indonesia</a></li>
                             <li><a href="<?=site_url('fluktuasi_harga/index_provinsi')?>">Per Provinsi</a></li>
-                            <li><a href="#">Per Kota</a></li>
+                            <li><a href="<?=site_url('fluktuasi_harga/index_kota')?>">Per Kota</a></li>
                             <li><a href="#">Per Titik</a></li>
                         </ul>
                     </li>
-                    <li><a><i class="fa fa-question"></i> Tentang</a></li>
+                    <li><a href="#"><i class="fa fa-question"></i> Tentang</a></li>
                 </ul>
             </div>
         </div>

@@ -86,7 +86,7 @@
         chart = new Highcharts.Chart(options);
         
         if(resp.data.length ==0 ){
-            chart.showLoading('Tidak ada data yang bisa ditampilkan.');
+            chart.showLoading('Tidak ada data yang dapat ditampilkan.');
         }else{
             chart.hideLoading();
         }
