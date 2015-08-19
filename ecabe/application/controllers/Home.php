@@ -5,8 +5,9 @@ class Home extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('header');
-		$this->load->view('v_home');
-		$this->load->view('footer');
+            $data['content'] = 'v_home';
+//            $this->load->view('header');
+            $this->load->view('template', $data);
+//            $this->load->view('footer');
 	}
 }

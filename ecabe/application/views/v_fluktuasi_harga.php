@@ -93,27 +93,35 @@
     });
 </script>
 
-<div class="page-content bg-white">
-    <div class="flex-grid no-responsive-future" style="height: 100%;" >
-        <div class="row">
-            <div class="cell colspan2 bg-grayLighter">
-                <ul class="sidebar2 ">
-                    <li class="title">Grafik Harga</li>
-                    <li class="stick bg-red"><a href="<?=site_url('fluktuasi_harga/index')?>"><span class="mif-apps icon"></span>Keseluruhan</a></li>
-                    <li class="stick bg-red"><a href="<?=site_url('fluktuasi_harga/index_provinsi')?>"><span class="mif-layers icon"></span>Per Provinsi</a></li>
-                    <li class="stick bg-red"><a href="#"><span class="mif-layers icon"></span>Per Kota</a></li>
-                    <li class="stick bg-red"><a href="#"><span class="mif-layers icon"></span>Per Titik</a></li>
-                </ul>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="dashboard_graph">
+
+            <div class="row x_title">
+                <div class="col-md-6">
+                    <h3>Grafik Fluktuasi Harga Cabai <small><?=$title?></small></h3>
+                </div>
+                <div class="col-md-6">
+                    
+                </div>
             </div>
-            <div class="cell colspan10 padding20 bg-white">
-                <h1 class="text-light"><?=$title?></h1>
-                
-                <hr class="thin bg-grayLighter">
+
+            <div class="col-md-2 col-sm-2 col-xs-12 bg-white">
+                <h5>Filter:</h5>
                 <?php $this->load->view($form_filter) ?>
-                <hr class="thin bg-grayLighter">
-                
-                <div id="grafik-cabai" ></div>
             </div>
+            
+            <div class="col-md-10 col-sm-10 col-xs-12">
+                <div id="grafik-cabai" >
+                    <div class="text-center">
+                        <i class="fa fa-refresh fa-spin fa-2x"></i>
+                        <p>Memuat grafik...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
         </div>
     </div>
+
 </div>

@@ -24,7 +24,7 @@ class M_FluktuasiHarga extends CI_Model{
         return $results;
     }
     
-    public function getDataGrafikByProvinsi($komoditas, $tahun, $idprov){
+    public function getDataHargaByProvinsi($komoditas, $tahun, $idprov){
         $results = array();
         $query = "SELECT AVG(h.harga) as HARGA, pro.ID_PROVINSI, MONTH(tanggal) as BULAN "
                 . "FROM harga_distribusi h "
@@ -50,7 +50,31 @@ class M_FluktuasiHarga extends CI_Model{
         return $results;
     }
     
-    public function getDataGrafikProvinsi($komoditas, $tahun, $idcity){
+    public function getDataHargaByKota($komoditas, $tahun, $idcity){
+        $results = array();
+        $query = "SELECT AVG(h.harga) as HARGA, kab.ID_KABKOTA, MONTH(tanggal) as BULAN "
+                . "FROM harga_distribusi h "
+                . "JOIN titik_distribusi t "
+                . " ON h.id_titik = t.id "
+                . "JOIN kecamatan kec "
+                . " ON t.id_kecamatan = kec.ID_KECAMATAN "
+                . "JOIN kabkota kab "
+                . " ON kec.ID_KABKOTA = kab.ID_KABKOTA "
+                . "WHERE "
+                . "id_komoditas=".$komoditas." AND "
+                . "YEAR(tanggal)=".$tahun." AND "
+                . "kab.ID_KABKOTA=".$idcity." "
+                . "GROUP BY kab.ID_KABKOTA, BULAN";
+        
+        $hasil = $this->db->query($query);
+        if ($hasil->num_rows() > 0) {
+            $results = $hasil;
+        }
+        
+        return $results;
+    }
+    
+    public function getDataHargaByTitik($komoditas, $tahun, $idtitik) {
         $results = array();
         $query = "SELECT AVG(h.harga) as HARGA, kab.ID_KABKOTA, MONTH(tanggal) as BULAN "
                 . "FROM harga_distribusi h "

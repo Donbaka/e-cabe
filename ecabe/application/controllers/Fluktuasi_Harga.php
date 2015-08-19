@@ -47,15 +47,15 @@ class Fluktuasi_Harga extends CI_Controller {
             $p_tahun= 2015; //Current Month
         }
         
-        $data['title'] = "Grafik Fluktuasi Harga Cabai di Indonesia";
+        $data['title'] = "Indonesia";
         $data['komoditas'] = $this->M_Komoditas->getAllKomoditas();
         $data['tahun'] = $this->get_tahun_aktif();
         $data['url'] = site_url().'/fluktuasi_harga/grafik/'.$p_komoditas.'/'.$p_tahun;
         $data['form_url'] = 'fluktuasi_harga/index';
         $data['form_filter'] = 'v_grafik/filter_all';
         
-        $this->load->view('header');
-        $this->load->view('v_fluktuasi_harga', $data);
+        $data['content'] = 'v_fluktuasi_harga';
+        $this->load->view('template', $data);
     }
     
     public function index_provinsi()
@@ -81,17 +81,22 @@ class Fluktuasi_Harga extends CI_Controller {
         $data['provinsi'] = $this->M_Lokasi->get_provinsi();
         $data['url'] = site_url().'/fluktuasi_harga/grafik_provinsi/'.$p_komoditas.'/'.$p_provinsi.'/'.$p_tahun;
         
-        $data['title'] = "Grafik Fluktuasi Harga Cabai di ".$this->M_Lokasi->getProvinsiById($p_provinsi)->NAMA;
+        $data['title'] = "Provinsi ".$this->M_Lokasi->getProvinsiById($p_provinsi)->NAMA;
         $data['komoditas'] = $this->M_Komoditas->getAllKomoditas();
         $data['tahun'] = $this->get_tahun_aktif();
         $data['url'] = site_url().'/fluktuasi_harga/grafik_provinsi/'.$p_komoditas.'/'.$p_provinsi.'/'.$p_tahun;
         $data['form_url'] = 'fluktuasi_harga/index_provinsi';
         $data['form_filter'] = 'v_grafik/filter_provinsi';
         
-        $this->load->view('header');
-        $this->load->view('v_fluktuasi_harga', $data);
+        $data['content'] = 'v_fluktuasi_harga';
+        $this->load->view('template', $data);
     }
     
+    /**
+     * 
+     * @param type $komoditas
+     * @param type $tahun
+     */
     public function grafik($komoditas=1, $tahun=2015){
         $result = array();
         
@@ -106,7 +111,7 @@ class Fluktuasi_Harga extends CI_Controller {
 //        var_dump($provs);
         foreach($provs as $prov){
             $series = array();
-            $data = $this->M_FluktuasiHarga->getDataGrafikByProvinsi($komoditas, $tahun, $prov->ID_PROVINSI);
+            $data = $this->M_FluktuasiHarga->getDataHargaByProvinsi($komoditas, $tahun, $prov->ID_PROVINSI);
             if($data){
                 $series['name'] = $prov->NAMA;
                 $series['data'] = array();
@@ -150,7 +155,7 @@ class Fluktuasi_Harga extends CI_Controller {
         
         foreach($cities as $city){
             $series = array();
-            $data = $this->M_FluktuasiHarga->getDataGrafikProvinsi($komoditas, $tahun, $city->ID_KABKOTA);
+            $data = $this->M_FluktuasiHarga->getDataHargaByKota($komoditas, $tahun, $city->ID_KABKOTA);
             if($data){
                 $series['name'] = $city->NAMA;
                 $series['data'] = array();
@@ -169,6 +174,9 @@ class Fluktuasi_Harga extends CI_Controller {
             ->set_output(json_encode($result));
     }
     
+    /**
+     * 
+     */
     public function index_kota()
     {
         
