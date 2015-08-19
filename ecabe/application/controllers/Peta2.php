@@ -11,7 +11,9 @@ class Peta2 extends CI_Controller {
 	}
 
 	public function index() {
+                $this->load->view('header');
 		$this->load->view('v_peta2');
+		$this->load->view('footer');
 	}
 
 	function grafikDistribusi() {
