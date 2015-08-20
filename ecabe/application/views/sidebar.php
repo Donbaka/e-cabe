@@ -2,7 +2,7 @@
     <div class="left_col scroll-view">
 
         <div class="navbar nav_title" style="border: 0;">
-            <a href="index.html" class="site_title">eCabe</a>
+            <a href="#" class="site_title">eCabe</a>
         </div>
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 
