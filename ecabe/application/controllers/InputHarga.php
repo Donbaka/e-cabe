@@ -30,9 +30,10 @@ class inputHarga extends CI_Controller {
 
         $data['provinsi'] = $this->M_Lokasi->get_provinsi();
         $data['komoditas'] = $this->m_inputHarga->get_komoditi();
+        $data['content'] = 'v_inputHarga';
 
-        $this->load->view('header');
-		$this->load->view('v_inputHarga',$data);
+       // $this->load->view('header');
+		$this->load->view('template',$data);
 	}
 
     public function getKabKota() {

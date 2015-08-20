@@ -20,7 +20,7 @@
                     <li><a><i class="fa fa-shopping-cart"></i> Pasar</a></li>
                     <li><a><i class="fa fa-tree"></i> Komoditas <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu" style="display: none">
-                            <li><a href="general_elements.html">Input Harga Komoditas</a></li>
+                            <li><a href="inputHarga">Input Harga Komoditas</a></li>
                         </ul>
                     </li>                    
                     <li><a><i class="fa fa-bar-chart"></i> Fluktuasi Harga <span class="fa fa-chevron-down"></span></a>
