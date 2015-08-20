@@ -94,7 +94,7 @@
 </script>
 
 <div class="row">
-    <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="col-md-12 col-sm-12 col-xs-12 bg-white">
         <div class="dashboard_graph">
 
             <div class="row x_title">
@@ -105,22 +105,47 @@
                     
                 </div>
             </div>
-
-            <div class="col-md-2 col-sm-2 col-xs-12 bg-white">
-                <h5>Filter:</h5>
-                <?php $this->load->view($form_filter) ?>
+            
+<!--            <div class="padding10">
+            </div>-->
+            <div class="col-md-2 col-sm-2 col-xs-12">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active">
+                        <a href="#filter" aria-controls="filter" role="tab" data-toggle="tab">Filter</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                   <div role="tabpanel" class="tab-pane active" id="filter" style="padding-top: 10px">
+                       <?php $this->load->view($form_filter) ?>
+                   </div>
+                </div>
             </div>
             
             <div class="col-md-10 col-sm-10 col-xs-12">
-                <div id="grafik-cabai" >
-                    <div class="text-center">
-                        <i class="fa fa-refresh fa-spin fa-2x"></i>
-                        <p>Memuat grafik...</p>
-                    </div>
-                </div>
-            </div>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Tahun</a></li>
+                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Bulan</a></li>
+                    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Hari</a></li>
+                </ul>
 
-            <div class="clearfix"></div>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="home">
+                        <div id="grafik-cabai">
+                            <div class="text-center" style="padding-top: 10px">
+                                <i class="fa fa-refresh fa-spin fa-2x"></i>
+                                <p>Memuat grafik...</p>
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="profile"></div>
+                    <div role="tabpanel" class="tab-pane" id="messages"><div>
+                </div>
+
+            </div>
         </div>
     </div>
 
