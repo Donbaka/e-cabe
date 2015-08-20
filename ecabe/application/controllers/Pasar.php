@@ -7,22 +7,21 @@ class Pasar extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model('m_pasar');
+        $this->load->model('M_Pasar');
         $this->load->library('googlemaps');
     }
 
     public function index() {
-        $data['map'] = $this->petaPasar();
-        $this->load->view('header');
-        $this->load->view('v_pasar', $data);
-        $this->load->view('footer');
+        $data['map'] = $this->petaPasar();      
+        $data['content'] = 'v_pasar';
+        $this->load->view('template', $data);
     }
 
     function petaPasar() {
         $config['zoom'] = "auto";
         $this->googlemaps->initialize($config);
 
-        $coords = $this->m_pasar->getLatLong();
+        $coords = $this->M_Pasar->getLatLong();
 
         foreach ($coords as $coordinate) {
             $marker = array();

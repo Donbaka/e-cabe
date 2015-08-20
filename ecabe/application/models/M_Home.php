@@ -1,6 +1,6 @@
 <?php
 
-class m_peta2 extends CI_Model {
+class M_Home extends CI_Model {
 
     function getDataHargaDistribusi() {        
         $this->db->select('provinsi.KODE_PETA');
@@ -13,6 +13,11 @@ class m_peta2 extends CI_Model {
         $this->db->group_by("provinsi.ID_PROVINSI");
         $data = $this->db->get();
         return $data;
+    }
+    
+    function getHitungPasar(){
+        $pasar = $this->db->count_all_results('titik_distribusi');
+        return $pasar;
     }
 
 }

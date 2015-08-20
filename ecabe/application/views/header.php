@@ -28,33 +28,3 @@
     <body class="nav-md">
         <div class="container body">
             <div class="main_container">
-<!--        <div class="app-bar fixed-top" data-role="appbar">
-            <a href="" class="app-bar-element branding">eCabe</a>
-            <span class="app-bar-divider"></span>
-            <ul class="app-bar-menu">
-                <li><a href=">">Dashboard</a></li>
-                <li><a href="">Berita</a></li>
-                <li>
-                    <a href="" class="dropdown-toggle">Statistik</a>
-                    <ul class="d-menu" data-role="dropdown">
-                        <li><a href="#tes">Statistik Harga Cabe</a></li>
-                        <li><a href="#tes2">Statistik per-Wilayah</a></li>
-                    </ul>
-                </li>
-                <li><a href="">Pasar</a></li>
-                <li><a href="">Input Harga Komoditas</a></li>
-                <li><a href="">Tentang eCabe</a></li>
-            </ul>
-
-            <div class="app-bar-element place-right">
-                <span class="dropdown-toggle"><span class="mif-cog"></span> User Name</span>
-                <div class="app-bar-drop-container padding10 place-right no-margin-top block-shadow fg-dark" data-role="dropdown" data-no-close="true" style="width: 220px">
-                    <h2 class="text-light">Quick settings</h2>
-                    <ul class="unstyled-list fg-dark">
-                        <li><a href="" class="fg-white1 fg-hover-yellow">Profile</a></li>
-                        <li><a href="" class="fg-white2 fg-hover-yellow">Security</a></li>
-                        <li><a href="" class="fg-white3 fg-hover-yellow">Exit</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>-->
