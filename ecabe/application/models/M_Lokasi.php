@@ -11,7 +11,8 @@
  *
  * @author brlnt-super
  */
-class M_Lokasi extends CI_Model{
+class M_Lokasi extends CI_Model {
+
     //put your code here
     function get_provinsi() {
         $results = array();
@@ -22,8 +23,40 @@ class M_Lokasi extends CI_Model{
         }
         return $results;
     }
-    
-    function getProvinsiById($idprovinsi){
+
+    function get_top5provinsi($today, $yesterday) {
+        $results = array();
+        $query = "SELECT
+            pro.ID_PROVINSI,
+            pro.NAMA
+            FROM
+            harga_distribusi h1,
+            harga_distribusi h2
+            JOIN titik_distribusi t
+            ON h2.id_titik = t.id
+            JOIN kecamatan kec
+            ON t.id_kecamatan = kec.ID_KECAMATAN
+            JOIN kabkota kab
+            ON kec.ID_KABKOTA = kab.ID_KABKOTA
+            JOIN provinsi pro
+            ON kab.ID_PROVINSI = pro.ID_PROVINSI
+            WHERE
+            h2.tanggal = '".$yesterday."' AND
+            h1.tanggal = '".$today."' AND
+            h1.id_titik = h2.id_titik
+            ORDER BY
+            ABS(h1.harga - h2.harga) DESC
+            LIMIT
+            5";
+        $hasil = $this->db->query($query);
+        if ($hasil->num_rows() > 0) {
+            $results = $hasil->result();
+        }
+
+        return $results;
+    }
+
+    function getProvinsiById($idprovinsi) {
         $result = null;
         $this->db->where("ID_PROVINSI", $idprovinsi);
         $query = $this->db->get('provinsi');
@@ -32,8 +65,8 @@ class M_Lokasi extends CI_Model{
         }
         return $result;
     }
-    
-    function getKotaById($idkota){
+
+    function getKotaById($idkota) {
         $result = null;
         $this->db->where("ID_KABKOTA", $idkota);
         $query = $this->db->get('kabkota');
@@ -42,8 +75,8 @@ class M_Lokasi extends CI_Model{
         }
         return $result;
     }
-    
-    function getTitikById($idtitik){
+
+    function getTitikById($idtitik) {
         $result = null;
         $this->db->where("id", $idtitik);
         $query = $this->db->get('titik_distribusi');
@@ -52,8 +85,8 @@ class M_Lokasi extends CI_Model{
         }
         return $result;
     }
-    
-    function getKotaByProvinsi($idprovinsi){
+
+    function getKotaByProvinsi($idprovinsi) {
         $result = array();
         $this->db->where("ID_PROVINSI", $idprovinsi);
         $query = $this->db->get('kabkota');
@@ -62,24 +95,24 @@ class M_Lokasi extends CI_Model{
         }
         return $result;
     }
-    
-    function getTitikByKota($idkota){
+
+    function getTitikByKota($idkota) {
         $result = array();
         $query = "SELECT t.id as ID, t.nama as NAMA"
                 . " FROM titik_distribusi t "
                 . " JOIN kecamatan k ON t.id_kecamatan = k.ID_KECAMATAN "
                 . " JOIN kabkota kab ON k.ID_KABKOTA = kab.ID_KABKOTA "
-                . " WHERE kab.ID_KABKOTA=".$idkota." "
+                . " WHERE kab.ID_KABKOTA=" . $idkota . " "
                 . " GROUP BY t.id ";
-        
+
         $hasil = $this->db->query($query);
         if ($hasil->num_rows() > 0) {
             $result = $hasil->result();
         }
-        
+
         return $result;
     }
-    
+
     function get_kabkota($prov) {
         $results = array();
         $this->db->where("ID_PROVINSI", $prov);
@@ -90,7 +123,7 @@ class M_Lokasi extends CI_Model{
         }
         return $results;
     }
-    
+
     function get_kecamatan($kabkota) {
         $results = array();
         $this->db->where("ID_KABKOTA", $kabkota);
@@ -101,7 +134,7 @@ class M_Lokasi extends CI_Model{
         }
         return $results;
     }
-    
+
     function get_titik($kec) {
         $results = array();
         $this->db->where("id_kecamatan", $kec);
@@ -113,4 +146,5 @@ class M_Lokasi extends CI_Model{
         }
         return $results;
     }
+
 }

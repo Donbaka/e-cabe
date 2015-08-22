@@ -14,6 +14,15 @@ class Home extends CI_Controller {
     public function index() {
         $data['content'] = 'v_home';
         $data['pasar'] = $this->M_Home->getHitungPasar();
+        $data['kenaikanTertinggi'] = $this->M_Home->getKenaikanTertinggi()->harga;
+        $data['persentasekenaikan'] = $this->M_Home->getKenaikanTertinggi()->persentase;
+        $data['penurunanTertinggi'] = $this->M_Home->getPenurunanTertinggi()->harga;
+        $data['persentasepenurunan'] = $this->M_Home->getPenurunanTertinggi()->persentase;
+        
+        $data['hargatertinggi'] = $this->M_Home->getHargaTertinggi()->harga;
+        $data['persentasetertinggi'] = $this->M_Home->getHargaTertinggi()->persentase;
+        $data['hargaterendah'] = $this->M_Home->getHargaTerendah()->harga;
+        $data['persentaseterendah'] = $this->M_Home->getHargaTerendah()->persentase;
         
         if ($this->input->get('k')) {
             $p_komoditas = $this->input->get('k', TRUE);
@@ -34,7 +43,7 @@ class Home extends CI_Controller {
     public function grafik($komoditas=1, $tahun=2015){
         $result = array();
         
-        $provs = $this->M_Lokasi->get_provinsi();
+        $provs = $this->M_Lokasi->get_top5provinsi(date('Y-m-d'), date('Y-m-d', strtotime(' -1 day')));
         $jenisKomoditas = $this->M_Komoditas->getKomoditasById($komoditas);
         
         $result['tahun'] = intval($tahun);
