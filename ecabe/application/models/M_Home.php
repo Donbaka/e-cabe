@@ -19,5 +19,30 @@ class M_Home extends CI_Model {
         $pasar = $this->db->count_all_results('titik_distribusi');
         return $pasar;
     }
-
+    
+    public function getDataHargaByProvinsi($komoditas, $tahun, $idprov){
+        $results = array();
+        $query = "SELECT AVG(h.harga) as HARGA, pro.ID_PROVINSI, MONTH(tanggal) as BULAN, DAY(tanggal) as TANGGAL "
+                . "FROM harga_distribusi h "
+                . "JOIN titik_distribusi t "
+                . " ON h.id_titik = t.id "
+                . "JOIN kecamatan kec "
+                . " ON t.id_kecamatan = kec.ID_KECAMATAN "
+                . "JOIN kabkota kab "
+                . " ON kec.ID_KABKOTA = kab.ID_KABKOTA "
+                . "JOIN provinsi pro "
+                . " ON kab.ID_PROVINSI = pro.ID_PROVINSI "
+                . "WHERE "
+                . "id_komoditas=".$komoditas." AND "
+                . "YEAR(tanggal)=".$tahun." AND "
+                . "pro.ID_PROVINSI=".$idprov." "
+                . "GROUP BY pro.ID_PROVINSI, TANGGAL";
+//        echo $query;
+        $hasil = $this->db->query($query);
+        if ($hasil->num_rows() > 0) {
+            $results = $hasil;
+        }
+        
+        return $results;
+    }
 }

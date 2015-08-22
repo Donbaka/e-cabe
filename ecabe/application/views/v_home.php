@@ -1,5 +1,6 @@
-<script src="<?php echo base_url('assets/js/highmaps/highmaps.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/highcharts/highcharts.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/highmaps/exporting.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/highmaps/map.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/highmaps/id-all.js'); ?>"></script>
 <script type="text/javascript">
 
@@ -12,10 +13,7 @@
             // Initiate the chart
             $('#container').highcharts('Map', {
                 title: {
-                    text: 'Highmaps basic demo'
-                },
-                subtitle: {
-                    text: 'Source map: <a href="http://code.highcharts.com/mapdata/countries/id/id-all.js">Indonesia</a>'
+                    text: 'Persebaran Harga Cabe'
                 },
                 mapNavigation: {
                     enabled: true,
@@ -49,97 +47,149 @@
                     }]
             });
         });
-
     });
-
 </script>
+<script type="text/javascript">
+    var options = {
+        chart: {
+            renderTo: 'grafik',
+            type: 'line'
+        },
+        title: {
+            text: '',
+            x: -20 //center
+        },
+        subtitle: {
+            text: '',
+            x: -20
+        },
+        xAxis: {
+//            categories: ['May'],
+            crosshair: true,
+            type: 'datetime',
+            dateTimeLabelFormats: {// don't display the dummy year
+                day: '%e %B %Y'
+            },
+            title: {
+                text: ''
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Jumlah (Rp)'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>Rp. {point.y:.1f}</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: []
+    };
 
+    $.getJSON("<?= $url ?>", function (resp) {
+        options.title.text = resp.title;
+        options.subtitle.text = resp.subtitle;
+        options.xAxis.title.text = resp.satuan;
 
-<!--<div class="">-->
-<div class="row top_tiles">
-    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <div class="tile-stats">
-            <div class="icon"><i class="fa fa-caret-square-o-right"></i>
-            </div>
-            <div class="count"><?php echo $pasar; ?></div>
+        $.each(resp.data, function (i, datap) {
+            var value = [];
+            var legend = datap.name;
+            $.each(datap.data, function (j, titik) {
+                var date = Date.UTC(resp.tahun, titik.bulan-1, titik.tanggal);
+                var harga = titik.harga;
+                value.push([date, harga]);
+            });
 
-            <h3>Pasar</h3>
-            <p>Jumlah Pasar Terdaftar</p>
-        </div>
-    </div>
-    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <div class="tile-stats">
-            <div class="icon"><i class="fa fa-comments-o"></i>
-            </div>
-            <div class="count">179</div>
+            options.series.push({
+                name: legend,
+                data: value
+            });
+        });
+        chart = new Highcharts.Chart(options);
 
-            <h3>New Sign ups</h3>
-            <p>Lorem ipsum psdea itgum rixt.</p>
-        </div>
-    </div>
-    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <div class="tile-stats">
-            <div class="icon"><i class="fa fa-sort-amount-desc"></i>
-            </div>
-            <div class="count">179</div>
-
-            <h3>New Sign ups</h3>
-            <p>Lorem ipsum psdea itgum rixt.</p>
-        </div>
-    </div>
-    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <div class="tile-stats">
-            <div class="icon"><i class="fa fa-check-square-o"></i>
-            </div>
-            <div class="count">179</div>
-
-            <h3>New Sign ups</h3>
-            <p>Lorem ipsum psdea itgum rixt.</p>
-        </div>
-    </div>
-</div>
-<div class="page-title">
-    <div class="title_left">
-        <h3>
-            Peta Persebaran <small>Harga Komoditas Cabe Indonesia </small>
-        </h3>
-    </div>
-
-    <div class="title_right">
-        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for...">
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">Go!</button>
-                </span>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="clearfix"></div>
+        if (resp.data.length == 0) {
+            chart.showLoading('Tidak ada data yang dapat ditampilkan.');
+        } else {
+            chart.hideLoading();
+        }
+    });
+</script>
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-9">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Page title <small>Page subtile </small></h2>
+                <h2>
+                    Peta Persebaran <small>Harga Komoditas Cabe Indonesia </small>
+                </h2>
                 <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                            <i class="fa fa-wrench"></i>
+                            Daftar Komoditas <i class="fa fa-chevron-down"></i>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Settings 1</a></li>
-                            <li><a href="#">Settings 2</a></li>
+                            <li><a href="#">Cabe Merah</a></li>
+                            <li><a href="#">Cabe Merah Keriting</a></li>
+                            <li><a href="#">Cabe Rawit</a></li>
                         </ul>
                     </li>
-                    <li><a class="close-link"><i class="fa fa-close"></i></a></li>
                 </ul>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <h1 class="text-light">Peta Persebaran Harga Cabe di Indonesia <span class="mif-drive-eta place-right"></span></h1>
                 <div id="container"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="animated flipInY">
+            <div class="tile-stats">
+                <div class="icon"><i class="fa fa-caret-square-o-right"></i>
+                </div>
+                <div class="count"><?php echo $pasar; ?></div>
+
+                <h3>Titik Distribusi</h3>
+                <p>Jumlah Titik Distribusi Terdaftar</p>
+            </div>
+        </div>
+        <div class="animated flipInY">
+            <div class="tile-stats">
+                <div class="icon"><i class="fa fa-comments-o"></i>
+                </div>
+                <div class="count">179</div>
+
+                <h3>Laporan</h3>
+                <p>Jumlah Laporan Diterima</p>
+            </div>
+        </div>
+        <div class="animated flipInY">
+            <div class="tile-stats">
+                <div class="icon"><i class="fa fa-sort-amount-desc"></i>
+                </div>
+                <div class="count">179</div>
+
+                <h3>User</h3>
+                <p>Jumlah User Terdaftar</p>
+            </div>
+        </div>
+        <div class="animated flipInY">
+            <div class="tile-stats">
+                <div class="icon"><i class="fa fa-check-square-o"></i>
+                </div>
+                <div class="count">179</div>
+
+                <h3>Petani</h3>
+                <p>Jumlah Petani Terdaftar</p>
             </div>
         </div>
     </div>
@@ -193,5 +243,11 @@
             <div class="count">7,325</div>
             <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
         </div>
+    </div>
+</div>
+<div id="grafik">
+    <div class="text-center" style="padding-top: 10px">
+        <i class="fa fa-refresh fa-spin fa-2x"></i>
+        <p>Memuat grafik...</p>
     </div>
 </div>

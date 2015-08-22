@@ -1,7 +1,5 @@
 <script src="<?php echo base_url('assets/js/highcharts/exporting.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/highcharts/highcharts.js'); ?>"></script>
-
-
 <script type="text/javascript">
     var options = {
         chart: {
@@ -52,19 +50,6 @@
     };
 
     $.getJSON("<?=$url?>", function (resp) {
-//    {
-//    tahun: 2015,
-//    data: [
-//    {
-//        name: "Aceh",
-//        data: [
-//            {
-//            harga: 14845,
-//            bulan: 5
-//            },
-//        ]
-//    },
-
         options.title.text = resp.title;
         options.subtitle.text = resp.subtitle;
         options.xAxis.title.text = resp.satuan;
