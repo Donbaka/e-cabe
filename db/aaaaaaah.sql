@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.7.1
+-- version 4.4.8
 -- http://www.phpmyadmin.net
 --
--- Host: localhost:3306
--- Generation Time: Aug 22, 2015 at 02:49 AM
--- Server version: 5.5.39
--- PHP Version: 5.4.32
+-- Host: 127.0.0.1
+-- Generation Time: Aug 22, 2015 at 12:03 PM
+-- Server version: 5.6.16
+-- PHP Version: 5.5.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -55,127 +55,128 @@ INSERT INTO `gammu` (`Version`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `harga_distribusi` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `id_masyarakat` int(11) DEFAULT NULL,
   `id_komoditas` int(11) DEFAULT NULL,
   `id_titik` int(11) DEFAULT NULL,
   `harga` varchar(255) DEFAULT NULL,
   `tanggal` date DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=897 ;
+) ENGINE=InnoDB AUTO_INCREMENT=897 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `harga_distribusi`
 --
 
-INSERT INTO `harga_distribusi` (`id`, `id_komoditas`, `id_titik`, `harga`, `tanggal`) VALUES
-(1, 1, 1, '15407', '2015-05-01'),
-(2, 1, 2, '12237', '2015-05-01'),
-(3, 1, 3, '12045', '2015-05-01'),
-(4, 1, 4, '15635', '2015-05-01'),
-(5, 1, 5, '12263', '2015-05-01'),
-(6, 1, 6, '15183', '2015-05-01'),
-(7, 1, 7, '13547', '2015-05-01'),
-(8, 1, 8, '15887', '2015-05-01'),
-(9, 1, 9, '11488', '2015-05-01'),
-(10, 1, 10, '10889', '2015-05-01'),
-(11, 1, 11, '10373', '2015-05-01'),
-(12, 1, 12, '14983', '2015-05-01'),
-(13, 1, 13, '11984', '2015-05-01'),
-(14, 1, 14, '12204', '2015-05-01'),
-(15, 1, 15, '14362', '2015-05-01'),
-(16, 1, 16, '11314', '2015-05-01'),
-(17, 1, 17, '14150', '2015-05-01'),
-(18, 1, 18, '13844', '2015-05-01'),
-(19, 1, 19, '14280', '2015-05-01'),
-(20, 1, 20, '14678', '2015-05-01'),
-(21, 1, 21, '11363', '2015-05-01'),
-(22, 1, 22, '14204', '2015-05-01'),
-(23, 1, 23, '11311', '2015-05-01'),
-(24, 1, 24, '14484', '2015-05-01'),
-(25, 1, 25, '15439', '2015-05-01'),
-(26, 1, 26, '13018', '2015-05-01'),
-(27, 1, 27, '12649', '2015-05-01'),
-(28, 1, 28, '14900', '2015-05-01'),
-(29, 1, 29, '12803', '2015-05-01'),
-(30, 1, 30, '12968', '2015-05-01'),
-(31, 1, 31, '10747', '2015-05-01'),
-(32, 1, 32, '11678', '2015-05-01'),
-(33, 1, 33, '12176', '2015-05-01'),
-(34, 1, 34, '10339', '2015-05-01'),
-(35, 1, 35, '13364', '2015-05-01'),
-(36, 1, 36, '12708', '2015-05-01'),
-(37, 1, 1, '10490', '2015-05-02'),
-(38, 1, 2, '13706', '2015-05-02'),
-(39, 1, 3, '14667', '2015-05-02'),
-(40, 1, 4, '13105', '2015-05-02'),
-(41, 1, 5, '10671', '2015-05-02'),
-(42, 1, 6, '12727', '2015-05-02'),
-(43, 1, 7, '13246', '2015-05-02'),
-(44, 1, 8, '12977', '2015-05-02'),
-(45, 1, 9, '14527', '2015-05-02'),
-(46, 1, 10, '13644', '2015-05-02'),
-(47, 1, 11, '14739', '2015-05-02'),
-(48, 1, 12, '15252', '2015-05-02'),
-(49, 1, 13, '11353', '2015-05-02'),
-(50, 1, 14, '11653', '2015-05-02'),
-(51, 1, 15, '12340', '2015-05-02'),
-(52, 1, 16, '13292', '2015-05-02'),
-(53, 1, 17, '15614', '2015-05-02'),
-(54, 1, 18, '11729', '2015-05-02'),
-(55, 1, 19, '12764', '2015-05-02'),
-(56, 1, 20, '12817', '2015-05-02'),
-(57, 1, 21, '11175', '2015-05-02'),
-(58, 1, 22, '15809', '2015-05-02'),
-(59, 1, 23, '14135', '2015-05-02'),
-(60, 1, 24, '12233', '2015-05-02'),
-(61, 1, 25, '14119', '2015-05-02'),
-(62, 1, 26, '15161', '2015-05-02'),
-(63, 1, 27, '10646', '2015-05-02'),
-(64, 1, 28, '12741', '2015-05-02'),
-(65, 1, 29, '11544', '2015-05-02'),
-(66, 1, 30, '10395', '2015-05-02'),
-(67, 1, 31, '10892', '2015-05-02'),
-(68, 1, 32, '13368', '2015-05-02'),
-(69, 1, 33, '12658', '2015-05-02'),
-(70, 1, 34, '11331', '2015-05-02'),
-(71, 1, 35, '13014', '2015-05-02'),
-(72, 1, 36, '14879', '2015-05-02'),
-(73, 1, 1, '14729', '2015-05-03'),
-(74, 1, 2, '12694', '2015-05-03'),
-(75, 1, 3, '10770', '2015-05-03'),
-(76, 1, 4, '14700', '2015-05-03'),
-(77, 1, 5, '12884', '2015-05-03'),
-(78, 1, 6, '11276', '2015-05-03'),
-(79, 1, 7, '14430', '2015-05-03'),
-(80, 1, 8, '11202', '2015-05-03'),
-(81, 1, 9, '13445', '2015-05-03'),
-(82, 1, 10, '15822', '2015-05-03'),
-(83, 1, 11, '11140', '2015-05-03'),
-(84, 1, 12, '10323', '2015-05-03'),
-(85, 1, 13, '11875', '2015-05-03'),
-(86, 1, 14, '10179', '2015-05-03'),
-(87, 1, 15, '15744', '2015-05-03'),
-(88, 1, 16, '11952', '2015-05-03'),
-(89, 1, 17, '13037', '2015-05-03'),
-(90, 1, 18, '15598', '2015-05-03'),
-(91, 1, 19, '15255', '2015-05-03'),
-(92, 1, 20, '14212', '2015-05-03'),
-(93, 1, 21, '12469', '2015-05-03'),
-(94, 1, 22, '12308', '2015-05-03'),
-(95, 1, 23, '13932', '2015-05-03'),
-(96, 1, 24, '14962', '2015-05-03'),
-(97, 1, 25, '11544', '2015-05-03'),
-(98, 1, 26, '11677', '2015-05-03'),
-(99, 1, 27, '10726', '2015-05-03'),
-(100, 1, 28, '12410', '2015-05-03'),
-(101, 1, 29, '11088', '2015-05-03'),
-(102, 1, 30, '13037', '2015-05-03'),
-(103, 1, 31, '10871', '2015-05-03'),
-(104, 1, 32, '14989', '2015-05-03'),
-(105, 1, 33, '12601', '2015-05-03'),
-(106, 1, 34, '15657', '2015-05-03'),
-(107, 1, 35, '12596', '2015-05-03'),
-(108, 1, 36, '14072', '2015-05-03'),
-(896, 1, 36, '121', '2015-12-18');
+INSERT INTO `harga_distribusi` (`id`, `id_masyarakat`, `id_komoditas`, `id_titik`, `harga`, `tanggal`) VALUES
+(1, 1, 1, 1, '15407', '2015-05-01'),
+(2, 1, 1, 2, '12237', '2015-05-01'),
+(3, 1, 1, 3, '12045', '2015-05-01'),
+(4, 1, 1, 4, '15635', '2015-05-01'),
+(5, 1, 1, 5, '12263', '2015-05-01'),
+(6, 1, 1, 6, '15183', '2015-05-01'),
+(7, 1, 1, 7, '13547', '2015-05-01'),
+(8, 1, 1, 8, '15887', '2015-05-01'),
+(9, 1, 1, 9, '11488', '2015-05-01'),
+(10, 1, 1, 10, '10889', '2015-05-01'),
+(11, 1, 1, 11, '10373', '2015-05-01'),
+(12, 1, 1, 12, '14983', '2015-05-01'),
+(13, 1, 1, 13, '11984', '2015-05-01'),
+(14, 1, 1, 14, '12204', '2015-05-01'),
+(15, 1, 1, 15, '14362', '2015-05-01'),
+(16, 1, 1, 16, '11314', '2015-05-01'),
+(17, 1, 1, 17, '14150', '2015-05-01'),
+(18, 1, 1, 18, '13844', '2015-05-01'),
+(19, 1, 1, 19, '14280', '2015-05-01'),
+(20, 1, 1, 20, '14678', '2015-05-01'),
+(21, 1, 1, 21, '11363', '2015-05-01'),
+(22, 1, 1, 22, '14204', '2015-05-01'),
+(23, 1, 1, 23, '11311', '2015-05-01'),
+(24, 1, 1, 24, '14484', '2015-05-01'),
+(25, 1, 1, 25, '15439', '2015-05-01'),
+(26, 1, 1, 26, '13018', '2015-05-01'),
+(27, 1, 1, 27, '12649', '2015-05-01'),
+(28, 1, 1, 28, '14900', '2015-05-01'),
+(29, 1, 1, 29, '12803', '2015-05-01'),
+(30, 1, 1, 30, '12968', '2015-05-01'),
+(31, 1, 1, 31, '10747', '2015-05-01'),
+(32, 1, 1, 32, '11678', '2015-05-01'),
+(33, 1, 1, 33, '12176', '2015-05-01'),
+(34, 1, 1, 34, '10339', '2015-05-01'),
+(35, 1, 1, 35, '13364', '2015-05-01'),
+(36, 1, 1, 36, '12708', '2015-05-01'),
+(37, 1, 1, 1, '10490', '2015-05-02'),
+(38, 1, 1, 2, '13706', '2015-05-02'),
+(39, 1, 1, 3, '14667', '2015-05-02'),
+(40, 1, 1, 4, '13105', '2015-05-02'),
+(41, 1, 1, 5, '10671', '2015-05-02'),
+(42, 1, 1, 6, '12727', '2015-05-02'),
+(43, 1, 1, 7, '13246', '2015-05-02'),
+(44, 1, 1, 8, '12977', '2015-05-02'),
+(45, 1, 1, 9, '14527', '2015-05-02'),
+(46, 1, 1, 10, '13644', '2015-05-02'),
+(47, 1, 1, 11, '14739', '2015-05-02'),
+(48, 1, 1, 12, '15252', '2015-05-02'),
+(49, 1, 1, 13, '11353', '2015-05-02'),
+(50, 1, 1, 14, '11653', '2015-05-02'),
+(51, 1, 1, 15, '12340', '2015-05-02'),
+(52, 1, 1, 16, '13292', '2015-05-02'),
+(53, 1, 1, 17, '15614', '2015-05-02'),
+(54, 1, 1, 18, '11729', '2015-05-02'),
+(55, 1, 1, 19, '12764', '2015-05-02'),
+(56, 1, 1, 20, '12817', '2015-05-02'),
+(57, 1, 1, 21, '11175', '2015-05-02'),
+(58, 1, 1, 22, '15809', '2015-05-02'),
+(59, 1, 1, 23, '14135', '2015-05-02'),
+(60, 1, 1, 24, '12233', '2015-05-02'),
+(61, 1, 1, 25, '14119', '2015-05-02'),
+(62, 1, 1, 26, '15161', '2015-05-02'),
+(63, 1, 1, 27, '10646', '2015-05-02'),
+(64, 1, 1, 28, '12741', '2015-05-02'),
+(65, 1, 1, 29, '11544', '2015-05-02'),
+(66, 1, 1, 30, '10395', '2015-05-02'),
+(67, 1, 1, 31, '10892', '2015-05-02'),
+(68, 1, 1, 32, '13368', '2015-05-02'),
+(69, 1, 1, 33, '12658', '2015-05-02'),
+(70, 1, 1, 34, '11331', '2015-05-02'),
+(71, 1, 1, 35, '13014', '2015-05-02'),
+(72, 1, 1, 36, '14879', '2015-05-02'),
+(73, 1, 1, 1, '14729', '2015-05-03'),
+(74, 1, 1, 2, '12694', '2015-05-03'),
+(75, 1, 1, 3, '10770', '2015-05-03'),
+(76, 1, 1, 4, '14700', '2015-05-03'),
+(77, 1, 1, 5, '12884', '2015-05-03'),
+(78, 1, 1, 6, '11276', '2015-05-03'),
+(79, 1, 1, 7, '14430', '2015-05-03'),
+(80, 1, 1, 8, '11202', '2015-05-03'),
+(81, 1, 1, 9, '13445', '2015-05-03'),
+(82, 1, 1, 10, '15822', '2015-05-03'),
+(83, 1, 1, 11, '11140', '2015-05-03'),
+(84, 1, 1, 12, '10323', '2015-05-03'),
+(85, 1, 1, 13, '11875', '2015-05-03'),
+(86, 1, 1, 14, '10179', '2015-05-03'),
+(87, 1, 1, 15, '15744', '2015-05-03'),
+(88, 1, 1, 16, '11952', '2015-05-03'),
+(89, 1, 1, 17, '13037', '2015-05-03'),
+(90, 1, 1, 18, '15598', '2015-05-03'),
+(91, 1, 1, 19, '15255', '2015-05-03'),
+(92, 1, 1, 20, '14212', '2015-05-03'),
+(93, 1, 1, 21, '12469', '2015-05-03'),
+(94, 1, 1, 22, '12308', '2015-05-03'),
+(95, 1, 1, 23, '13932', '2015-05-03'),
+(96, 1, 1, 24, '14962', '2015-05-03'),
+(97, 1, 1, 25, '11544', '2015-05-03'),
+(98, 1, 1, 26, '11677', '2015-05-03'),
+(99, 1, 1, 27, '10726', '2015-05-03'),
+(100, 1, 1, 28, '12410', '2015-05-03'),
+(101, 1, 1, 29, '11088', '2015-05-03'),
+(102, 1, 1, 30, '13037', '2015-05-03'),
+(103, 1, 1, 31, '10871', '2015-05-03'),
+(104, 1, 1, 32, '14989', '2015-05-03'),
+(105, 1, 1, 33, '12601', '2015-05-03'),
+(106, 1, 1, 34, '15657', '2015-05-03'),
+(107, 1, 1, 35, '12596', '2015-05-03'),
+(108, 1, 1, 36, '14072', '2015-05-03'),
+(896, 1, 1, 36, '121', '2015-12-18');
 
 -- --------------------------------------------------------
 
@@ -184,13 +185,13 @@ INSERT INTO `harga_distribusi` (`id`, `id_komoditas`, `id_titik`, `harga`, `tang
 --
 
 CREATE TABLE IF NOT EXISTS `harga_petani` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `id_komoditas` int(11) DEFAULT NULL,
   `id_petani` int(11) DEFAULT NULL,
   `harga` varchar(255) DEFAULT NULL,
   `stok` bigint(255) DEFAULT NULL,
   `tanggal` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'CURRENT_DATE'
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=205 ;
+) ENGINE=InnoDB AUTO_INCREMENT=205 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `harga_petani`
@@ -409,10 +410,17 @@ INSERT INTO `harga_petani` (`id`, `id_komoditas`, `id_petani`, `harga`, `stok`, 
 --
 
 CREATE TABLE IF NOT EXISTS `hp_masyarakat` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `nomor_hp` varchar(255) DEFAULT NULL,
   `status` int(255) DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `hp_masyarakat`
+--
+
+INSERT INTO `hp_masyarakat` (`id`, `nomor_hp`, `status`) VALUES
+(1, '+6285950439413', 1);
 
 -- --------------------------------------------------------
 
@@ -430,11 +438,11 @@ CREATE TABLE IF NOT EXISTS `inbox` (
   `SMSCNumber` varchar(20) NOT NULL DEFAULT '',
   `Class` int(11) NOT NULL DEFAULT '-1',
   `TextDecoded` text NOT NULL,
-`ID` int(10) unsigned NOT NULL,
+  `ID` int(10) unsigned NOT NULL,
   `RecipientID` text NOT NULL,
   `Processed` enum('false','true') NOT NULL DEFAULT 'false',
   `Replied` int(255) DEFAULT '0'
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
+) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `inbox`
@@ -455,14 +463,14 @@ INSERT INTO `inbox` (`UpdatedInDB`, `ReceivingDateTime`, `Text`, `SenderNumber`,
 --
 -- Triggers `inbox`
 --
-DELIMITER //
+DELIMITER $$
 CREATE TRIGGER `inbox_timestamp` BEFORE INSERT ON `inbox`
  FOR EACH ROW BEGIN
     IF NEW.ReceivingDateTime = '0000-00-00 00:00:00' THEN
         SET NEW.ReceivingDateTime = CURRENT_TIMESTAMP();
     END IF;
 END
-//
+$$
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -7890,13 +7898,13 @@ INSERT INTO `kecamatan` (`ID_KECAMATAN`, `ID_KABKOTA`, `NAMA`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `keluhan` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `id_masyarakat` int(11) DEFAULT NULL,
   `subject` varchar(255) DEFAULT NULL,
   `keluhan` text,
   `id_kabupaten` varchar(255) DEFAULT NULL,
   `tanggal` timestamp NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -7905,9 +7913,9 @@ CREATE TABLE IF NOT EXISTS `keluhan` (
 --
 
 CREATE TABLE IF NOT EXISTS `komoditas` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `komoditas` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `komoditas`
@@ -7936,19 +7944,19 @@ CREATE TABLE IF NOT EXISTS `outbox` (
   `UDH` text,
   `Class` int(11) DEFAULT '-1',
   `TextDecoded` text NOT NULL,
-`ID` int(10) unsigned NOT NULL,
+  `ID` int(10) unsigned NOT NULL,
   `MultiPart` enum('false','true') DEFAULT 'false',
   `RelativeValidity` int(11) DEFAULT '-1',
   `SenderID` varchar(255) DEFAULT NULL,
   `SendingTimeOut` timestamp NULL DEFAULT '0000-00-00 00:00:00',
   `DeliveryReport` enum('default','yes','no') DEFAULT 'default',
   `CreatorID` text NOT NULL
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=56 ;
+) ENGINE=MyISAM AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
 
 --
 -- Triggers `outbox`
 --
-DELIMITER //
+DELIMITER $$
 CREATE TRIGGER `outbox_timestamp` BEFORE INSERT ON `outbox`
  FOR EACH ROW BEGIN
     IF NEW.InsertIntoDB = '0000-00-00 00:00:00' THEN
@@ -7961,7 +7969,7 @@ CREATE TRIGGER `outbox_timestamp` BEFORE INSERT ON `outbox`
         SET NEW.SendingTimeOut = CURRENT_TIMESTAMP();
     END IF;
 END
-//
+$$
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -7987,11 +7995,11 @@ CREATE TABLE IF NOT EXISTS `outbox_multipart` (
 --
 
 CREATE TABLE IF NOT EXISTS `pbk` (
-`ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL,
   `GroupID` int(11) NOT NULL DEFAULT '-1',
   `Name` text NOT NULL,
   `Number` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -8001,8 +8009,8 @@ CREATE TABLE IF NOT EXISTS `pbk` (
 
 CREATE TABLE IF NOT EXISTS `pbk_groups` (
   `Name` text NOT NULL,
-`ID` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `ID` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -8011,11 +8019,11 @@ CREATE TABLE IF NOT EXISTS `pbk_groups` (
 --
 
 CREATE TABLE IF NOT EXISTS `petani` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `nomor_hp` varchar(20) DEFAULT NULL,
   `nama` varchar(255) DEFAULT NULL,
   `id_kec` int(20) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `petani`
@@ -8056,7 +8064,7 @@ INSERT INTO `phones` (`ID`, `UpdatedInDB`, `InsertIntoDB`, `TimeOut`, `Send`, `R
 --
 -- Triggers `phones`
 --
-DELIMITER //
+DELIMITER $$
 CREATE TRIGGER `phones_timestamp` BEFORE INSERT ON `phones`
  FOR EACH ROW BEGIN
     IF NEW.InsertIntoDB = '0000-00-00 00:00:00' THEN
@@ -8066,7 +8074,7 @@ CREATE TRIGGER `phones_timestamp` BEFORE INSERT ON `phones`
         SET NEW.TimeOut = CURRENT_TIMESTAMP();
     END IF;
 END
-//
+$$
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -8213,7 +8221,7 @@ INSERT INTO `sentitems` (`UpdatedInDB`, `InsertIntoDB`, `SendingDateTime`, `Deli
 --
 -- Triggers `sentitems`
 --
-DELIMITER //
+DELIMITER $$
 CREATE TRIGGER `sentitems_timestamp` BEFORE INSERT ON `sentitems`
  FOR EACH ROW BEGIN
     IF NEW.InsertIntoDB = '0000-00-00 00:00:00' THEN
@@ -8223,7 +8231,7 @@ CREATE TRIGGER `sentitems_timestamp` BEFORE INSERT ON `sentitems`
         SET NEW.SendingDateTime = CURRENT_TIMESTAMP();
     END IF;
 END
-//
+$$
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -8233,13 +8241,13 @@ DELIMITER ;
 --
 
 CREATE TABLE IF NOT EXISTS `titik_distribusi` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `nama` varchar(255) DEFAULT NULL,
   `alamat` varchar(255) DEFAULT NULL,
   `id_kecamatan` int(11) DEFAULT NULL,
   `lat` float DEFAULT NULL,
   `long` float DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=37 ;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `titik_distribusi`
@@ -8290,10 +8298,10 @@ INSERT INTO `titik_distribusi` (`id`, `nama`, `alamat`, `id_kecamatan`, `lat`, `
 --
 
 CREATE TABLE IF NOT EXISTS `tweet` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `tweet` varchar(255) DEFAULT NULL,
   `tanggal` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -8329,121 +8337,134 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Indexes for table `harga_distribusi`
 --
 ALTER TABLE `harga_distribusi`
- ADD PRIMARY KEY (`id`), ADD KEY `id_komoditas` (`id_komoditas`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_komoditas` (`id_komoditas`);
 
 --
 -- Indexes for table `harga_petani`
 --
 ALTER TABLE `harga_petani`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `hp_masyarakat`
 --
 ALTER TABLE `hp_masyarakat`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `inbox`
 --
 ALTER TABLE `inbox`
- ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`ID`);
 
 --
 -- Indexes for table `kabkota`
 --
 ALTER TABLE `kabkota`
- ADD PRIMARY KEY (`ID_KABKOTA`), ADD UNIQUE KEY `KABKOTA_PK` (`ID_KABKOTA`), ADD KEY `MEMILIKI_PROVINSI_FK` (`NAMA`);
+  ADD PRIMARY KEY (`ID_KABKOTA`),
+  ADD UNIQUE KEY `KABKOTA_PK` (`ID_KABKOTA`),
+  ADD KEY `MEMILIKI_PROVINSI_FK` (`NAMA`);
 
 --
 -- Indexes for table `kecamatan`
 --
 ALTER TABLE `kecamatan`
- ADD PRIMARY KEY (`ID_KECAMATAN`), ADD UNIQUE KEY `KECAMATAN_PK` (`ID_KECAMATAN`), ADD KEY `MEMILIKI_KABKOTA_FK` (`ID_KABKOTA`);
+  ADD PRIMARY KEY (`ID_KECAMATAN`),
+  ADD UNIQUE KEY `KECAMATAN_PK` (`ID_KECAMATAN`),
+  ADD KEY `MEMILIKI_KABKOTA_FK` (`ID_KABKOTA`);
 
 --
 -- Indexes for table `keluhan`
 --
 ALTER TABLE `keluhan`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `komoditas`
 --
 ALTER TABLE `komoditas`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `outbox`
 --
 ALTER TABLE `outbox`
- ADD PRIMARY KEY (`ID`), ADD KEY `outbox_date` (`SendingDateTime`,`SendingTimeOut`), ADD KEY `outbox_sender` (`SenderID`);
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `outbox_date` (`SendingDateTime`,`SendingTimeOut`),
+  ADD KEY `outbox_sender` (`SenderID`);
 
 --
 -- Indexes for table `outbox_multipart`
 --
 ALTER TABLE `outbox_multipart`
- ADD PRIMARY KEY (`ID`,`SequencePosition`);
+  ADD PRIMARY KEY (`ID`,`SequencePosition`);
 
 --
 -- Indexes for table `pbk`
 --
 ALTER TABLE `pbk`
- ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`ID`);
 
 --
 -- Indexes for table `pbk_groups`
 --
 ALTER TABLE `pbk_groups`
- ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`ID`);
 
 --
 -- Indexes for table `petani`
 --
 ALTER TABLE `petani`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `phones`
 --
 ALTER TABLE `phones`
- ADD PRIMARY KEY (`IMEI`);
+  ADD PRIMARY KEY (`IMEI`);
 
 --
 -- Indexes for table `provinsi`
 --
 ALTER TABLE `provinsi`
- ADD PRIMARY KEY (`ID_PROVINSI`), ADD UNIQUE KEY `PROVINSI_PK` (`ID_PROVINSI`);
+  ADD PRIMARY KEY (`ID_PROVINSI`),
+  ADD UNIQUE KEY `PROVINSI_PK` (`ID_PROVINSI`);
 
 --
 -- Indexes for table `sentitems`
 --
 ALTER TABLE `sentitems`
- ADD PRIMARY KEY (`ID`,`SequencePosition`), ADD KEY `sentitems_date` (`DeliveryDateTime`), ADD KEY `sentitems_tpmr` (`TPMR`), ADD KEY `sentitems_dest` (`DestinationNumber`), ADD KEY `sentitems_sender` (`SenderID`);
+  ADD PRIMARY KEY (`ID`,`SequencePosition`),
+  ADD KEY `sentitems_date` (`DeliveryDateTime`),
+  ADD KEY `sentitems_tpmr` (`TPMR`),
+  ADD KEY `sentitems_dest` (`DestinationNumber`),
+  ADD KEY `sentitems_sender` (`SenderID`);
 
 --
 -- Indexes for table `titik_distribusi`
 --
 ALTER TABLE `titik_distribusi`
- ADD PRIMARY KEY (`id`), ADD KEY `id_kecamatan` (`id_kecamatan`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_kecamatan` (`id_kecamatan`);
 
 --
 -- Indexes for table `tweet`
 --
 ALTER TABLE `tweet`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `twitter_user`
 --
 ALTER TABLE `twitter_user`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
- ADD PRIMARY KEY (`username`,`password`);
+  ADD PRIMARY KEY (`username`,`password`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -8453,62 +8474,62 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `harga_distribusi`
 --
 ALTER TABLE `harga_distribusi`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=897;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=897;
 --
 -- AUTO_INCREMENT for table `harga_petani`
 --
 ALTER TABLE `harga_petani`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=205;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=205;
 --
 -- AUTO_INCREMENT for table `hp_masyarakat`
 --
 ALTER TABLE `hp_masyarakat`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `inbox`
 --
 ALTER TABLE `inbox`
-MODIFY `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
+  MODIFY `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `keluhan`
 --
 ALTER TABLE `keluhan`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `komoditas`
 --
 ALTER TABLE `komoditas`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `outbox`
 --
 ALTER TABLE `outbox`
-MODIFY `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=56;
+  MODIFY `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=56;
 --
 -- AUTO_INCREMENT for table `pbk`
 --
 ALTER TABLE `pbk`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `pbk_groups`
 --
 ALTER TABLE `pbk_groups`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `petani`
 --
 ALTER TABLE `petani`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `titik_distribusi`
 --
 ALTER TABLE `titik_distribusi`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=37;
 --
 -- AUTO_INCREMENT for table `tweet`
 --
 ALTER TABLE `tweet`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
