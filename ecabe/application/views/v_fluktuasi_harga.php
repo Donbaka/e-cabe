@@ -126,7 +126,7 @@
                         <div class="clearfix"></div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="profile"></div>
-                    <div role="tabpanel" class="tab-pane" id="messages"><div>
+                    <div role="tabpanel" class="tab-pane" id="messages"></div>
                 </div>
 
             </div>
