@@ -46,19 +46,21 @@ public class Harga {
         String pattern_harga_petani = "^\\LAPOR[ ]*(.*)\\#(.\\d*.)\\#(.\\d*.)";
         String patten_daftar = "^\\DAFTAR[ ]*(.*)\\#(.*.)\\#(.*.)";
         String pattern_harga_masyarakat = "^\\HARGA[ ]*(.*)\\#(.*.)\\#(.\\d*.)";
-        String pattern_keluhan = "^\\HARGA[ ]*(.*)\\#(.*.)\\#(.\\d*.)";
+        String pattern_keluhan = "^\\KELUHAN[ ]*(.*)\\#(.*.)\\#(.*.)";
 
         // Create a Pattern object
         // System.out.println(pattern_harga.replace("\\LAPOR", ""));
         Pattern r_harga_petani = Pattern.compile(pattern_harga_petani.replace("\\LAPOR", "LAPOR"));
         Pattern r_daftar = Pattern.compile(patten_daftar.replace("\\DAFTAR", "DAFTAR"));
         Pattern r_harga_masyarakat = Pattern.compile(pattern_harga_masyarakat.replace("\\HARGA", "HARGA"));
+        Pattern r_keluhan_masyarakat = Pattern.compile(pattern_keluhan.replace("\\KELUHAN", "KELUHAN"));
 
         // int index = 4;
         // Now create matcher object.
         Matcher harga_petani = r_harga_petani.matcher(sms);
         Matcher daftar = r_daftar.matcher(sms);
         Matcher harga_masyarakat = r_harga_masyarakat.matcher(sms);
+        Matcher keluhan_masyarakat = r_keluhan_masyarakat.matcher(sms);
 
         if (harga_petani.find()) {
             String[] a = {harga_petani.group(0), harga_petani.group(1), harga_petani.group(2), harga_petani.group(3), "harga"};
@@ -66,12 +68,15 @@ public class Harga {
         } else if (daftar.find()) {
             String[] a = {daftar.group(0), daftar.group(1), daftar.group(2), daftar.group(3), "daftar"};
             return a;
-        } else if(harga_masyarakat.find()){
+        } else if (harga_masyarakat.find()) {
             String[] a = {harga_masyarakat.group(0), harga_masyarakat.group(1), harga_masyarakat.group(2), harga_masyarakat.group(3), "masyarakat"};
             return a;
-        } 
-        
-        else {
+        } else if (keluhan_masyarakat.find()) {
+
+            //subject keluhan id_kabupaten
+            String[] a = {keluhan_masyarakat.group(0), keluhan_masyarakat.group(1), keluhan_masyarakat.group(2), keluhan_masyarakat.group(3), "keluhan"};
+            return a;
+        } else {
             String[] a = {"error"};
             // send.send(sms, sms);
             return a;
@@ -157,18 +162,18 @@ public class Harga {
         }
         return idPetani;
     }
-public String cekMasyarakat(String noHP) throws SQLException {
-        connect();
-        ResultSet result = stm.executeQuery(query.cekPetani + noHP);
-        String idPetani = "";
-        while (result.next()) {
 
-            idPetani[0] = result.getString("id");
-            idPetani[1] = result.getString("nama");
+    public String cekMasyarakat(String noHP) throws SQLException {
+        connect();
+        ResultSet result = stm.executeQuery(query.cekMasyarakat + noHP);
+        String idMasyarakat = "";
+        while (result.next()) {
+            idMasyarakat = result.getString("id");
 
         }
-        return idPetani;
+        return idMasyarakat;
     }
+
     public String cekKecamatan(String id_kabupaten, String kecamatan) throws SQLException {
         connect();
         ResultSet result = stm.executeQuery(query.kecamatan + id_kabupaten);
@@ -202,10 +207,10 @@ public String cekMasyarakat(String noHP) throws SQLException {
 
         // pstmt.executeUpdate(query.updateSms);
     }
-    
-    public void insertHargaMasyarakat(String idKomoditas, String idTitik, String harga) throws SQLException {
+
+    public void insertHargaMasyarakat(String idKomoditas, String idMasyarakat, String idTitik, String harga) throws SQLException {
         connect();
-        stm.executeUpdate("INSERT INTO `harga_distribusi` (`id_komoditas`, `id_titik`, `harga`) VALUES ('" + idKomoditas + "', '" + idTitik + "', '" + harga + "');");
+        stm.executeUpdate("INSERT INTO `harga_distribusi` (`id_komoditas`, `id_masyarakat`,`id_titik`, `harga`) VALUES ('" + idKomoditas + "','" + idMasyarakat + "', '" + idTitik + "', '" + harga + "');");
 
         // pstmt.executeUpdate(query.updateSms);
     }
@@ -217,19 +222,32 @@ public String cekMasyarakat(String noHP) throws SQLException {
         // pstmt.executeUpdate(query.updateSms);
     }
 
+    public void insertKeluhan(String id_masyarakat, String subject, String keluhan, String id_kabupaten) throws SQLException {
+        connect();
+        stm.executeUpdate("INSERT INTO `keluhan` (`id_masyarakat`, `subject`, `keluhan`, `id_kabupaten`) VALUES ('" + id_masyarakat + "', '" + subject + "', '" + keluhan + "', '" + id_kabupaten + "');");
+
+        // pstmt.executeUpdate(query.updateSms);
+    }
+
+    public void insertMasyarakat(String noHp) throws SQLException {
+        connect();
+        stm.executeUpdate("INSERT INTO `hp_masyarakat` (`nomor_hp`) VALUES ('" + noHp + "');");
+
+        // pstmt.executeUpdate(query.updateSms);
+    }
+
     public boolean cekDaftar(String no, String jenis) throws SQLException {
 
         boolean terdaftar;
         connect();
-        if(jenis.equalsIgnoreCase("petani")){
-        ResultSet result = stm.executeQuery(query.cekDaftarPetani + no);
-        terdaftar = result.next();
-        return terdaftar;
-        }
-        else{
+        if (jenis.equalsIgnoreCase("petani")) {
+            ResultSet result = stm.executeQuery(query.cekDaftarPetani + no);
+            terdaftar = result.next();
+            return terdaftar;
+        } else {
             ResultSet result = stm.executeQuery(query.cekDaftarMasyarakat + no);
-        terdaftar = result.next();
-        return terdaftar;
+            terdaftar = result.next();
+            return terdaftar;
         }
 
     }
@@ -248,28 +266,40 @@ public String cekMasyarakat(String noHP) throws SQLException {
 //                        + "LAPOR jenis-komoditas#harga#nama-pasar#kecamatan#kabupaten/kota\n");
                 send.send(result.getString("SenderNumber"), "Yang bener formatnya gan");
 //                        + "LAPOR jenis-komoditas#harga#nama-pasar#kecamatan#kabupaten/kota\n");
-            } else if (text[(text.length-1)].equalsIgnoreCase("daftar")) {
-                if (!cekDaftar(result.getString("SenderNumber"),"petani")) {
+            } else if (text[(text.length - 1)].equalsIgnoreCase("daftar")) {
+                if (!cekDaftar(result.getString("SenderNumber"), "petani")) {
                     insertDaftar(result.getString("SenderNumber"), text[1], cekKecamatan(cekKabupaten(text[2]), text[3]));
                     send.send(result.getString("SenderNumber"), "Pendaftaran berhasil dilakukan");
                 } else {
                     send.send(result.getString("SenderNumber"), "Maaf anda sudah daftar");
 
                 }
-            } else if (text[(text.length-1)].equalsIgnoreCase("harga")){
-                if (cekDaftar(result.getString("SenderNumber"),"petani")) {
+            } else if (text[(text.length - 1)].equalsIgnoreCase("harga")) {
+                if (cekDaftar(result.getString("SenderNumber"), "petani")) {
                     insertHargaPetani(cekKomoditas(text[1]), cekPetani(result.getString("SenderNumber"))[0], text[2], text[3]);
                     send.send(result.getString("SenderNumber"), "Terima Kasih telah berkontribusi dalam melakukan pelaporan harga komoditas");
                 } else {
                     send.send(result.getString("SenderNumber"), "daftar dulu dong");
 
                 }
-            } else if (text[(text.length-1)].equalsIgnoreCase("masyarakat")){
-                if (cekDaftar(result.getString("SenderNumber"),"masyarakat")) {
-                    insertHargaMasyarakat(cekKomoditas(text[1]), cekTitik(text[2]), text[3]);
+            } else if (text[(text.length - 1)].equalsIgnoreCase("masyarakat")) {
+                if (cekDaftar(result.getString("SenderNumber"), "masyarakat")) {
+                    insertHargaMasyarakat(cekKomoditas(text[1]), cekMasyarakat(result.getString("SenderNumber")), cekTitik(text[2]), text[3]);
                     send.send(result.getString("SenderNumber"), "Masyarakat");
                 } else {
-                    send.send(result.getString("SenderNumber"), "daftar sek cuk");
+                    insertMasyarakat(result.getString("SenderNumber"));
+                    insertHargaMasyarakat(cekKomoditas(text[1]), cekMasyarakat(result.getString("SenderNumber")), cekTitik(text[2]), text[3]);
+                    send.send(result.getString("SenderNumber"), "Masyarakat");
+
+                }
+            } else if (text[(text.length - 1)].equalsIgnoreCase("keluhan")) {
+                if (cekDaftar(result.getString("SenderNumber"), "masyarakat")) {
+                    insertKeluhan(cekMasyarakat(result.getString("SenderNumber")), text[1], text[2], cekKabupaten(text[3]));
+                    send.send(result.getString("SenderNumber"), "Keluhan");
+                } else {
+                    insertMasyarakat(result.getString("SenderNumber"));
+                    insertKeluhan(cekMasyarakat(result.getString("SenderNumber")), text[1], text[2], cekKabupaten(text[3]));
+                    send.send(result.getString("SenderNumber"), "Keluhan");
 
                 }
             }
@@ -284,8 +314,8 @@ public String cekMasyarakat(String noHP) throws SQLException {
         Harga harga = new Harga();
 //      
 
-       // System.out.println(harga.cekTitik("Pasar Kepulauan Bangka Belitung"));
-       harga.cekSms();
+        // System.out.println(harga.cekTitik("Pasar Kepulauan Bangka Belitung"));
+        harga.cekSms();
 
     }
 

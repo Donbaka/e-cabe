@@ -45,6 +45,8 @@ public class Query {
     public final String cekDaftarMasyarakat = "SELECT nomor_hp FROM hp_masyarakat WHERE nomor_hp =";
 
     public final String cekPetani = "SELECT id,nama FROM petani WHERE nomor_hp =";
+    public final String cekMasyarakat = "SELECT id FROM hp_masyarakat WHERE nomor_hp =";
+
     public final String cekTitik = "SELECT id,nama FROM titik_distribusi WHERE nama =";
 
     public final String insertHargaPetani = "INSERT INTO `cabe`.`harga_petani` (`id_komoditas`, `id_petani`, `harga`, `stok`) VALUES ('3', '1', '123132', '123213');";
