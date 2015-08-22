@@ -58,6 +58,7 @@ class M_Home extends CI_Model {
     }
 
     function getKenaikanTertinggi() {
+        $results = null;
         $query = "SELECT
                 h1.harga, ABS((h1.harga - h2.harga)/h2.harga)*100 as persentase
                 FROM
@@ -81,6 +82,7 @@ class M_Home extends CI_Model {
     }
     
     function getPenurunanTertinggi() {
+        $results = null;
         $query = "SELECT
                 h1.harga, ABS((h1.harga - h2.harga)/h2.harga)*100 as persentase
                 FROM
