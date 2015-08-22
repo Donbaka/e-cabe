@@ -13,8 +13,12 @@ import java.sql.Statement;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import jarowinkler.JaroWinkler;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.json.JSONException;
 
 public class Harga {
 
@@ -39,6 +43,7 @@ public class Harga {
     Query query = new Query();
     SmsSender send = new SmsSender();
     // Harga harga = new Harga();
+    Location lokasi = new Location();
 
     public String[] Regex(String sms) {
         // String to be scanned to find the pattern.
@@ -117,7 +122,9 @@ public class Harga {
         ResultSet result = stm.executeQuery(query.cekTitik + "'" + titik + "'");
         double similarity = 0;
         String id_kab = "";
+        //boolean status = true;
         while (result.next()) {
+            // status = false;
             double new_similarity = JW.compare(titik, result.getString("nama"));
             if (new_similarity > similarity) {
                 similarity = new_similarity;
@@ -127,7 +134,9 @@ public class Harga {
                     id_kab = "false";
                 }
             }
+
         }
+
         return id_kab;
     }
 
@@ -229,6 +238,13 @@ public class Harga {
         // pstmt.executeUpdate(query.updateSms);
     }
 
+    public void insertTitik(String nama, String alamat, String kecamatan, String lat, String lng) throws SQLException {
+        connect();
+        stm.executeUpdate("INSERT INTO `titik_distribusi` (`nama`, `alamat`, `id_kecamatan`, `lat`, `long`) VALUES ('" + nama + "', '" + alamat + "', '" + kecamatan + "', '" + lat + "', '" + lng + "');");
+
+        // pstmt.executeUpdate(query.updateSms);
+    }
+
     public void insertMasyarakat(String noHp) throws SQLException {
         connect();
         stm.executeUpdate("INSERT INTO `hp_masyarakat` (`nomor_hp`) VALUES ('" + noHp + "');");
@@ -284,8 +300,18 @@ public class Harga {
                 }
             } else if (text[(text.length - 1)].equalsIgnoreCase("masyarakat")) {
                 if (cekDaftar(result.getString("SenderNumber"), "masyarakat")) {
-                    insertHargaMasyarakat(cekKomoditas(text[1]), cekMasyarakat(result.getString("SenderNumber")), cekTitik(text[2]), text[3]);
-                    send.send(result.getString("SenderNumber"), "Masyarakat");
+                    if (!cekTitik(text[2]).equalsIgnoreCase("false")) {
+                        insertHargaMasyarakat(cekKomoditas(text[1]), cekMasyarakat(result.getString("SenderNumber")), cekTitik(text[2]), text[3]);
+                        send.send(result.getString("SenderNumber"), "Masyarakat");
+                    } else {
+                        try {
+                            insertTitik(text[2], lokasi.getLatLong(text[2]+text[3])[2], database, SQL, SQL);
+                        } catch (IOException ex) {
+                            Logger.getLogger(Harga.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (JSONException ex) {
+                            Logger.getLogger(Harga.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
                 } else {
                     insertMasyarakat(result.getString("SenderNumber"));
                     insertHargaMasyarakat(cekKomoditas(text[1]), cekMasyarakat(result.getString("SenderNumber")), cekTitik(text[2]), text[3]);
