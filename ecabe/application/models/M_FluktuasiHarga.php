@@ -24,8 +24,9 @@ class M_FluktuasiHarga extends CI_Model{
         return $results;
     }
     
-    public function getDataHargaByProvinsi($komoditas, $tahun, $idprov){
+    public function getDataHargaByProvinsi($komoditas, $tahun, $bulan, $tanggal, $idprov){
         $results = array();
+        
         $query = "SELECT AVG(h.harga) as HARGA, pro.ID_PROVINSI, MONTH(tanggal) as BULAN "
                 . "FROM harga_distribusi h "
                 . "JOIN titik_distribusi t "
@@ -41,7 +42,7 @@ class M_FluktuasiHarga extends CI_Model{
                 . "YEAR(tanggal)=".$tahun." AND "
                 . "pro.ID_PROVINSI=".$idprov." "
                 . "GROUP BY pro.ID_PROVINSI, BULAN";
-//        echo $query;
+        
         $hasil = $this->db->query($query);
         if ($hasil->num_rows() > 0) {
             $results = $hasil;

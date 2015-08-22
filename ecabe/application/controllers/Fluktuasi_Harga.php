@@ -73,7 +73,7 @@ class Fluktuasi_Harga extends CI_Controller {
      * @param type $komoditas
      * @param type $tahun
      */
-    public function grafik($komoditas=1, $tahun=2015){
+    public function grafik($komoditas=1, $tahun=2015, $bulan=0, $tanggal=0){
         $result = array();
         
         $provs = $this->M_Lokasi->get_provinsi();
@@ -87,7 +87,7 @@ class Fluktuasi_Harga extends CI_Controller {
 //        var_dump($provs);
         foreach($provs as $prov){
             $series = array();
-            $data = $this->M_FluktuasiHarga->getDataHargaByProvinsi($komoditas, $tahun, $prov->ID_PROVINSI);
+            $data = $this->M_FluktuasiHarga->getDataHargaByProvinsi($komoditas, $tahun, $bulan, $tanggal, $prov->ID_PROVINSI);
             if($data){
                 $series['name'] = $prov->NAMA;
                 $series['data'] = $this->_pushDataHarga(array(), $data);
@@ -140,7 +140,7 @@ class Fluktuasi_Harga extends CI_Controller {
      * @param int $tahun
      * @param int $bulan
      */
-    public function grafik_provinsi($komoditas=1, $provinsi=31, $tahun=2015, $bulan=0)
+    public function grafik_provinsi($komoditas=1, $provinsi=31, $tahun=2015, $bulan=0, $hari=0)
     {
         $result = array();
         
@@ -238,6 +238,64 @@ class Fluktuasi_Harga extends CI_Controller {
     }
     
     public function index_titik(){
+        if ($this->input->get('k')) {
+            $p_komoditas = $this->input->get('k', TRUE);
+        } else {
+            $p_komoditas = 1; // Komoditas default
+        }
         
+        if ($this->input->get('titik')){
+            $p_titik = $this->input->get('titik', TRUE);
+        } else {
+            $p_titik = 1; // default jakarta
+        }
+        
+        if ($this->input->get('t')) {
+            $p_tahun = $this->input->get('t', TRUE);
+        } else {
+            $p_tahun= 2015; //Current Year
+        }
+        
+        $data['provinsi'] = $this->M_Lokasi->get_provinsi();
+        
+        $data['title'] = $this->M_Lokasi->getTitikById($p_titik)->nama;
+        $data['komoditas'] = $this->M_Komoditas->getAllKomoditas();
+        $data['tahun'] = $this->get_tahun_aktif();
+        $data['url'] = site_url().'/fluktuasi_harga/grafik_titik/'.$p_komoditas.'/'.$p_titik.'/'.$p_tahun;
+        $data['form_url'] = 'fluktuasi_harga/index_kota';
+        $data['form_filter'] = 'v_grafik/filter_kota';
+        
+        $data['content'] = 'v_fluktuasi_harga';
+        $this->load->view('template', $data);
+    }
+    
+    public function grafik_titik($komoditas=1, $titik=1, $tahun=2015){
+        $result = array();
+        
+        $nama_kota = $this->M_Lokasi->getTitikById($kota)->NAMA;
+        $jenisKomoditas = $this->M_Komoditas->getKomoditasById($komoditas);
+        
+        $result['tahun'] = intval($tahun);
+        $result['title'] = "Grafik Fluktuasi Harga ".$jenisKomoditas;
+        $result['subtitle'] = "Perbandingan Rata-rata Harga ".$jenisKomoditas." di ".$nama_kota." Tahun ".$tahun;
+        $result['satuan'] = "Bulan";
+        $result['data'] = array();
+        
+        $spots = $this->M_Lokasi->getTitikByKota($kota);
+        
+        foreach($spots as $spot){
+            $series = array();
+            $data = $this->M_FluktuasiHarga->getDataHargaByTitik($komoditas, $tahun, $spot->ID);
+            if($data){
+                $series['name'] = $spot->NAMA;
+                $series['data'] = $this->_pushDataHarga(array(), $data);
+                
+                array_push($result['data'], $series);
+            }
+        }
+        
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($result));
     }
 }

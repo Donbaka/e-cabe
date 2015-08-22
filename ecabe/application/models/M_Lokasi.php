@@ -43,6 +43,16 @@ class M_Lokasi extends CI_Model{
         return $result;
     }
     
+    function getTitikById($idtitik){
+        $result = null;
+        $this->db->where("id", $idtitik);
+        $query = $this->db->get('titik_distribusi');
+        if ($query->num_rows() > 0) {
+            $result = $query->row();
+        }
+        return $result;
+    }
+    
     function getKotaByProvinsi($idprovinsi){
         $result = array();
         $this->db->where("ID_PROVINSI", $idprovinsi);
