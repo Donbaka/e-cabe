@@ -1,6 +1,6 @@
 <?php
 
-class m_pasar extends CI_Model {
+class M_Pasar extends CI_Model {
 
     function getLatLong() {
         $LatLong = array();
