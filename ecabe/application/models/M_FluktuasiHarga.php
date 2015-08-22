@@ -102,4 +102,27 @@ class M_FluktuasiHarga extends CI_Model{
         
         return $results;
     }
+    
+    public function getDataHargaByMasy($komoditas, $idtitik, $idmasy, $tahun, $bulan){
+        $results = array();
+
+        $query = "SELECT h.harga AS HARGA, m.id, MONTH(h.tanggal) as bulan, DAY(h.tanggal) as tanggal "
+                . " FROM harga_distribusi h "
+                . " JOIN hp_masyarakat m "
+                . " ON m.id = h.id_masyarakat "
+                . " WHERE h.id_komoditas=".$komoditas." AND "
+                . " MONTH(h.tanggal)=".$bulan." AND "
+                . " YEAR(h.tanggal)=".$tahun." AND "
+                . " m.id=".$idmasy." AND "
+                . " h.id_titik=".$idtitik." "
+                . " GROUP BY h.tanggal";
+        
+//        print $query;
+        $hasil = $this->db->query($query);
+        if ($hasil->num_rows() > 0) {
+            $results = $hasil;
+        }
+        
+        return $results;
+    }
 }

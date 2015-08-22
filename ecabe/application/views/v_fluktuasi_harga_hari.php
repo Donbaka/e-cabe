@@ -19,7 +19,7 @@
             crosshair: true,
             type: 'datetime',
             dateTimeLabelFormats: { // don't display the dummy year
-                day: '%B %Y'
+                day: '%e %B %Y'
             },
             title: {
                 text: ''
@@ -57,7 +57,7 @@
             var value = [];           
             var legend = datap.name;
             $.each(datap.data, function(j, titik){
-               var date = Date.UTC(resp.tahun, titik.bulan);
+               var date = Date.UTC(resp.tahun, titik.bulan, titik.tanggal);
                var harga = titik.harga;
                value.push([date, harga]);
             });
