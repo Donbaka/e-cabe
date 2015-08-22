@@ -42,7 +42,8 @@ public class Query {
     public final String cekSms = "SELECT ID, TextDecoded, SenderNumber FROM inbox WHERE Replied =0";
     public final String updateSms = "UPDATE `inbox` SET `Replied`=1 WHERE `ID` =";
     public final String cekDaftar = "SELECT nomor_hp FROM petani WHERE nomor_hp =";
-        public final String cekPetani = "SELECT id,nama FROM petani WHERE nomor_hp =";
+    public final String cekPetani = "SELECT id,nama FROM petani WHERE nomor_hp =";
+    public final String cekTitik = "SELECT id,nama FROM titik_distribusi WHERE nama =";
 
     public final String insertHargaPetani = "INSERT INTO `cabe`.`harga_petani` (`id_komoditas`, `id_petani`, `harga`, `stok`) VALUES ('3', '1', '123132', '123213');";
 
