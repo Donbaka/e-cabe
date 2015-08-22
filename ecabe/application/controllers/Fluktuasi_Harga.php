@@ -265,30 +265,38 @@ class Fluktuasi_Harga extends CI_Controller {
         $data['form_url'] = 'fluktuasi_harga/index_kota';
         $data['form_filter'] = 'v_grafik/filter_kota';
         
-        $data['content'] = 'v_fluktuasi_harga';
+        $data['content'] = 'v_fluktuasi_harga_hari';
         $this->load->view('template', $data);
     }
     
-    public function grafik_titik($komoditas=1, $titik=1, $tahun=2015){
+    public function grafik_titik($komoditas=1, $titik=1, $tahun=2015, $bulan=5){
         $result = array();
         
-        $nama_kota = $this->M_Lokasi->getTitikById($kota)->NAMA;
+        $nama_titik = $this->M_Lokasi->getTitikById($titik)->nama;
         $jenisKomoditas = $this->M_Komoditas->getKomoditasById($komoditas);
         
         $result['tahun'] = intval($tahun);
         $result['title'] = "Grafik Fluktuasi Harga ".$jenisKomoditas;
-        $result['subtitle'] = "Perbandingan Rata-rata Harga ".$jenisKomoditas." di ".$nama_kota." Tahun ".$tahun;
-        $result['satuan'] = "Bulan";
+        $result['subtitle'] = "Perbandingan Rata-rata Harga ".$jenisKomoditas." di ".$nama_titik." pada bulan ".$bulan." tahun ".$tahun;
+        $result['satuan'] = "Tanggal";
         $result['data'] = array();
         
-        $spots = $this->M_Lokasi->getTitikByKota($kota);
+        $this->load->model('M_Masyarakat');
+        $masyarakat = $this->M_Masyarakat->getMasyarakat();
         
-        foreach($spots as $spot){
+        $no = 1;
+        foreach($masyarakat as $m){
             $series = array();
-            $data = $this->M_FluktuasiHarga->getDataHargaByTitik($komoditas, $tahun, $spot->ID);
+            $data = $this->M_FluktuasiHarga->getDataHargaByMasy($komoditas, $titik, $m->id, $tahun, $bulan);
             if($data){
-                $series['name'] = $spot->NAMA;
-                $series['data'] = $this->_pushDataHarga(array(), $data);
+                $series['name'] = "Pelapor #".$no++;
+                $series['data'] = array();
+                foreach($data->result() as $row){
+                    $d['harga'] = floatval($row->HARGA);
+                    $d['tanggal'] = $row->tanggal;
+                    $d['bulan'] = $row->bulan;
+                    array_push($series['data'], $d);
+                }
                 
                 array_push($result['data'], $series);
             }
