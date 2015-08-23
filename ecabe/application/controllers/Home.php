@@ -14,6 +14,10 @@ class Home extends CI_Controller {
     public function index() {
         $data['content'] = 'v_home';
         $data['pasar'] = $this->M_Home->getHitungPasar();
+        $data['petani'] = $this->M_Home->getPetani();
+        $data['laporan'] = $this->M_Home->getLaporan();
+        $data['user'] = $this->M_Home->getUser();
+        
         $data['kenaikanTertinggi'] = $this->M_Home->getKenaikanTertinggi()->harga;
         $data['persentasekenaikan'] = $this->M_Home->getKenaikanTertinggi()->persentase;
         $data['penurunanTertinggi'] = $this->M_Home->getPenurunanTertinggi()->harga;
@@ -48,7 +52,7 @@ class Home extends CI_Controller {
         
         $result['tahun'] = intval($tahun);
         $result['title'] = "Grafik Fluktuasi Harga ".$jenisKomoditas;
-        $result['subtitle'] = "Perbandingan Rata-rata Harga ".$jenisKomoditas." tiap Provinsi Tahun ".$tahun;
+        $result['subtitle'] = "5 Provinsi dengan kenaikan harga ".$jenisKomoditas." tertinggi dari hari sebelumnya";
         $result['satuan'] = "Tanggal";
         $result['data'] = array();
 //        var_dump($provs);

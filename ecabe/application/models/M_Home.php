@@ -10,6 +10,7 @@ class M_Home extends CI_Model {
         $this->db->join("kecamatan", "titik_distribusi.id_kecamatan = kecamatan.ID_KECAMATAN");
         $this->db->join("kabkota", "kecamatan.ID_KABKOTA = kabkota.ID_KABKOTA");
         $this->db->join("provinsi", "provinsi.ID_PROVINSI = kabkota.ID_PROVINSI");
+        $this->db->where("harga_distribusi.tanggal", date('Y-m-d'));
         $this->db->group_by("provinsi.ID_PROVINSI");
         $data = $this->db->get();
         return $data;
@@ -18,6 +19,21 @@ class M_Home extends CI_Model {
     function getHitungPasar() {
         $pasar = $this->db->count_all_results('titik_distribusi');
         return $pasar;
+    }
+    
+    function getLaporan() {
+        $laporan = $this->db->count_all_results('harga_distribusi');
+        return $laporan;
+    }
+    
+    function getUser() {
+        $user = $this->db->count_all_results('hp_masyarakat');
+        return $user;
+    }
+    
+    function getPetani() {
+        $petani = $this->db->count_all_results('petani');
+        return $petani;
     }
 
     /**

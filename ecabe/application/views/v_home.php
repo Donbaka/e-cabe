@@ -15,6 +15,10 @@
                 title: {
                     text: 'Persebaran Harga Cabe'
                 },
+                subtitle: {
+                    text: 'Harga Cabe Hari Ini',
+                    x: -20
+                },
                 mapNavigation: {
                     enabled: true,
                     buttonOptions: {
@@ -130,33 +134,33 @@
         <div class="animated flipInY col-md-3 col-sm-6 col-xs-6 tile_stats_count">
             <div class="left"></div>
             <div class="right">
-                <span class="count_top"><i class="fa fa-user"></i> Kenaikan Tertinggi</span>
-                <div class="count"><?php echo "Rp. ".number_format($kenaikanTertinggi); ?></div>
-                <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i><?php echo number_format ($persentasekenaikan, 2, ',', ''); ?>% </i> Dari Hari Sebelumnya</span>
+                <span class="count_top"><i class="fa fa-bar-chart"></i> Kenaikan Tertinggi</span>
+                <div class="count"><?php echo "Rp. " . number_format($kenaikanTertinggi); ?></div>
+                <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i><?php echo number_format($persentasekenaikan, 2, ',', ''); ?>% </i> Dari Hari Sebelumnya</span>
             </div>
         </div>
         <div class="animated flipInY col-md-3 col-sm-6 col-xs-6 tile_stats_count">
             <div class="left"></div>
             <div class="right">
-                <span class="count_top"><i class="fa fa-clock-o"></i> Penurunan Tertinggi</span>
-                <div class="count"><?php echo "Rp. ".number_format($penurunanTertinggi); ?></div>
-                <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i><?php echo number_format ($persentasepenurunan, 2, ',', ''); ?>% </i> Dari Hari Sebelumnya</span>
+                <span class="count_top"><i class="fa fa-bar-chart"></i> Penurunan Tertinggi</span>
+                <div class="count"><?php echo "Rp. " . number_format($penurunanTertinggi); ?></div>
+                <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i><?php echo number_format($persentasepenurunan, 2, ',', ''); ?>% </i> Dari Hari Sebelumnya</span>
             </div>
         </div>
         <div class="animated flipInY col-md-3 col-sm-6 col-xs-6 tile_stats_count">
             <div class="left"></div>
             <div class="right">
-                <span class="count_top"><i class="fa fa-user"></i> Harga Terendah</span>
-                <div class="count green"><?php echo "Rp. ".number_format($hargaterendah); ?></div>
-                <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i><?php echo number_format ($persentasetertinggi, 2, ',', ''); ?>% </i> Dari Hari Sebelumnya</span>
+                <span class="count_top"><i class="fa fa-bar-chart"></i> Harga Terendah</span>
+                <div class="count green"><?php echo "Rp. " . number_format($hargaterendah); ?></div>
+                <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i><?php echo number_format($persentasetertinggi, 2, ',', ''); ?>% </i> Dari Hari Sebelumnya</span>
             </div>
         </div>
         <div class="animated flipInY col-md-3 col-sm-6 col-xs-6 tile_stats_count">
             <div class="left"></div>
             <div class="right">
-                <span class="count_top"><i class="fa fa-user"></i> Harga Tertinggi</span>
-                <div class="count red"><?php echo "Rp. ".number_format($hargatertinggi); ?></div>
-                <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i><?php echo number_format ($persentaseterendah, 2, ',', ''); ?>% </i> Dari Hari Sebelumnya</span>
+                <span class="count_top"><i class="fa fa-bar-chart"></i> Harga Tertinggi</span>
+                <div class="count red"><?php echo "Rp. " . number_format($hargatertinggi); ?></div>
+                <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i><?php echo number_format($persentaseterendah, 2, ',', ''); ?>% </i> Dari Hari Sebelumnya</span>
             </div>
         </div>
     </div>
@@ -182,14 +186,19 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <div id="container"></div>
+                <div id="container">
+                    <center>
+                        <i class="fa fa-refresh fa-spin fa-2x"></i>
+                        <p>Memuat grafik...</p>
+                    </center>
+                </div>
             </div>
         </div>
     </div>
     <div class="col-md-3">
         <div class="animated flipInY">
             <div class="tile-stats">
-                <div class="icon"><i class="fa fa-caret-square-o-right"></i>
+                <div class="icon"><i class="fa fa-shopping-cart"></i>
                 </div>
                 <div class="count"><?php echo $pasar; ?></div>
 
@@ -199,9 +208,9 @@
         </div>
         <div class="animated flipInY">
             <div class="tile-stats">
-                <div class="icon"><i class="fa fa-comments-o"></i>
+                <div class="icon"><i class="fa fa-newspaper-o"></i>
                 </div>
-                <div class="count">179</div>
+                <div class="count"><?php echo $laporan; ?></div>
 
                 <h3>Laporan</h3>
                 <p>Jumlah Laporan Diterima</p>
@@ -209,9 +218,9 @@
         </div>
         <div class="animated flipInY">
             <div class="tile-stats">
-                <div class="icon"><i class="fa fa-sort-amount-desc"></i>
+                <div class="icon"><i class="fa fa-users"></i>
                 </div>
-                <div class="count">179</div>
+                <div class="count"><?php echo $user; ?></div>
 
                 <h3>User</h3>
                 <p>Jumlah User Terdaftar</p>
@@ -219,9 +228,9 @@
         </div>
         <div class="animated flipInY">
             <div class="tile-stats">
-                <div class="icon"><i class="fa fa-check-square-o"></i>
+                <div class="icon"><i class="fa fa-users"></i>
                 </div>
-                <div class="count">179</div>
+                <div class="count"><?php echo $petani; ?></div>
 
                 <h3>Petani</h3>
                 <p>Jumlah Petani Terdaftar</p>
@@ -234,8 +243,10 @@
     <div class="x_panel">
         <div class="x_title"></div>
         <div class="x_content">
-            <i class="fa fa-refresh fa-spin fa-2x"></i>
-            <p>Memuat grafik...</p>
+            <center>
+                <i class="fa fa-refresh fa-spin fa-2x"></i>
+                <p>Memuat grafik...</p>
+            </center>
         </div>
     </div>
 </div>
