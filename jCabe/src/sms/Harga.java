@@ -52,6 +52,7 @@ public class Harga {
         String patten_daftar = "^\\DAFTAR[ ]*(.*)\\#(.*.)\\#(.*.)";
         String pattern_harga_masyarakat = "^\\HARGA[ ]*(.*)\\#(.*.)\\#(.\\d*.)";
         String pattern_keluhan = "^\\KELUHAN[ ]*(.*)\\#(.*.)\\#(.*.)";
+        String pattern_titik = "^\\TITIK[ ]*(.*)\\#(.*.)\\#(.*.)";
 
         // Create a Pattern object
         // System.out.println(pattern_harga.replace("\\LAPOR", ""));
@@ -59,13 +60,14 @@ public class Harga {
         Pattern r_daftar = Pattern.compile(patten_daftar.replace("\\DAFTAR", "DAFTAR"));
         Pattern r_harga_masyarakat = Pattern.compile(pattern_harga_masyarakat.replace("\\HARGA", "HARGA"));
         Pattern r_keluhan_masyarakat = Pattern.compile(pattern_keluhan.replace("\\KELUHAN", "KELUHAN"));
-
+        Pattern r_daftar_titik = Pattern.compile(pattern_titik.replace("\\TITIK", "TITIK"));
         // int index = 4;
         // Now create matcher object.
         Matcher harga_petani = r_harga_petani.matcher(sms);
         Matcher daftar = r_daftar.matcher(sms);
         Matcher harga_masyarakat = r_harga_masyarakat.matcher(sms);
         Matcher keluhan_masyarakat = r_keluhan_masyarakat.matcher(sms);
+        Matcher daftar_titik = r_daftar_titik.matcher(sms);
 
         if (harga_petani.find()) {
             String[] a = {harga_petani.group(0), harga_petani.group(1), harga_petani.group(2), harga_petani.group(3), "harga"};
@@ -78,8 +80,11 @@ public class Harga {
             return a;
         } else if (keluhan_masyarakat.find()) {
 
-            //subject keluhan id_kabupaten
             String[] a = {keluhan_masyarakat.group(0), keluhan_masyarakat.group(1), keluhan_masyarakat.group(2), keluhan_masyarakat.group(3), "keluhan"};
+            return a;
+        } else if (daftar_titik.find()) {
+
+            String[] a = {daftar_titik.group(0), daftar_titik.group(1), daftar_titik.group(2), daftar_titik.group(3), "titik"};
             return a;
         } else {
             String[] a = {"error"};
@@ -300,18 +305,18 @@ public class Harga {
                 }
             } else if (text[(text.length - 1)].equalsIgnoreCase("masyarakat")) {
                 if (cekDaftar(result.getString("SenderNumber"), "masyarakat")) {
-                    if (!cekTitik(text[2]).equalsIgnoreCase("false")) {
-                        insertHargaMasyarakat(cekKomoditas(text[1]), cekMasyarakat(result.getString("SenderNumber")), cekTitik(text[2]), text[3]);
-                        send.send(result.getString("SenderNumber"), "Masyarakat");
-                    } else {
-                        try {
-                            insertTitik(text[2], lokasi.getLatLong(text[2]+text[3])[2], database, SQL, SQL);
-                        } catch (IOException ex) {
-                            Logger.getLogger(Harga.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (JSONException ex) {
-                            Logger.getLogger(Harga.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
+//                    if (!cekTitik(text[2]).equalsIgnoreCase("false")) {
+                    insertHargaMasyarakat(cekKomoditas(text[1]), cekMasyarakat(result.getString("SenderNumber")), cekTitik(text[2]), text[3]);
+                    send.send(result.getString("SenderNumber"), "Masyarakat");
+//                    } else {
+//                        try {
+//                            insertTitik(text[2], lokasi.getLatLong(text[2] + text[3])[2], database, SQL, SQL);
+//                        } catch (IOException ex) {
+//                            Logger.getLogger(Harga.class.getName()).log(Level.SEVERE, null, ex);
+//                        } catch (JSONException ex) {
+//                            Logger.getLogger(Harga.class.getName()).log(Level.SEVERE, null, ex);
+//                        }
+//                    }
                 } else {
                     insertMasyarakat(result.getString("SenderNumber"));
                     insertHargaMasyarakat(cekKomoditas(text[1]), cekMasyarakat(result.getString("SenderNumber")), cekTitik(text[2]), text[3]);
@@ -327,6 +332,35 @@ public class Harga {
                     insertKeluhan(cekMasyarakat(result.getString("SenderNumber")), text[1], text[2], cekKabupaten(text[3]));
                     send.send(result.getString("SenderNumber"), "Keluhan");
 
+                }
+            } else if (text[(text.length - 1)].equalsIgnoreCase("titik")) {
+                if (cekDaftar(result.getString("SenderNumber"), "masyarakat")) {
+                    try {
+                        insertTitik(text[1], lokasi.getLatLong(text[1]+" "+text[2]+" "+text[3])[2],
+                                cekKecamatan(cekKabupaten(text[2]), text[3]), 
+                                lokasi.getLatLong(text[1]+" "+text[2]+" "+text[3])[0],
+                                lokasi.getLatLong(text[1]+" "+text[2]+" "+text[3])[1]);
+                      //  insertKeluhan(cekMasyarakat(result.getString("SenderNumber")), text[1], text[2], cekKabupaten(text[3]));
+                        send.send(result.getString("SenderNumber"), "Titik");
+                    } catch (IOException ex) {
+                        Logger.getLogger(Harga.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (JSONException ex) {
+                        Logger.getLogger(Harga.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    insertMasyarakat(result.getString("SenderNumber"));
+                   try {
+                        insertTitik(text[1], lokasi.getLatLong(text[1]+" "+text[2]+" "+text[3])[2],
+                                cekKecamatan(cekKabupaten(text[2]), text[3]), 
+                                lokasi.getLatLong(text[1]+" "+text[2]+" "+text[3])[0],
+                                lokasi.getLatLong(text[1]+" "+text[2]+" "+text[3])[1]);
+                      //  insertKeluhan(cekMasyarakat(result.getString("SenderNumber")), text[1], text[2], cekKabupaten(text[3]));
+                        send.send(result.getString("SenderNumber"), "Titik");
+                    } catch (IOException ex) {
+                        Logger.getLogger(Harga.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (JSONException ex) {
+                        Logger.getLogger(Harga.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
 

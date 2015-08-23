@@ -7,7 +7,6 @@ package sms;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -25,7 +24,6 @@ public class Query {
     private static String SQL;
     private static Connection con;
     private static Statement stm;
-    private static PreparedStatement pstmt;
     private static ResultSet rs;
 
     public void connect() {
@@ -45,7 +43,7 @@ public class Query {
     public final String cekDaftarMasyarakat = "SELECT nomor_hp FROM hp_masyarakat WHERE nomor_hp =";
 
     public final String cekPetani = "SELECT id,nama FROM petani WHERE nomor_hp =";
-    public final String cekMasyarakat = "SELECT id FROM hp_masyarakat WHERE nomor_hp =";
+    public final String cekMasyarakat = "SELECT id FROM hp_masyarakat WHERE flag=1 and nomor_hp =";
 
     public final String cekTitik = "SELECT id,nama FROM titik_distribusi WHERE nama =";
 
