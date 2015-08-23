@@ -45,14 +45,14 @@
         <div id="wrapper">
             <div id="login" class="animate form">
                 <section class="login_content">
-                    <form action="home/kode">
-                        <h1>Login Form</h1>
+                    <form>
+                        <h1>Silahkan masukkan nomor verifikasi anda</h1>
                         <div>
-                            <input type="text" class="form-control" placeholder="Nomor HP" required="" />
+                            <input type="text" class="form-control" placeholder="Nomor" required="" />
                         </div>
                        
                         <div>
-                            <a class="btn btn-default submit" href="index.html">Log in</a>
+                            <a class="btn btn-default submit" href="index.html">Submit</a>
                           
                         </div>
                         <div class="clearfix"></div>
@@ -63,7 +63,7 @@
                             <br />
                             <div>
 
-                                <p>Kami akan mengirimkan kode verifikasi kepada nomor HP anda</p>
+                                <p>©2015 All Rights Reserved.</p>
                             </div>
                         </div>
                     </form>

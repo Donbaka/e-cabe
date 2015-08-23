@@ -93,5 +93,9 @@ class Home extends CI_Controller {
     function login(){
         $this->load->view("login");
     }
+    
+    function kode(){
+        $this->load->view("inputKode");
+    }
 
 }
