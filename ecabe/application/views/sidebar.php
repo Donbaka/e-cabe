@@ -27,7 +27,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="<?=site_url('dapur/masyarakat/rank')?>">Masyarakat</a>
+                        <a href="<?=site_url('dapur/masyarakat/rank')?>"><i class="fa fa-users"></i> Masyarakat</a>
                     </li>
                     <li><a href="#"><i class="fa fa-question"></i> Tentang</a></li>
                 </ul>
