@@ -53,6 +53,7 @@ public class Harga {
         String pattern_harga_masyarakat = "^\\HARGA[ ]*(.*)\\#(.*.)\\#(.\\d*.)";
         String pattern_keluhan = "^\\KELUHAN[ ]*(.*)\\#(.*.)\\#(.*.)";
         String pattern_titik = "^\\TITIK[ ]*(.*)\\#(.*.)\\#(.*.)";
+        String pattern_murah = "^\\MURAH[ ]*(.*)\\#(.*.)";
 
         // Create a Pattern object
         // System.out.println(pattern_harga.replace("\\LAPOR", ""));
@@ -61,6 +62,7 @@ public class Harga {
         Pattern r_harga_masyarakat = Pattern.compile(pattern_harga_masyarakat.replace("\\HARGA", "HARGA"));
         Pattern r_keluhan_masyarakat = Pattern.compile(pattern_keluhan.replace("\\KELUHAN", "KELUHAN"));
         Pattern r_daftar_titik = Pattern.compile(pattern_titik.replace("\\TITIK", "TITIK"));
+        Pattern r_murah = Pattern.compile(pattern_murah.replace("\\MURAH", "MURAH"));
         // int index = 4;
         // Now create matcher object.
         Matcher harga_petani = r_harga_petani.matcher(sms);
@@ -68,6 +70,7 @@ public class Harga {
         Matcher harga_masyarakat = r_harga_masyarakat.matcher(sms);
         Matcher keluhan_masyarakat = r_keluhan_masyarakat.matcher(sms);
         Matcher daftar_titik = r_daftar_titik.matcher(sms);
+        Matcher murah = r_murah.matcher(sms);
 
         if (harga_petani.find()) {
             String[] a = {harga_petani.group(0), harga_petani.group(1), harga_petani.group(2), harga_petani.group(3), "harga"};
@@ -85,6 +88,10 @@ public class Harga {
         } else if (daftar_titik.find()) {
 
             String[] a = {daftar_titik.group(0), daftar_titik.group(1), daftar_titik.group(2), daftar_titik.group(3), "titik"};
+            return a;
+        } else if (murah.find()) {
+
+            String[] a = {murah.group(0), murah.group(1), murah.group(2), "murah"};
             return a;
         } else {
             String[] a = {"error"};
@@ -175,6 +182,32 @@ public class Harga {
 
         }
         return idPetani;
+    }
+
+    public String[] getTermurah(String komoditas, String kabupaten) throws SQLException {
+        connect();
+        ResultSet result = stm.executeQuery("SELECT harga, t.nama, h.tanggal\n"
+                + "FROM\n"
+                + "harga_distribusi as h\n"
+                + "INNER JOIN\n"
+                + "titik_distribusi as t\n"
+                + "ON h.id_titik = t.id \n"
+                + "INNER JOIN\n"
+                + "kecamatan as kec\n"
+                + "ON t.id_kecamatan = kec.ID_KECAMATAN\n"
+                + "INNER JOIN\n"
+                + "kabkota as kab \n"
+                + "ON kec.ID_KABKOTA = kab.ID_KABKOTA WHERE kab.ID_KABKOTA ="+kabupaten+" AND h.id_komoditas="+komoditas+"\n"
+                + "ORDER BY harga ASC ,tanggal DESC LIMIT 0,1");
+        String[] harga = new String[3];
+        while (result.next()) {
+
+            harga[0] = result.getString("harga");
+            harga[1] = result.getString("nama");
+            harga[2] = result.getString("tanggal");
+
+        }
+        return harga;
     }
 
     public String cekMasyarakat(String noHP) throws SQLException {
@@ -281,7 +314,7 @@ public class Harga {
             String text[];
 
             //try {
-            text = Regex(result.getString("TextDecoded"));
+            text = Regex(result.getString("TextDecoded").toUpperCase());
             if (text[0].equalsIgnoreCase("error")) {
 //                send.send(rs.getString("SenderNumber"), "Maaf format yang anda masukkan salah. Format SMS:\n"
 //                        + "LAPOR jenis-komoditas#harga#nama-pasar#kecamatan#kabupaten/kota\n");
@@ -333,14 +366,22 @@ public class Harga {
                     send.send(result.getString("SenderNumber"), "Keluhan");
 
                 }
+            } else if (text[(text.length - 1)].equalsIgnoreCase("murah")) {
+                if (cekDaftar(result.getString("SenderNumber"), "masyarakat")) {
+                    send.send(result.getString("SenderNumber"),"Harga :" + getTermurah(cekKomoditas(text[1]),cekKabupaten(text[2]))[0] + " Pasar :" + getTermurah(cekKomoditas(text[1]),cekKabupaten(text[2]))[1] + " Tanggal :" + getTermurah(cekKomoditas(text[1]),cekKabupaten(text[2]))[2]);
+                } else {
+                    insertMasyarakat(result.getString("SenderNumber"));
+                    send.send(result.getString("SenderNumber"),"Harga :" + getTermurah(cekKomoditas(text[1]),cekKabupaten(text[2]))[0] + " Pasar :" + getTermurah(cekKomoditas(text[1]),cekKabupaten(text[2]))[1] + " Tanggal :" + getTermurah(cekKomoditas(text[1]),cekKabupaten(text[2]))[2]);
+
+                }
             } else if (text[(text.length - 1)].equalsIgnoreCase("titik")) {
                 if (cekDaftar(result.getString("SenderNumber"), "masyarakat")) {
                     try {
-                        insertTitik(text[1], lokasi.getLatLong(text[1]+" "+text[2]+" "+text[3])[2],
-                                cekKecamatan(cekKabupaten(text[2]), text[3]), 
-                                lokasi.getLatLong(text[1]+" "+text[2]+" "+text[3])[0],
-                                lokasi.getLatLong(text[1]+" "+text[2]+" "+text[3])[1]);
-                      //  insertKeluhan(cekMasyarakat(result.getString("SenderNumber")), text[1], text[2], cekKabupaten(text[3]));
+                        insertTitik(text[1], lokasi.getLatLong(text[1] + " " + text[2] + " " + text[3])[2],
+                                cekKecamatan(cekKabupaten(text[2]), text[3]),
+                                lokasi.getLatLong(text[1] + " " + text[2] + " " + text[3])[0],
+                                lokasi.getLatLong(text[1] + " " + text[2] + " " + text[3])[1]);
+                        //  insertKeluhan(cekMasyarakat(result.getString("SenderNumber")), text[1], text[2], cekKabupaten(text[3]));
                         send.send(result.getString("SenderNumber"), "Titik");
                     } catch (IOException ex) {
                         Logger.getLogger(Harga.class.getName()).log(Level.SEVERE, null, ex);
@@ -349,12 +390,12 @@ public class Harga {
                     }
                 } else {
                     insertMasyarakat(result.getString("SenderNumber"));
-                   try {
-                        insertTitik(text[1], lokasi.getLatLong(text[1]+" "+text[2]+" "+text[3])[2],
-                                cekKecamatan(cekKabupaten(text[2]), text[3]), 
-                                lokasi.getLatLong(text[1]+" "+text[2]+" "+text[3])[0],
-                                lokasi.getLatLong(text[1]+" "+text[2]+" "+text[3])[1]);
-                      //  insertKeluhan(cekMasyarakat(result.getString("SenderNumber")), text[1], text[2], cekKabupaten(text[3]));
+                    try {
+                        insertTitik(text[1], lokasi.getLatLong(text[1] + " " + text[2] + " " + text[3])[2],
+                                cekKecamatan(cekKabupaten(text[2]), text[3]),
+                                lokasi.getLatLong(text[1] + " " + text[2] + " " + text[3])[0],
+                                lokasi.getLatLong(text[1] + " " + text[2] + " " + text[3])[1]);
+                        //  insertKeluhan(cekMasyarakat(result.getString("SenderNumber")), text[1], text[2], cekKabupaten(text[3]));
                         send.send(result.getString("SenderNumber"), "Titik");
                     } catch (IOException ex) {
                         Logger.getLogger(Harga.class.getName()).log(Level.SEVERE, null, ex);
@@ -373,7 +414,7 @@ public class Harga {
     public static void main(String[] args) throws SQLException, ParseException {
         Harga harga = new Harga();
 //      
-
+//System.out.println(harga.getTermurah()[0]);
         // System.out.println(harga.cekTitik("Pasar Kepulauan Bangka Belitung"));
         harga.cekSms();
 

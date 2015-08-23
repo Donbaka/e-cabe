@@ -47,6 +47,20 @@ public class Query {
 
     public final String cekTitik = "SELECT id,nama FROM titik_distribusi WHERE nama =";
 
+    public final String murah = "SELECT harga, t.nama, h.tanggal\n"
+            + "FROM\n"
+            + "harga_distribusi as h\n"
+            + "INNER JOIN\n"
+            + "titik_distribusi as t\n"
+            + "ON h.id_titik = t.id \n"
+            + "INNER JOIN\n"
+            + "kecamatan as kec\n"
+            + "ON t.id_kecamatan = kec.ID_KECAMATAN\n"
+            + "INNER JOIN\n"
+            + "kabkota as kab \n"
+            + "ON kec.ID_KABKOTA = kab.ID_KABKOTA WHERE h.id_titik =1 AND h.id_komoditas=1\n"
+            + "ORDER BY harga ASC ,tanggal DESC LIMIT 0,1";
+
     public final String insertHargaPetani = "INSERT INTO `cabe`.`harga_petani` (`id_komoditas`, `id_petani`, `harga`, `stok`) VALUES ('3', '1', '123132', '123213');";
 
 }
