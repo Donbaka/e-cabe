@@ -8,19 +8,12 @@
 
             <div class="menu_section">
                 <ul class="nav side-menu">
-                    <li><a><i class="fa fa-home"></i> Dashboard</a>
-                    <li><a><i class="fa fa-newspaper-o"></i> Berita</a>
+                    <li><a href="<?=site_url()?>"><i class="fa fa-home"></i> Dashboard</a>
                     </li>
-                    <li><a><i class="fa fa-bar-chart"></i> Statistik <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu" style="display: none">
-                            <li><a href="form.html">Statistik Harga Cabe</a></li>
-                            <li><a href="form_advanced.html">Statistik per-Wilayah</a></li>
-                        </ul>
-                    </li>
-                    <li><a><i class="fa fa-shopping-cart"></i> Pasar</a></li>
+                    <li><a href="<?=site_url('pasar')?>"><i class="fa fa-shopping-cart"></i> Pasar</a></li>
                     <li><a><i class="fa fa-tree"></i> Komoditas <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu" style="display: none">
-                            <li><a href="inputHarga">Input Harga Komoditas</a></li>
+                            <li><a href="<?=site_url('inputHarga')?>">Input Harga Komoditas</a></li>
                         </ul>
                     </li>                    
                     <li><a><i class="fa fa-bar-chart"></i> Fluktuasi Harga <span class="fa fa-chevron-down"></span></a>
@@ -29,7 +22,11 @@
                             <li><a href="<?=site_url('fluktuasi_harga/index_provinsi')?>">Per Provinsi</a></li>
                             <li><a href="<?=site_url('fluktuasi_harga/index_kota')?>">Per Kota</a></li>
                             <li><a href="<?=site_url('fluktuasi_harga/index_titik')?>">Per Titik</a></li>
+                            <li><a href="<?=site_url('fluktuasi_harga/gap')?>">Gap antar sentra</a></li>
                         </ul>
+                    </li>
+                    <li>
+                        <a href="<?=site_url('dapur/masyarakat/rank')?>">Masyarakat</a>
                     </li>
                     <li><a href="#"><i class="fa fa-question"></i> Tentang</a></li>
                 </ul>
