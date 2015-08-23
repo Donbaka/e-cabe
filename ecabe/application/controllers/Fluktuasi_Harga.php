@@ -306,4 +306,80 @@ class Fluktuasi_Harga extends CI_Controller {
             ->set_content_type('application/json')
             ->set_output(json_encode($result));
     }
+    
+    public function gap(){
+        if ($this->input->get('k')) {
+            $p_komoditas = $this->input->get('k', TRUE);
+        } else {
+            $p_komoditas = 1; // Komoditas default
+        }
+        
+        if ($this->input->get('kota')){
+            $p_kota = $this->input->get('kota', TRUE);
+        } else {
+            $p_kota = 3578; // default surabaya
+        }
+        
+        if ($this->input->get('t')) {
+            $p_tahun = $this->input->get('t', TRUE);
+        } else {
+            $p_tahun= 2015; 
+        }
+        
+        if ($this->input->get('b')) {
+            $p_bulan = $this->input->get('b', TRUE);
+        } else {
+            $p_bulan = 5; 
+        }
+        
+        $data['provinsi'] = $this->M_Lokasi->get_provinsi();
+        
+        $data['title'] = "Grafik Perbandingan Harga Komoditas antara sentra produksi dengan sentra pasar pada ".$this->M_Lokasi->getKotaById($p_kota)->NAMA;
+        $data['komoditas'] = $this->M_Komoditas->getAllKomoditas();
+        $data['tahun'] = $this->get_tahun_aktif();
+        $data['url'] = site_url().'/fluktuasi_harga/grafik_gap/'.$p_komoditas.'/'.$p_kota.'/'.$p_tahun.'/'.$p_bulan;
+        $data['form_url'] = 'fluktuasi_harga/index_gap';
+        $data['form_filter'] = 'v_grafik/filter_gap';
+        
+        $data['content'] = 'v_fluktuasi_harga_gap';
+        $this->load->view('template', $data);
+    }
+    
+    public function grafik_gap($komoditas=1, $kota=3578, $tahun=2015, $bulan=5){
+        $result = array();
+        
+        $jenisKomoditas = $this->M_Komoditas->getKomoditasById($komoditas);
+        
+        $result['tahun'] = intval($tahun);
+        $result['title'] = "Grafik Perbandingan Harga ".$jenisKomoditas;
+        $result['subtitle'] = "Grafik Perbandingan Harga Komoditas antara sentra produksi dengan sentra pasar pada ".$this->M_Lokasi->getKotaById($kota)->NAMA;
+        $result['satuan'] = "Tanggal";
+        $result['data'] = array();
+        
+        $data = $this->M_FluktuasiHarga->getGapPetaniPasar($komoditas, $kota, $tahun, $bulan);
+        
+        $series['name'] = "Sentra Produksi";
+        $series['data'] = array();
+        foreach($data['petani'] as $row){
+            $d['harga'] = floatval($row->harga);
+            $d['tanggal'] = $row->tanggal;
+            $d['bulan'] = $row->bulan;
+            array_push($series['data'] , $d);
+        }
+        array_push($result['data'], $series);
+        
+        $series['name'] = "Sentra Pasar";
+        $series['data'] = array();
+        foreach($data['pasar'] as $row){
+            $d['harga'] = floatval($row->harga);
+            $d['tanggal'] = $row->tanggal;
+            $d['bulan'] = $row->bulan;
+            array_push($series['data'] , $d);
+        }
+        array_push($result['data'], $series);
+        
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($result));
+    }
 }

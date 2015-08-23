@@ -93,5 +93,13 @@ class Home extends CI_Controller {
         }
         echo json_encode($result, JSON_NUMERIC_CHECK);
     }
+    
+    function login(){
+        $this->load->view("login");
+    }
+    
+    function kode(){
+        $this->load->view("inputKode");
+    }
 
 }

@@ -42,15 +42,6 @@ public class Location {
             is.close();
         }
     }
-//
-//    public static void main(String[] args) throws IOException, JSONException {
-//        Location lok = new Location();
-//        System.out.println(lok.getLatLong("pasar inpres subang subang")[3]);
-//    //    System.out.println(lok.getLatLong("pasar inpres subang subang")[1]);
-//        //  getLatLong();
-////        String haha = "saya hilman ganteng sekali";
-////        System.out.println(haha.replace(' ', '+'));
-//    }
 
     public String[] getLatLong(String keyword) throws IOException, JSONException {
         keyword = keyword.replace(' ', '+');

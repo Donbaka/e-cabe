@@ -125,4 +125,39 @@ class M_FluktuasiHarga extends CI_Model{
         
         return $results;
     }
+    
+    public function getGapPetaniPasar($komoditas, $kota, $tahun, $bulan){
+        $result['petani'] = array();
+        $result['pasar'] = array();
+        
+        $q = "SELECT hp.id_komoditas, AVG(hp.harga) AS harga, MONTH(hp.tanggal) as bulan, DAY(hp.tanggal) as tanggal "
+            . " FROM harga_petani hp "
+            . " LEFT JOIN petani p ON p.id = hp.id_petani "
+            . " LEFT JOIN kecamatan kec ON kec.ID_KECAMATAN = p.id_kec "
+            . " LEFT JOIN kabkota kab ON kab.ID_KABKOTA = kec.ID_KABKOTA "
+            . " WHERE hp.id_komoditas=".$komoditas." AND "
+            . " kab.ID_KABKOTA=".$kota." AND "
+            . " MONTH(hp.tanggal)=".$bulan." AND "
+            . " YEAR(hp.tanggal)=".$tahun." GROUP BY tanggal";
+        $query = $this->db->query($q);
+        if ($query->num_rows() > 0) {
+            $result['petani'] = $query->result();
+        }
+        
+        $q = "SELECT hd.id_komoditas, AVG(hd.harga) AS harga, MONTH(hd.tanggal) as bulan, DAY(hd.tanggal) as tanggal "
+            . " FROM harga_distribusi hd "
+            . " LEFT JOIN titik_distribusi td ON td.id = hd.id_titik "
+            . " LEFT JOIN kecamatan kec ON kec.ID_KECAMATAN = td.id_kecamatan "
+            . " LEFT JOIN kabkota kab ON kab.ID_KABKOTA = kec.ID_KABKOTA "
+            . " WHERE kab.ID_KABKOTA=".$kota." AND "
+            . " hd.id_komoditas=".$komoditas." AND "
+            . " MONTH(hd.tanggal)=".$bulan." AND "
+            . " YEAR(hd.tanggal)=".$tahun." GROUP BY tanggal";
+        $query = $this->db->query($q);
+        if ($query->num_rows() > 0) {
+            $result['pasar'] = $query->result();
+        }
+        
+        return $result;
+    }
 }

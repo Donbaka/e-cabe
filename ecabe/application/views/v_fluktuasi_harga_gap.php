@@ -19,7 +19,7 @@
             crosshair: true,
             type: 'datetime',
             dateTimeLabelFormats: { // don't display the dummy year
-                day: '%B %Y'
+                day: '%e %B %Y'
             },
             title: {
                 text: ''
@@ -57,7 +57,7 @@
             var value = [];           
             var legend = datap.name;
             $.each(datap.data, function(j, titik){
-               var date = Date.UTC(resp.tahun, titik.bulan);
+               var date = Date.UTC(resp.tahun, titik.bulan-1, titik.tanggal);
                var harga = titik.harga;
                value.push([date, harga]);
             });
@@ -82,11 +82,8 @@
         <div class="dashboard_graph">
 
             <div class="row x_title">
-                <div class="col-md-6">
-                    <h3>Grafik Fluktuasi Harga Cabai <small><?=$title?></small></h3>
-                </div>
-                <div class="col-md-6">
-                    
+                <div class="col-md-12">
+                    <h3><?=$title?></h3>
                 </div>
             </div>
             
@@ -126,7 +123,7 @@
                         <div class="clearfix"></div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="profile"></div>
-                    <div role="tabpanel" class="tab-pane" id="messages"></div>
+                    <div role="tabpanel" class="tab-pane" id="messages"><div>
                 </div>
 
             </div>
